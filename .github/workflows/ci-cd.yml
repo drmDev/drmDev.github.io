@@ -28,7 +28,7 @@ jobs:
         bundle install
         bundle exec jekyll build
 
-    # Publish the Jekyll site to GitHub Pages (if needed)
+    # Publish the Jekyll site to GitHub Pages
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
       with:
@@ -39,7 +39,7 @@ jobs:
     - name: Set up .NET
       uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: '7.0' # Adjust if you're using a different .NET version
+        dotnet-version: '7.0'
 
     # Restore dependencies
     - name: Restore Selenium test dependencies
