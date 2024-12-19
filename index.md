@@ -33,6 +33,7 @@ Hey, I'm Derek. I love problem solving, puzzles, and automation so software deve
 
 ### Automation and Testing
 - **GitHub Actions**: Automated site builds and deployments.
+  ![Build Status](https://github.com/drmDev/drmDev.github.io/actions/workflows/ci-cd.yml/badge.svg)
 - **Selenium WebDriver**: Implemented UI automation tests to verify page functionality.
-
-![Build Status](https://github.com/drmDev/drmDev.github.io/actions/workflows/ci-cd.yml/badge.svg)
+  - [View Selenium Tests](https://github.com/drmDev/drmDev.github.io/tree/main/SeleniumTests)
+  - [View Test Report](https://drmDev.github.io/test-results/index.html)

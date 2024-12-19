@@ -11,11 +11,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    # Checkout code
     - name: Check out code
       uses: actions/checkout@v3
 
-    # Set up Ruby for Jekyll build
     - name: Set up Ruby
       uses: ruby/setup-ruby@v1
       with:
@@ -35,23 +33,28 @@ jobs:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./_site
 
-    # Set up .NET for Selenium tests
     - name: Set up .NET
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: '8.0'
 
-    # Restore dependencies
     - name: Restore Selenium test dependencies
       run: dotnet restore SeleniumTests/SeleniumTests.csproj
 
-    # Run Selenium tests
     - name: Run Selenium Tests
       run: dotnet test SeleniumTests/SeleniumTests.csproj --logger trx
 
-    # Upload test results as artifacts
     - name: Upload Test Results
       uses: actions/upload-artifact@v3
       with:
         name: test-results
         path: SeleniumTests/TestResults/*.trx
+        
+    - name: Generate Test Report
+      run: |
+        mkdir -p SeleniumTests/TestResults/HTML
+        dotnet tool install --global ReportUnit
+        reportunit SeleniumTests/TestResults SeleniumTests/TestResults/HTML
+
+    - name: Copy Test Results to Site
+      run: cp -r SeleniumTests/TestResults/HTML ./_site/test-results
