@@ -1,0 +1,1 @@
+[{"uid":"abb271434dd6f64d","name":"LandingPage_ShouldRender_AndShowResumeLink","time":{"start":1734648348232,"stop":1734648349307,"duration":1075},"status":"passed","severity":"normal"},{"uid":"d497e99131bf2851","name":"HobbiesPage_ShouldRender_AndShowFilters","time":{"start":1734648344518,"stop":1734648348228,"duration":3710},"status":"passed","severity":"normal"}]
