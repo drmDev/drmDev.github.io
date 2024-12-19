@@ -26,6 +26,8 @@ Hey, I'm Derek. I love problem solving, puzzles, and automation so software deve
 - **Bootstrap**: Applied responsive design for the navbar, footer, and overall layout.
 
 ### Backend and Data
+- **Flask**: Developed a lightweight backend API for serving board game data.
+- **Render**: Deployed the Flask backend to provide live API functionality.
 - **SQLite**: Created a local database to store board game information.
 - **Static JSON**: Exported SQLite data to JSON for dynamic filtering on the Hobbies page.
 

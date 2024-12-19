@@ -1,0 +1,40 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main  # Trigger on pushes to the main branch
+  pull_request:
+    branches:
+      - main  # Trigger on pull requests to the main branch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest  # Use the latest Ubuntu runner
+
+    steps:
+    # Step 1: Check out the code
+    - name: Check out code
+      uses: actions/checkout@v3
+
+    # Step 2: Set up Ruby and Jekyll
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: '3.1'  # Use a supported Ruby version
+        bundler-cache: true
+
+    - name: Install dependencies
+      run: bundle install
+
+    # Step 3: Build the Jekyll site
+    - name: Build site with Jekyll
+      run: bundle exec jekyll build
+
+    # Step 4: Deploy to GitHub Pages (optional for now)
+    # Uncomment this step when ready for deployment
+    # - name: Deploy to GitHub Pages
+    #   uses: peaceiris/actions-gh-pages@v3
+    #   with:
+    #     github_token: ${{ secrets.GITHUB_TOKEN }}
+    #     publish_dir: ./_site
