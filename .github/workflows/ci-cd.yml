@@ -50,11 +50,11 @@ jobs:
         name: test-results
         path: SeleniumTests/TestResults/*.trx
         
-    - name: Generate Test Report
-      run: |
-        mkdir -p SeleniumTests/TestResults/HTML
-        dotnet tool install --global ReportUnit
-        reportunit SeleniumTests/TestResults SeleniumTests/TestResults/HTML
+    - name: Install trx2html
+      run: dotnet tool install --global trx2html
+        
+    - name: Generate HTML Report
+      run: trx2html SeleniumTests/TestResults/*.trx -o SeleniumTests/TestResults/HTML/index.html
 
-    - name: Copy Test Results to Site
+    - name: Copy Test Report to Site
       run: cp -r SeleniumTests/TestResults/HTML ./_site/test-results
