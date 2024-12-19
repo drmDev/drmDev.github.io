@@ -3,18 +3,18 @@
         "name": "Chess",
         "min_players": 2,
         "max_players": 2,
-        "type": "strategy"
+        "type": "Strategy"
     },
     {
         "name": "Codenames",
         "min_players": 2,
         "max_players": 8,
-        "type": "party"
+        "type": "Teams"
     },
     {
         "name": "Dominion",
         "min_players": 2,
         "max_players": 4,
-        "type": "deckbuilder"
+        "type": "Deckbuilder"
     }
 ]

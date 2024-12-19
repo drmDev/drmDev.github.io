@@ -3,23 +3,40 @@ async function filterGames() {
     let maxPlayers = parseInt(document.getElementById('max-players').value) || 12;
 
     // Enforce valid ranges
-    minPlayers = Math.max(1, minPlayers); // Minimum is 1
-    maxPlayers = Math.min(12, maxPlayers); // Maximum is 12
+    minPlayers = Math.max(1, minPlayers);
+    maxPlayers = Math.min(12, maxPlayers);
 
-    // Ensure minPlayers is not greater than maxPlayers
     if (minPlayers > maxPlayers) {
         alert("Minimum players cannot be greater than Maximum players.");
         return;
     }
 
     const type = document.getElementById('type').value;
-
     const url = `https://drmdev-github-io.onrender.com/api/games?min_players=${minPlayers}&max_players=${maxPlayers}&type=${type}`;
+
+    const spinner = document.getElementById('loading-spinner');
+    if (!spinner) {
+        console.error("Spinner element not found in the DOM.");
+        return;
+    }
+
+    const gameList = document.getElementById('game-list');
+
     try {
+        // Show spinner
+        spinner.classList.remove('d-none');
+        gameList.innerHTML = '';
+
+        // Fetch games
         const response = await fetch(url);
+
+        if (!response.ok) {
+            throw new Error(`Server error: ${response.status}`);
+        }
+
         const games = await response.json();
 
-        const gameList = document.getElementById('game-list');
+        // Render games
         gameList.innerHTML = games.map(game => `
             <div class="col">
                 <div class="card h-100">
@@ -34,6 +51,10 @@ async function filterGames() {
             </div>
         `).join('');
     } catch (error) {
-        console.error("Error fetching games:", error);
+        console.error("Error fetching games:", error.message);
+        alert(`Failed to fetch games: ${error.message}`);
+    } finally {
+        // Hide spinner
+        spinner.classList.add('d-none');
     }
 }
