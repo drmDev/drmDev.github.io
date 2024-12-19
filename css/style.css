@@ -1,0 +1,11 @@
+body {
+    font-family: Arial, sans-serif;
+}
+.navbar-brand {
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+footer {
+    background-color: #f8f9fa;
+    color: #6c757d;
+}
