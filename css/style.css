@@ -1,11 +1,62 @@
+/* General Styling for Dark Mode */
 body {
+    background-color: #1a1a1a; /* Dark gray background */
+    color: #f5f5f5; /* Light text */
     font-family: Arial, sans-serif;
 }
-.navbar-brand {
-    font-weight: bold;
-    font-size: 1.5rem;
+
+/* Navbar Styling */
+.navbar {
+    background-color: #333; /* Dark background for navbar */
 }
+
+.navbar-brand, .nav-link {
+    color: #f5f5f5 !important; /* Light text */
+    transition: color 0.3s ease-in-out; /* Smooth color transition */
+}
+
+.nav-link:hover {
+    color: #ff4500 !important; /* Bright orange on hover */
+    text-shadow: 0px 0px 8px #ff4500; /* Glowing effect */
+}
+
+.nav-link {
+    transition: color 0.3s ease-in-out, text-shadow 0.3s ease-in-out;
+}
+
+/* Footer Styling */
 footer {
-    background-color: #f8f9fa;
-    color: #6c757d;
+    background-color: #333; /* Match navbar background */
+    color: #f5f5f5;
+}
+
+/* Links */
+a {
+    color: #ff4500; /* Orange accent color */
+    text-decoration: none;
+}
+
+a:hover {
+    color: #ff6347; /* Subtle hover effect with lighter orange */
+}
+
+/* Resume Section */
+iframe {
+    border: 2px solid #444; /* Subtle border for the resume embed */
+    border-radius: 8px;
+}
+
+/* Buttons (Optional) */
+button {
+    background-color: #444;
+    color: #f5f5f5;
+    border: 1px solid #ff4500;
+    border-radius: 4px;
+    padding: 8px 16px;
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+button:hover {
+    background-color: #ff4500;
+    color: #1a1a1a;
 }
