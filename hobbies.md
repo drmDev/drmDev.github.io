@@ -27,4 +27,24 @@ permalink: /hobbies/
     <img src="/assets/images/mtg/forest.svg" alt="Forest" width="32">
 </p>
 
-## TODO: Add board-gaming section with SQL DB
+## Board Games
+Use the filters below to find board games by number of players and type.
+
+<div>
+    <label for="min-players">Min Players:</label>
+    <input type="number" id="min-players" min="1" value="1">
+    <label for="max-players">Max Players:</label>
+    <input type="number" id="max-players" min="1" value="8">
+    <label for="type">Type:</label>
+    <select id="type">
+        <option value="">All</option>
+        <option value="strategy">Strategy</option>
+        <option value="party">Party</option>
+        <option value="deckbuilder">Deckbuilder</option>
+    </select>
+    <button onclick="filterGames()">Filter</button>
+</div>
+
+<div id="game-list"></div>
+
+<script src="/assets/js/boardgames.js"></script>
