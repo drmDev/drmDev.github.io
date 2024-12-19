@@ -38,7 +38,7 @@ jobs:
     - name: Restore Selenium test dependencies
       run: dotnet restore SeleniumTests/SeleniumTests.csproj
 
-    # Step 6: Run Selenium tests and produce Allure results
+    # Step 6: Run Selenium Tests
     - name: Run Selenium Tests
       run: |
         mkdir -p build/allure-results
@@ -53,7 +53,7 @@ jobs:
       if: always()
       continue-on-error: true
 
-    # Step 8: Generate Allure Report with history
+    # Step 8: Generate Allure Report
     - name: Build Allure Report
       uses: simple-elf/allure-report-action@v1.7
       with:
@@ -62,8 +62,8 @@ jobs:
         allure_results: build/allure-results
       if: always()
 
-    # Step 9: Publish Allure Report
-    - name: Publish Allure Report
+    # Step 9: Deploy Allure Report
+    - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
