@@ -1,0 +1,70 @@
+/* General Styling for Dark Mode */
+body {
+    background-color: #1a1a1a; /* Dark gray background */
+    color: #f5f5f5; /* Light text */
+    font-family: Arial, sans-serif;
+}
+
+/* Header Styling */
+h1 {
+    color: #ff4500;
+    text-transform: uppercase;
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+h2 {
+    color: #ff4500;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    border-bottom: 2px solid #ff4500; /* Optional: Add an underline effect */
+}
+
+h3 {
+    color: #ff4500;
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+/* Navbar Styling */
+.navbar {
+    background-color: #333; /* Dark background for navbar */
+}
+
+.navbar-brand, .nav-link {
+    color: #f5f5f5; /* Light text */
+    transition: color 0.3s ease-in-out; /* Smooth color transition */
+}
+
+.nav-link:hover {
+    color: #ff4500; /* Bright orange on hover */
+    text-shadow: 0px 0px 5px #ff4500; /* Subtle glowing effect */
+}
+
+.navbar-toggler:hover .navbar-toggler-icon {
+    background-color: #ff4500; /* Example hover color for the icon */
+}
+
+/* Footer Styling */
+.bg-dark-footer {
+    background-color: #333; /* Custom dark gray background */
+    color: #f5f5f5; /* Light text */
+}
+
+/* Links */
+a {
+    color: #ff4500; /* Orange accent color */
+    text-decoration: none;
+    transition: color 0.3s ease-in-out; /* Smooth hover transition */
+}
+
+a:hover {
+    color: #ff6347; /* Subtle hover effect with lighter orange */
+}
+
+/* Resume Section */
+iframe {
+    border: 2px solid #444; /* Subtle border for the resume embed */
+    border-radius: 8px;
+    margin: 20px 0; /* Add spacing around the iframe */
+}
