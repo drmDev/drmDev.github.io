@@ -6,12 +6,8 @@ permalink: /
 
 # About Me
 
-Hi, I'm Derek, a software developer passionate about building high-quality applications and solving complex problems.
+Hey, I'm Derek. I love problem solving, puzzles, and automation so software development and strategy games have been a natural fit for me.
 
-## Skills
-- Proficient in C#, Selenium WebDriver, and backend development.
-- Experienced with cloud technologies like Azure.
-- Skilled in creating and maintaining test automation frameworks.
 
 ## My Resume
 <p>
@@ -21,3 +17,18 @@ Hi, I'm Derek, a software developer passionate about building high-quality appli
 </p>
 
 <iframe src="/assets/pdf/DM_Resume_2024.pdf" width="100%" height="500px" style="border: none;"></iframe>
+
+
+## Technologies Used on This Page
+
+### Frontend
+- **Jekyll**: Used for generating static pages and organizing the site's structure.
+- **Bootstrap**: Applied responsive design for the navbar, footer, and overall layout.
+
+### Backend and Data
+- **SQLite**: Created a local database to store board game information.
+- **Static JSON**: Exported SQLite data to JSON for dynamic filtering on the Hobbies page.
+
+### Automation and Testing
+- **GitHub Actions**: Automated site builds and deployments.
+- **Selenium WebDriver**: Implemented UI automation tests to verify page functionality.

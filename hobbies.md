@@ -7,19 +7,18 @@ permalink: /hobbies/
 # My Hobbies
 
 ## Chess
+<p>TODO: Add links to useful resources</p>
+<p>TODO: Add useful beginner tips</p>
 <p>
-    <i class="fas fa-chess-king"></i> King  
-    <i class="fas fa-chess-queen"></i> Queen  
-    <i class="fas fa-chess-rook"></i> Rook  
-    <i class="fas fa-chess-bishop"></i> Bishop  
-    <i class="fas fa-chess-knight"></i> Knight  
-    <i class="fas fa-chess-pawn"></i> Pawn  
+    <i class="fas fa-chess-king"></i> 
+    <i class="fas fa-chess-queen"></i>   
+    <i class="fas fa-chess-rook"></i>  
+    <i class="fas fa-chess-bishop"></i>  
+    <i class="fas fa-chess-knight"></i>  
+    <i class="fas fa-chess-pawn"></i>  
 </p>
 
----
-
 ## Magic: The Gathering
-Woo Berg
 <p>
     <img src="/assets/images/mtg/plains.svg" alt="Plains" width="32">
     <img src="/assets/images/mtg/island.svg" alt="Island" width="32">
@@ -28,12 +27,4 @@ Woo Berg
     <img src="/assets/images/mtg/forest.svg" alt="Forest" width="32">
 </p>
 
----
-
-## Programming
-When I’m not gaming, I spend my free time working on side projects to learn new technologies and tools. Some examples include:
-- Creating this portfolio using **Jekyll** and **Bootstrap**.
-- Developing automation scripts for routine tasks.
-- Exploring AI and machine learning concepts.
-
----
+## TODO: Add board-gaming section with SQL DB
