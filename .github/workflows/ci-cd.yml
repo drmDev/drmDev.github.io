@@ -1,4 +1,4 @@
-name: Build, Deploy, and Test
+name: Build and Deploy
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
   pull_request:
 
 jobs:
-  build-and-test:
+  build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -22,51 +22,15 @@ jobs:
         ruby-version: '3.2'
         bundler-cache: true
 
-    # Step 3: Install dependencies and build the Jekyll site
+    # Step 3: Install dependencies and build the site
     - name: Install dependencies
       run: |
         bundle install
         bundle exec jekyll build
 
-    # Step 4: Set up .NET for Selenium tests
-    - name: Set up .NET
-      uses: actions/setup-dotnet@v3
-      with:
-        dotnet-version: '8.0'
-
-    # Step 5: Restore Selenium test dependencies
-    - name: Restore Selenium test dependencies
-      run: dotnet restore SeleniumTests/SeleniumTests.csproj
-
-    # Step 6: Run Selenium Tests
-    - name: Run Selenium Tests
-      run: |
-        mkdir -p build/allure-results
-        dotnet test SeleniumTests/SeleniumTests.csproj --logger "trx;LogFileName=build/allure-results/results.trx"
-
-    # Step 7: Load previous Allure report history
-    - name: Load test report history
-      uses: actions/checkout@v3
-      with:
-        ref: gh-pages
-        path: gh-pages
-      if: always()
-      continue-on-error: true
-
-    # Step 8: Generate Allure Report
-    - name: Build Allure Report
-      uses: simple-elf/allure-report-action@v1.7
-      with:
-        gh_pages: gh-pages
-        allure_history: allure-history
-        allure_results: build/allure-results
-      if: always()
-
-    # Step 9: Deploy Allure Report
+    # Step 4: Deploy to GitHub Pages
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_branch: gh-pages
-        publish_dir: gh-pages/allure-history
-      if: always()
+        publish_dir: ./_site
