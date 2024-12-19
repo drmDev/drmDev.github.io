@@ -50,11 +50,14 @@ jobs:
         name: test-results
         path: SeleniumTests/TestResults/*.trx
         
-    - name: Install trx2html
-      run: dotnet tool install --global trx2html
+    - name: Install Allure CLI
+      run: |
+        curl -o allure.tgz -L https://github.com/allure-framework/allure2/releases/download/2.20.1/allure-2.20.1.tgz
+        tar -xvzf allure.tgz -C /usr/local/bin/
         
-    - name: Generate HTML Report
-      run: trx2html SeleniumTests/TestResults/*.trx -o SeleniumTests/TestResults/HTML/index.html
+    - name: Generate Allure Report
+      run: allure generate SeleniumTests/TestResults -o SeleniumTests/TestResults/HTML
 
-    - name: Copy Test Report to Site
+    - name: Copy Allure Report to Site
       run: cp -r SeleniumTests/TestResults/HTML ./_site/test-results
+
