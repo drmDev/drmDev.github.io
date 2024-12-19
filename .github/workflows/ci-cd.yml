@@ -21,7 +21,7 @@ jobs:
     - name: Set up Ruby
       uses: ruby/setup-ruby@v1
       with:
-        ruby-version: '3.1'  # Use a supported Ruby version
+        ruby-version: '3.2'  # Use Ruby 3.2 to match activesupport's requirement
         bundler-cache: true
 
     - name: Install dependencies
