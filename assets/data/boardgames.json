@@ -1,0 +1,20 @@
+[
+    {
+        "name": "Chess",
+        "min_players": 2,
+        "max_players": 2,
+        "type": "strategy"
+    },
+    {
+        "name": "Codenames",
+        "min_players": 2,
+        "max_players": 8,
+        "type": "party"
+    },
+    {
+        "name": "Dominion",
+        "min_players": 2,
+        "max_players": 4,
+        "type": "deckbuilder"
+    }
+]
