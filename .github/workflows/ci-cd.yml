@@ -46,12 +46,12 @@ jobs:
         sudo ln -s /usr/local/allure/bin/allure /usr/local/bin/allure
 
     - name: Generate Allure Report
-      run: |
-        mkdir -p ./_site/test-results
-        allure generate SeleniumTests/TestResults -o ./_site/test-results
+      run: allure generate SeleniumTests/TestResults -o ./test-results
 
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./_site
+        keep_files: true
+
