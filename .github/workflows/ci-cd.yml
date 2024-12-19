@@ -1,4 +1,4 @@
-name: Build and Deploy
+name: Build and Deploy with Selenium Tests
 
 on:
   push:
@@ -11,24 +11,31 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    # Step 1: Check out code
     - name: Check out code
       uses: actions/checkout@v3
 
-    # Step 2: Set up Ruby for Jekyll
     - name: Set up Ruby
       uses: ruby/setup-ruby@v1
       with:
         ruby-version: '3.2'
         bundler-cache: true
 
-    # Step 3: Install dependencies and build the site
     - name: Install dependencies
       run: |
         bundle install
         bundle exec jekyll build
 
-    # Step 4: Deploy to GitHub Pages
+    - name: Set up .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '8.0'
+
+    - name: Restore Selenium test dependencies
+      run: dotnet restore SeleniumTests/SeleniumTests.csproj
+
+    - name: Run Selenium Tests
+      run: dotnet test SeleniumTests/SeleniumTests.csproj
+
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
       with:

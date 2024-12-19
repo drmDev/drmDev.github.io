@@ -36,4 +36,3 @@ Hey, I'm Derek. I love problem solving, puzzles, and automation so software deve
   ![Build Status](https://github.com/drmDev/drmDev.github.io/actions/workflows/ci-cd.yml/badge.svg)
 - **Selenium WebDriver**: Implemented UI automation tests to verify page functionality.
   - [View Selenium Tests](https://github.com/drmDev/drmDev.github.io/tree/main/SeleniumTests)
-  - [View Test Report](https://drmDev.github.io/test-results/)
