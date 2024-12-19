@@ -1,40 +1,57 @@
-name: CI/CD Pipeline
+name: Build, Deploy, and Test
 
 on:
   push:
     branches:
-      - main  # Trigger on pushes to the main branch
+      - main
   pull_request:
-    branches:
-      - main  # Trigger on pull requests to the main branch
 
 jobs:
-  build:
-    runs-on: ubuntu-latest  # Use the latest Ubuntu runner
+  build-and-test:
+    runs-on: ubuntu-latest
 
     steps:
-    # Step 1: Check out the code
+    # Checkout code
     - name: Check out code
       uses: actions/checkout@v3
 
-    # Step 2: Set up Ruby and Jekyll
+    # Set up Ruby for Jekyll build
     - name: Set up Ruby
       uses: ruby/setup-ruby@v1
       with:
-        ruby-version: '3.2'  # Use Ruby 3.2 to match activesupport's requirement
+        ruby-version: '3.2'
         bundler-cache: true
 
+    # Install dependencies and build the Jekyll site
     - name: Install dependencies
-      run: bundle install
+      run: |
+        bundle install
+        bundle exec jekyll build
 
-    # Step 3: Build the Jekyll site
-    - name: Build site with Jekyll
-      run: bundle exec jekyll build
+    # Publish the Jekyll site to GitHub Pages (if needed)
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./_site
 
-    # Step 4: Deploy to GitHub Pages (optional for now)
-    # Uncomment this step when ready for deployment
-    # - name: Deploy to GitHub Pages
-    #   uses: peaceiris/actions-gh-pages@v3
-    #   with:
-    #     github_token: ${{ secrets.GITHUB_TOKEN }}
-    #     publish_dir: ./_site
+    # Set up .NET for Selenium tests
+    - name: Set up .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '7.0' # Adjust if you're using a different .NET version
+
+    # Restore dependencies
+    - name: Restore Selenium test dependencies
+      run: dotnet restore SeleniumTests/SeleniumTests.csproj
+
+    # Run Selenium tests
+    - name: Run Selenium Tests
+      run: dotnet test SeleniumTests/SeleniumTests.csproj --logger trx
+
+    # Upload test results as artifacts
+    - name: Upload Test Results
+      uses: actions/upload-artifact@v3
+      with:
+        name: test-results
+        path: SeleniumTests/TestResults/*.trx
