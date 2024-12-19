@@ -14,24 +14,18 @@ jobs:
     - name: Check out code
       uses: actions/checkout@v3
 
-    # Set up Ruby for Jekyll build
+    # Step 2: Set up Ruby for Jekyll
     - name: Set up Ruby
       uses: ruby/setup-ruby@v1
       with:
         ruby-version: '3.2'
         bundler-cache: true
 
-    # Install dependencies and build the Jekyll site
+    # Step 3: Install dependencies and build the Jekyll site
     - name: Install dependencies
       run: |
         bundle install
         bundle exec jekyll build
-
-    - name: Deploy to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./_site
 
     - name: Set up .NET
       uses: actions/setup-dotnet@v3
@@ -42,7 +36,7 @@ jobs:
       run: dotnet restore SeleniumTests/SeleniumTests.csproj
 
     - name: Run Selenium Tests
-      run: dotnet test SeleniumTests/SeleniumTests.csproj --logger "trx"
+      run: dotnet test SeleniumTests/SeleniumTests.csproj --logger "trx;LogFileName=TestResults.trx"
 
     - name: Install Allure CLI
       run: |
@@ -51,13 +45,11 @@ jobs:
         sudo mv allure-2.20.1 /usr/local/allure
         sudo ln -s /usr/local/allure/bin/allure /usr/local/bin/allure
 
-    - name: Verify Allure Installation
-      run: allure --version
-
     - name: Generate Allure Report
-      run: allure generate SeleniumTests/TestResults -o SeleniumTests/TestResults/HTML
+      run: allure generate SeleniumTests/TestResults -o ./_site/test-results
 
-    - name: Copy Allure Report to Site
-      run: |
-        mkdir -p ./_site/test-results
-        cp -r SeleniumTests/TestResults/HTML/* ./_site/test-results
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./_site
