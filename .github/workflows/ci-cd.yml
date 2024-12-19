@@ -11,6 +11,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    # Step 1: Check out code
     - name: Check out code
       uses: actions/checkout@v3
 
@@ -27,31 +28,45 @@ jobs:
         bundle install
         bundle exec jekyll build
 
+    # Step 4: Set up .NET for Selenium tests
     - name: Set up .NET
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: '8.0'
 
+    # Step 5: Restore Selenium test dependencies
     - name: Restore Selenium test dependencies
       run: dotnet restore SeleniumTests/SeleniumTests.csproj
 
+    # Step 6: Run Selenium tests and produce Allure results
     - name: Run Selenium Tests
-      run: dotnet test SeleniumTests/SeleniumTests.csproj --logger "trx;LogFileName=TestResults.trx"
-
-    - name: Install Allure CLI
       run: |
-        curl -o allure.tgz -L https://github.com/allure-framework/allure2/releases/download/2.20.1/allure-2.20.1.tgz
-        tar -xvzf allure.tgz
-        sudo mv allure-2.20.1 /usr/local/allure
-        sudo ln -s /usr/local/allure/bin/allure /usr/local/bin/allure
+        mkdir -p build/allure-results
+        dotnet test SeleniumTests/SeleniumTests.csproj --logger "trx;LogFileName=build/allure-results/results.trx"
 
-    - name: Generate Allure Report
-      run: allure generate SeleniumTests/TestResults -o ./test-results
+    # Step 7: Load previous Allure report history
+    - name: Load test report history
+      uses: actions/checkout@v3
+      with:
+        ref: gh-pages
+        path: gh-pages
+      if: always()
+      continue-on-error: true
 
-    - name: Deploy to GitHub Pages
+    # Step 8: Generate Allure Report with history
+    - name: Build Allure Report
+      uses: simple-elf/allure-report-action@v1.7
+      with:
+        gh_pages: gh-pages
+        allure_history: allure-history
+        allure_results: build/allure-results
+      if: always()
+
+    # Step 9: Publish Allure Report
+    - name: Publish Allure Report
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./_site
-        keep_files: true
-
+        publish_branch: gh-pages
+        publish_dir: gh-pages/allure-history
+      if: always()
