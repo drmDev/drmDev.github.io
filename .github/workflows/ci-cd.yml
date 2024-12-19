@@ -58,5 +58,6 @@ jobs:
       run: allure generate SeleniumTests/TestResults -o SeleniumTests/TestResults/HTML
 
     - name: Copy Allure Report to Site
-      run: cp -r SeleniumTests/TestResults/HTML/* ./_site/test-results
-
+      run: |
+        mkdir -p ./_site/test-results
+        cp -r SeleniumTests/TestResults/HTML/* ./_site/test-results
