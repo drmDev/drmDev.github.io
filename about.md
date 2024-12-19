@@ -4,15 +4,20 @@ title: About
 permalink: /about/
 ---
 
-This is the base Jekyll theme. You can find out more info about customizing your Jekyll theme, as well as basic Jekyll usage documentation at [jekyllrb.com](https://jekyllrb.com/)
+# About Me
 
-You can find the source code for Minima at GitHub:
-[jekyll][jekyll-organization] /
-[minima](https://github.com/jekyll/minima)
+Hi, I'm Derek, a software developer passionate about building high-quality applications and solving complex problems.
 
-You can find the source code for Jekyll at GitHub:
-[jekyll][jekyll-organization] /
-[jekyll](https://github.com/jekyll/jekyll)
+## Skills
+- Proficient in C#, Selenium WebDriver, and backend development.
+- Experienced with cloud technologies like Azure.
+- Skilled in creating and maintaining test automation frameworks.
 
+## Resume
+<p>
+    <a href="/DM_Resume_2024.pdf" download>
+        <i class="fas fa-file-download"></i> Download My Resume (PDF)
+    </a>
+</p>
 
-[jekyll-organization]: https://github.com/jekyll
+<iframe src="/DM_Resume_2024.pdf" width="100%" height="500px" style="border: none;"></iframe>
