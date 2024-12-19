@@ -14,6 +14,7 @@ jobs:
     - name: Check out code
       uses: actions/checkout@v3
 
+    # Set up Ruby for Jekyll build
     - name: Set up Ruby
       uses: ruby/setup-ruby@v1
       with:
@@ -26,7 +27,6 @@ jobs:
         bundle install
         bundle exec jekyll build
 
-    # Publish the Jekyll site to GitHub Pages
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
       with:
@@ -42,22 +42,20 @@ jobs:
       run: dotnet restore SeleniumTests/SeleniumTests.csproj
 
     - name: Run Selenium Tests
-      run: dotnet test SeleniumTests/SeleniumTests.csproj --logger trx
+      run: dotnet test SeleniumTests/SeleniumTests.csproj --logger "trx"
 
-    - name: Upload Test Results
-      uses: actions/upload-artifact@v3
-      with:
-        name: test-results
-        path: SeleniumTests/TestResults/*.trx
-        
     - name: Install Allure CLI
       run: |
         curl -o allure.tgz -L https://github.com/allure-framework/allure2/releases/download/2.20.1/allure-2.20.1.tgz
-        tar -xvzf allure.tgz -C /usr/local/bin/
-        
+        tar -xvzf allure.tgz
+        sudo mv allure-2.20.1 /usr/local/allure
+        sudo ln -s /usr/local/allure/bin/allure /usr/local/bin/allure
+
+    - name: Verify Allure Installation
+      run: allure --version
+
     - name: Generate Allure Report
       run: allure generate SeleniumTests/TestResults -o SeleniumTests/TestResults/HTML
 
     - name: Copy Allure Report to Site
       run: cp -r SeleniumTests/TestResults/HTML ./_site/test-results
-
