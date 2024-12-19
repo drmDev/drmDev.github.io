@@ -1,43 +1,5 @@
-# Node.js (if you use any Node modules in the future)
-node_modules/
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-
-# Logs
-logs/
-*.log
-*.log.*
-
-# Build files
-dist/
-build/
-*.tmp
-*.cache
-
-# Operating System Files
-.DS_Store
-Thumbs.db
-
-# IDE/Editor files
-.vscode/
-.idea/
-*.suo
-*.user
-*.workspace
-*.code-workspace
-
-# Environment files
-.env
-.env.local
-.env.*.local
-
-# Test results and artifacts
-test-results/
-coverage/
-*.trx
-*.xml
-
-# Favicon build artifacts (if using a generator)
-*.png
-*.svg
+_site
+.sass-cache
+.jekyll-cache
+.jekyll-metadata
+vendor
