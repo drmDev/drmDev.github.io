@@ -6,7 +6,7 @@ permalink: /
 
 # Welcome to My Portfolio
 
-Hi, I'm Derek! I'm passionate about problem-solving, puzzles, and automation. This natural curiosity has driven my love for software development and strategy games.
+Hi, I'm Derek! I'm passionate about problem-solving and automation. This natural curiosity has driven my love for software development and strategy games.
 
 ---
 
@@ -27,12 +27,6 @@ Explore my professional background and experiences:
 ### Frontend
 - **Jekyll**: Streamlines static site generation and content organization.
 - **Bootstrap**: Enables responsive and visually appealing design elements.
-
-### Backend and Data
-- **Flask**: Powers the backend API for dynamic board game filtering.
-- **Render**: Provides reliable deployment for the Flask backend.
-- **SQLite**: Manages structured board game data in a lightweight database.
-- **Static JSON**: Serves as a dynamic data source for seamless filtering.
 
 ### Automation and Testing
 - **GitHub Actions**: Automates builds, testing, and deployments for this site.

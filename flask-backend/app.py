@@ -1,36 +1,34 @@
-from flask import Flask, jsonify, request
-from flask_cors import CORS
+from flask import Flask
+import os
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 app = Flask(__name__)
-CORS(app)  # Enable CORS for all routes
 
-# Game Data goes here
-games = [
-    {"name": "Chess", "min_players": 2, "max_players": 2, "type": "strategy"},
-    {"name": "Codenames", "min_players": 2, "max_players": 8, "type": "party"},
-    {"name": "Dominion", "min_players": 2, "max_players": 4, "type": "deckbuilder"},
-]
+# Fetch environment variables
+INSTANCE_CONNECTION_NAME = os.getenv('INSTANCE_CONNECTION_NAME')
+DB_USER = os.getenv('DB_USER')
+DB_PASS = os.getenv('DB_PASS')
+DB_NAME = os.getenv('DB_NAME')
+DB_HOST = os.getenv('DB_HOST')
 
-# Route for fetching filtered games
-@app.route("/api/games", methods=["GET"])
-def get_games():
-    min_players = int(request.args.get("min_players", 1))
-    max_players = int(request.args.get("max_players", 8))
-    game_type = request.args.get("type", "")
+# Example usage for connecting to a database (PostgreSQL with SQLAlchemy)
+from flask_sqlalchemy import SQLAlchemy
 
-    filtered_games = [
-        game for game in games
-        if game["min_players"] >= min_players
-        and game["max_players"] <= max_players
-        and (game_type == "" or game["type"] == game_type)
-    ]
+# Database URI (example for PostgreSQL)
+app.config['SQLALCHEMY_DATABASE_URI'] = (
+    f"postgresql+psycopg2://{DB_USER}:{DB_PASS}@{DB_HOST}/{DB_NAME}"
+)
 
-    return jsonify(filtered_games)
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-# Basic route to confirm the server is running
+db = SQLAlchemy(app)
+
 @app.route("/")
 def index():
-    return "Flask backend is running!"
+    return "Hello, Flask with .env!"
 
 if __name__ == "__main__":
     app.run(debug=True)
