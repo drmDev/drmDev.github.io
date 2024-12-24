@@ -31,5 +31,6 @@ Explore my professional background and experiences:
 ### Automation and Testing
 - **GitHub Actions**: Automates builds, testing, and deployments for this site.
   ![Build Status](https://github.com/drmDev/drmDev.github.io/actions/workflows/ci-cd.yml/badge.svg)
+  - <a href="https://github.com/drmDev/drmDev.github.io/blob/main/.github/workflows/ci-cd.yml" target="_blank" rel="noopener noreferrer">View GitHub Actions Workflow (yml)</a>
 - **Selenium WebDriver**: Conducts automated UI tests to ensure functionality and reliability.
   - <a href="https://github.com/drmDev/drmDev.github.io/tree/main/SeleniumTests" target="_blank" rel="noopener noreferrer">View Selenium Tests (C#)</a>
