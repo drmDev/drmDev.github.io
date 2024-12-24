@@ -6,7 +6,7 @@ permalink: /
 
 # Welcome to My Portfolio
 
-Hi, I'm Derek! I'm passionate about problem-solving and automation. This natural curiosity has driven my love for software development and strategy games.
+Hi, I'm Derek! I'm passionate about problem-solving and automation. This has driven my love for software development and strategy games.
 
 ---
 
@@ -32,7 +32,4 @@ Explore my professional background and experiences:
 - **GitHub Actions**: Automates builds, testing, and deployments for this site.
   ![Build Status](https://github.com/drmDev/drmDev.github.io/actions/workflows/ci-cd.yml/badge.svg)
 - **Selenium WebDriver**: Conducts automated UI tests to ensure functionality and reliability.
-  - [View Selenium Tests](https://github.com/drmDev/drmDev.github.io/tree/main/SeleniumTests)
-
----
-
+  - <a href="https://github.com/drmDev/drmDev.github.io/tree/main/SeleniumTests" target="_blank" rel="noopener noreferrer">View Selenium Tests</a>
