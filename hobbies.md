@@ -32,7 +32,7 @@ I’ve been playing MTG since I was a kid. After taking a break in high school a
 <ul>
     <li><img src="/assets/images/mtg/plains.svg" alt="Plains" width="32"> <a href="https://cubecobra.com/cube/overview/08077c8d-24d8-4e14-a571-fceff902d343" target="_blank" rel="noopener noreferrer">My first (and only) MTG Cube set!</a></li>
     <li><img src="/assets/images/mtg/island.svg" alt="Island" width="32"> <a href="https://17lands.com/" target="_blank" rel="noopener noreferrer">17Lands: Track your draft stats and improve your Limited game!</a></li>
-    <li><img src="/assets/images/mtg/swamp.svg" alt="Swamp" width="32"> <a href="https://lordonlimited.libsyn.com/" target="_blank" rel="noopener noreferrer">Lords of Limited Podcast</a></li>
+    <li><img src="/assets/images/mtg/swamp.svg" alt="Swamp" width="32"> <a href="https://www.lordsoflimited.com/" target="_blank" rel="noopener noreferrer">Lords of Limited Podcast</a></li>
     <li><img src="/assets/images/mtg/mountain.svg" alt="Mountain" width="32"> <a href="https://www.lrcast.com/" target="_blank" rel="noopener noreferrer">Limited Resources Podcast</a></li>
     <li><img src="/assets/images/mtg/forest.svg" alt="Forest" width="32"> <a href="https://draftsim.com/" target="_blank" rel="noopener noreferrer">DraftSim: Practice drafting and explore set archetypes</a></li>
 </ul>
