@@ -55,15 +55,14 @@ jobs:
         go mod tidy
         go build -o app .
 
-    # Step 9: Deploy to Railway using CLI
+    # Step 9: Deploy to Railway using updated CLI
     - name: Install Railway CLI
-      run: npm install -g railway
+      run: npm install -g @railway/cli
 
     - name: Deploy to Railway
       env:
         RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
-      run: |
-        railway up --ci
+      run: railway up --ci
 
     # Step 10: Deploy to GitHub Pages (for static frontend)
     - name: Deploy to GitHub Pages
