@@ -43,13 +43,41 @@ I’ve been playing MTG since I was a kid. After taking a break in high school a
 
 Board games and tabletop games have evolved far beyond the classics like Monopoly, Clue, and Scrabble. Twice a month, I host a game night with close friends to explore modern games that bring new strategies and experiences.
 
-Some of my favorites include:
-- **Cards Against Humanity**: A guaranteed laugh-out-loud experience, but definitely one for adults only. Perfect for breaking the ice or spicing up game night with friends who enjoy edgy humor.
-- **Dominion**: The gold standard of deck-building games. I love how every game feels different thanks to the variety of card setups. Building a streamlined, efficient deck that executes the way you want is endlessly satisfying.
-- **Lords of Waterdeep**: My go-to game for worker placement and resource management. Set in the Dungeons & Dragons universe, it combines strategy and planning with a splash of intrigue. It's a longer game but deeply rewarding for those who enjoy plotting several moves ahead.
-- **Betrayal at House on the Hill**: The ultimate game for Halloween or horror fans. The first half lets you cooperatively explore a haunted mansion, uncovering creepy surprises. Then the twist hits—one player becomes a traitor, and the game flips into a unique scenario. No two games are ever the same, which keeps it exciting and fresh.
+### Explore Board Games
+Use the filters below to find board games based on players and game type.
 
-In the future, I'll add a database to filter through my Board Game collection.
+<div class="card mb-4">
+    <div class="card-body">
+        <h5 class="card-title">Filter Board Games</h5>
+        <div class="row">
+            <div class="col-md-4">
+                <label for="min-players" class="form-label">Minimum Players</label>
+                <input type="number" id="min-players" class="form-control" placeholder="1" min="1" max="12">
+            </div>
+            <div class="col-md-4">
+                <label for="max-players" class="form-label">Maximum Players</label>
+                <input type="number" id="max-players" class="form-control" placeholder="12" min="1" max="12">
+            </div>
+            <div class="col-md-4">
+                <label for="type" class="form-label">Game Type</label>
+                <select id="type" class="form-select">
+                    <option value="">All</option>
+                    <option value="Strategy">Strategy</option>
+                    <option value="Party">Party</option>
+                    <option value="Deckbuilder">Deckbuilder</option>
+                    <option value="Co-op">Co-op</option>
+                </select>
+            </div>
+        </div>
+        <button class="btn btn-primary mt-3" onclick="fetchBoardGames()">Filter</button>
+    </div>
+</div>
+
+<div id="game-list" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+    <!-- Dynamically rendered cards will appear here -->
+</div>
+
+<script src="/assets/js/boardgames.js"></script>
 
 ---
 
