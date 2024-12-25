@@ -55,7 +55,7 @@ jobs:
         go mod tidy
         go build -o app .
 
-    # Step 9: Deploy to Railway using updated CLI
+    # Step 9: Deploy to Railway using its CLI
     - name: Install Railway CLI
       run: npm install -g @railway/cli
 
