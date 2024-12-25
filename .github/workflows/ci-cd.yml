@@ -1,4 +1,4 @@
-name: Build and Deploy with Selenium Tests
+name: Build and Deploy Portfolio
 
 on:
   push:
