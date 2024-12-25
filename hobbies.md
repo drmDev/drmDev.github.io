@@ -37,6 +37,7 @@ I’ve been playing MTG since I was a kid. After taking a break in high school a
     <li><img src="/assets/images/mtg/forest.svg" alt="Forest" width="32"> <a href="https://draftsim.com/" target="_blank" rel="noopener noreferrer">DraftSim: Practice drafting and explore set archetypes</a></li>
 </ul>
 
+<!--
 ---
 
 ## Board Games
@@ -74,11 +75,10 @@ Use the filters below to find board games based on players and game type.
 </div>
 
 <div id="game-list" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-    <!-- Dynamically rendered cards will appear here -->
 </div>
 
 <script src="/assets/js/boardgames.js"></script>
-
+-->
 ---
 
 ## Speedrunning
