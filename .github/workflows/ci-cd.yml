@@ -61,6 +61,8 @@ jobs:
       with:
         projectId: ${{ secrets.RAILWAY_PROJECT_ID }}
         serviceName: board-games-api
+        environmentVariables: |
+          DATABASE_URL=${{ secrets.DATABASE_URL }}
 
     # Step 10: Deploy to GitHub Pages (for static frontend)
     - name: Deploy to GitHub Pages
