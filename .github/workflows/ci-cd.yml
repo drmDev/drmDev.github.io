@@ -62,7 +62,10 @@ jobs:
     - name: Deploy to Railway
       env:
         RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
-      run: railway up --ci --service ${{ secrets.RAILWAY_SVC_ID }}
+      run: |
+        cd board-games-api
+        railway up --ci --service <SERVICE_ID>
+
 
     # Step 10: Deploy to GitHub Pages (for static frontend)
     - name: Deploy to GitHub Pages
