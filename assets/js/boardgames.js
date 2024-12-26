@@ -3,8 +3,19 @@ async function fetchBoardGames() {
     const minPlayers = document.getElementById('min-players').value || 1;
     const maxPlayers = document.getElementById('max-players').value || 12;
     const type = document.getElementById('type').value || '';
-	const baseUrl = "postgres-production-d4d6.up.railway.app";
-	const apiUrl = `https://${baseUrl}/api/games?min_players=${minPlayers}&max_players=${maxPlayers}&type=${type}`;
+	const baseUrl = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+		? 'http://localhost:8080'
+		: 'https://drmdevgithubio-production.up.railway.app';
+		
+	//const baseUrl = "http://localhost:8080"; // forcing locally
+	//const baseUrl = "https://drmdevgithubio-production.up.railway.app" // forcing Railway
+
+    // Build query parameters dynamically
+    let apiUrl = `${baseUrl}/api/games?min_players=${minPlayers}&max_players=${maxPlayers}`;
+    if (type) {
+        apiUrl += `&type=${type}`;
+    }
+	// console.log(`Fetching from URL: ${apiUrl}`);
 
     try {
         // Make the API request
