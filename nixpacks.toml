@@ -6,9 +6,12 @@ commands = [
 
 [phases.build]
 commands = [
-    "cd board-games-api && go build -o app .",
+    "cd board-games-api && go mod tidy && go build -o app .",
     "cd SeleniumTests && dotnet restore && dotnet build"
 ]
 
 [phases.start]
 command = "cd board-games-api && ./app"
+
+[dependencies]
+runtime = ["dotnet-sdk", "golang"]
