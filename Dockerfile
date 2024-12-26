@@ -1,13 +1,13 @@
 # Use a multi-stage build to include both .NET and Go
-FROM mcr.microsoft.com/dotnet/sdk:6.0 AS dotnet-builder
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS dotnet-builder
 
 WORKDIR /app/SeleniumTests
-COPY SeleniumTests/ ./
+COPY SeleniumTests/ ./ 
 RUN dotnet restore && dotnet build -c Release
 
-FROM golang:1.21 AS go-builder
+FROM golang:1.23.4 AS go-builder
 WORKDIR /app/board-games-api
-COPY board-games-api/ ./
+COPY board-games-api/ ./ 
 RUN go mod tidy && go build -o app .
 
 # Final stage: Combine and expose the Go app
@@ -20,7 +20,7 @@ RUN apt-get update && apt-get install -y \
     rm -rf /var/lib/apt/lists/*
 
 COPY --from=go-builder /app/board-games-api/app /app/app
-COPY --from=dotnet-builder /app/SeleniumTests/bin/Release/net6.0 /app/tests
+COPY --from=dotnet-builder /app/SeleniumTests/bin/Release/net8.0 /app/tests
 
 # Set the entry point for the Go app
 ENTRYPOINT ["./app"]
