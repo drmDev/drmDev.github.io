@@ -35,6 +35,7 @@ func withCORS(next http.Handler) http.Handler {
 
 // Database connection function
 func getDBConnection() (*pgx.Conn, error) {
+	log.Printf("Runtime DATABASE_PUBLIC_URL: %s", os.Getenv("DATABASE_PUBLIC_URL"))
 	dbURL := os.Getenv("DATABASE_PUBLIC_URL")
 	if dbURL == "" {
 		log.Fatal("DATABASE_PUBLIC_URL is not set in the environment")
