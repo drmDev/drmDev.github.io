@@ -28,6 +28,12 @@ Explore my professional background and experiences:
 - **Jekyll**: Streamlines static site generation and content organization.
 - **Bootstrap**: Enables responsive and visually appealing design elements.
 
+### Backend
+- **Go**: Powers the API handling database queries for dynamic features like filtering board games.
+- **PostgreSQL**: Provides a robust and scalable relational database for storing board game data.
+- **Railway**: Handles backend hosting and database provisioning with a focus on simplicity and scalability.
+- **Docker**: Enables containerization for consistent deployment across environments.
+
 ### Automation and Testing
 - **GitHub Actions**: Automates builds, testing, and deployments for this site.
   ![Build Status](https://github.com/drmDev/drmDev.github.io/actions/workflows/ci-cd.yml/badge.svg)
