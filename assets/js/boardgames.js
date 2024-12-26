@@ -2,7 +2,7 @@ async function fetchBoardGames() {
     // Fetch filter inputs
     const minPlayers = document.getElementById('min-players').value || 1;
     const maxPlayers = document.getElementById('max-players').value || 12;
-    const type = document.getElementById('type').value || '';	
+    const type = document.getElementById('type').value || '';
 	const baseUrl = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
 		? 'http://localhost:8080'
 		: 'https://drmdevgithubio-production.up.railway.app';
