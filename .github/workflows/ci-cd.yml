@@ -36,11 +36,13 @@ jobs:
 
     # Step 5: Restore Selenium test dependencies
     - name: Restore Selenium test dependencies
-      run: dotnet restore SeleniumTests/SeleniumTests.csproj
+      working-directory: SeleniumTests
+      run: dotnet restore SeleniumTests.csproj
 
     # Step 6: Run Selenium tests
     - name: Run Selenium Tests
-      run: dotnet test SeleniumTests/SeleniumTests.csproj
+      working-directory: SeleniumTests
+      run: dotnet test SeleniumTests.csproj
 
     # Step 7: Set up Go (for API backend)
     - name: Set up Go
@@ -50,8 +52,8 @@ jobs:
 
     # Step 8: Build the Go project
     - name: Build Go Project
+      working-directory: board-games-api
       run: |
-        cd board-games-api
         go mod tidy
         go build -o app .
 
@@ -60,11 +62,10 @@ jobs:
       run: npm install -g @railway/cli
 
     - name: Deploy to Railway
+      working-directory: board-games-api
       env:
         RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
-      run: |
-        cd board-games-api
-        railway up --ci --service ${{ secrets.RAILWAY_SVC_ID }}
+      run: railway up --ci --service ${{ secrets.RAILWAY_SVC_ID }}
 
     # Step 10: Deploy to GitHub Pages (for static frontend)
     - name: Deploy to GitHub Pages
