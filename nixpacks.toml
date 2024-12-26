@@ -1,0 +1,13 @@
+[phases]
+setup = "dotnet --version && go version"
+
+[build]
+# Ensure it builds only Go and .NET components
+commands = [
+    "cd board-games-api && go build -o app .",
+    "cd SeleniumTests && dotnet restore && dotnet build"
+]
+
+[start]
+# Run the Go app as the entry point
+command = "cd board-games-api && ./app"
