@@ -11,14 +11,6 @@ import (
 	"github.com/jackc/pgx/v5"
 )
 
-// Debugging
-func debugEnvironmentVariables() {
-    for _, e := range os.Environ() {
-        log.Println(e)
-    }
-}
-
-// Middleware to add CORS headers
 func withCORS(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Access-Control-Allow-Origin", "*")
@@ -33,9 +25,7 @@ func withCORS(next http.Handler) http.Handler {
 	})
 }
 
-// Database connection function
 func getDBConnection() (*pgx.Conn, error) {
-	log.Printf("Runtime DATABASE_PUBLIC_URL: %s", os.Getenv("DATABASE_PUBLIC_URL"))
 	dbURL := os.Getenv("DATABASE_PUBLIC_URL")
 	if dbURL == "" {
 		log.Fatal("DATABASE_PUBLIC_URL is not set in the environment")
@@ -49,7 +39,6 @@ func getDBConnection() (*pgx.Conn, error) {
 	return conn, nil
 }
 
-// Function to query the database for board games
 func queryBoardGames(ctx context.Context, conn *pgx.Conn, minPlayers, maxPlayers *int, gameType string) ([]map[string]interface{}, error) {
 	query := `
         SELECT name, min_players, max_players, play_time, type, description
@@ -101,7 +90,7 @@ func getBoardGames(w http.ResponseWriter, r *http.Request) {
 	maxPlayersStr := r.URL.Query().Get("max_players")
 	gameType := r.URL.Query().Get("type")
 	
-	log.Printf("Query Parameters - min_players: %s, max_players: %s, type: %s", minPlayersStr, maxPlayersStr, gameType) // Log parameters
+	log.Printf("Query Parameters - min_players: %s, max_players: %s, type: %s", minPlayersStr, maxPlayersStr, gameType)
 
 	// Convert parameters
 	var minPlayers, maxPlayers *int
@@ -118,7 +107,7 @@ func getBoardGames(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	// Call the refactored query function
+	// Query the database
 	games, err := queryBoardGames(context.Background(), conn, minPlayers, maxPlayers, gameType)
 	if err != nil {
 		log.Printf("Query execution error: %v", err)
@@ -133,12 +122,8 @@ func getBoardGames(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	// debugEnvironmentVariables()
-
 	mux := http.NewServeMux()
 	mux.HandleFunc("/api/games", getBoardGames)
-
-	// Wrap handlers with CORS middleware
 	log.Println("Server is running on port 8080...")
 	http.ListenAndServe(":8080", withCORS(mux))
 }
