@@ -103,8 +103,8 @@ func getBoardGames(w http.ResponseWriter, r *http.Request) {
     json.NewEncoder(w).Encode(games)
 }
 
-func main() {
+// func main() {
 	// http.HandleFunc("/api/games", getBoardGames)
 	// log.Println("Server is running on port 8080...")
 	// http.ListenAndServe(":8080", nil)
-}
+// }
