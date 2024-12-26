@@ -132,7 +132,7 @@ func getBoardGames(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	debugEnvironmentVariables()
+	// debugEnvironmentVariables()
 
 	mux := http.NewServeMux()
 	mux.HandleFunc("/api/games", getBoardGames)
