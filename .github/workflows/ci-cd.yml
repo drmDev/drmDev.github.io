@@ -37,7 +37,10 @@ jobs:
     # Step 5: Restore Selenium test dependencies
     - name: Restore Selenium test dependencies
       working-directory: SeleniumTests
-      run: dotnet restore SeleniumTests.csproj
+      run: |
+        pwd
+        ls -la
+        dotnet restore SeleniumTests.csproj
 
     # Step 6: Run Selenium tests
     - name: Run Selenium Tests
