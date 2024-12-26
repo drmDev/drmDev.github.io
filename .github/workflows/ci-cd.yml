@@ -56,15 +56,15 @@ jobs:
     #    go build -o app .
 
     # Step 9: Deploy to Railway using its CLI
-    - name: Install Railway CLI
-      run: npm install -g @railway/cli
+    #- name: Install Railway CLI
+    #  run: npm install -g @railway/cli
 
-    - name: Deploy to Railway
-      env:
-        RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
-      run: |
-        cd board-games-api
-        railway up --ci --service ${{ secrets.RAILWAY_SVC_ID }}
+    #- name: Deploy to Railway
+    #  env:
+    #    RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+    #  run: |
+    #    cd board-games-api
+    #    railway up --ci --service ${{ secrets.RAILWAY_SVC_ID }}
 
     # Step 10: Deploy to GitHub Pages (for static frontend)
     - name: Deploy to GitHub Pages
