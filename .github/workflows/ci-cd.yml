@@ -22,8 +22,8 @@ jobs:
 
     - name: Build and Push Docker Image
       run: |
-        docker build -t your-registry/your-image-name:latest .
-        docker push your-registry/your-image-name:latest
+        docker build -t drmdev/board-games-api:latest .
+        docker push drmdev/board-games-api:latest
 
     - name: Deploy to Railway
       env:
