@@ -125,7 +125,7 @@ func getBoardGames(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	
-	log.Printf("Fetched games: %+v", games) // debug: log fetched games
+	log.Printf("Fetched %d games: %+v", len(games), games)
 
 	// Respond with the fetched games
 	json.NewEncoder(w).Encode(games)
