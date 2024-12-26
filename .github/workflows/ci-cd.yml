@@ -28,11 +28,12 @@ jobs:
         docker build -t your-registry/your-image-name:latest .
         docker push your-registry/your-image-name:latest
 
-    # Step 4: Deploy to Railway using Docker
     - name: Deploy to Railway
       env:
         RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
-      run: railway up --ci
+        DATABASE_PUBLIC_URL: ${{ secrets.DATABASE_PUBLIC_URL }}
+      run: railway up --ci --service ${{ secrets.RAILWAY_SVC_ID }}
+
 
     # Step 5: Set up Ruby and Jekyll for frontend (if needed)
     - name: Set up Ruby

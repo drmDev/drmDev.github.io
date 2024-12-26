@@ -1,3 +1,7 @@
+# Add environment variables at build time
+ARG DATABASE_PUBLIC_URL
+ENV DATABASE_PUBLIC_URL=${DATABASE_PUBLIC_URL}
+
 # Use a multi-stage build to include both .NET and Go
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS dotnet-builder
 

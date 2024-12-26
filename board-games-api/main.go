@@ -11,6 +11,13 @@ import (
 	"github.com/jackc/pgx/v5"
 )
 
+// Debugging
+func debugEnvironmentVariables() {
+    for _, e := range os.Environ() {
+        log.Println(e)
+    }
+}
+
 // Middleware to add CORS headers
 func withCORS(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
@@ -125,6 +132,8 @@ func getBoardGames(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
+	debugEnvironmentVariables()
+
 	mux := http.NewServeMux()
 	mux.HandleFunc("/api/games", getBoardGames)
 
