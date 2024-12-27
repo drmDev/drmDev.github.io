@@ -115,9 +115,21 @@ func getBoardGames(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	
+	// Check if no results were found
+	if len(games) == 0 {
+		log.Printf("No games found for the given filters")
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusNotFound)
+		json.NewEncoder(w).Encode(map[string]string{
+			"message": "No games found for the given filters.",
+		})
+		return
+	}
+
 	log.Printf("Fetched %d games: %+v", len(games), games)
 
 	// Respond with the fetched games
+	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(games)
 }
 
