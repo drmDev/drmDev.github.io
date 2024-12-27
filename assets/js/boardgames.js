@@ -15,7 +15,7 @@ async function fetchBoardGames() {
     if (type) {
         apiUrl += `&type=${type}`;
     }
-	console.log(`Fetching from URL: ${apiUrl}`);
+	// console.log(`Fetching from URL: ${apiUrl}`);
 
     try {
         // Make the API request
