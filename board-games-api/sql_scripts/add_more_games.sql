@@ -7,7 +7,7 @@ VALUES
     ('No Thanks', 3, 7, 20, 'Card', 'A simple but strategic game where players must decide when to take cards or pass.'),
     ('Trash Pandas', 2, 4, 20, 'Dice', 'A dice-rolling game where players collect trash as mischievous raccoons.'),
     ('Dungeon Mayhem', 2, 4, 10, 'Card', 'A fast-paced, humorous card game where players battle as unique dungeon characters.'),
-    ('Dungeon Draft', 2, 5, 30, 'Drafting', 'A card-drafting game where players recruit heroes and collect loot for points.'),
+    ('Dungeon Draft', 2, 5, 30, 'Deckbuilder', 'A card-drafting game where players recruit heroes and collect loot for points.'),
     ('Joking Hazard', 3, 10, 30, 'Party', 'A party game where players create funny and offensive comic strips.'),
     ('Cards Against Humanity', 4, 20, 30, 'Party', 'An adult-themed party game for creating outrageous combinations of answers to prompts.'),
     ('Splendor', 2, 4, 30, 'Strategy', 'A resource management and engine-building game where players collect gems to buy cards.'),
