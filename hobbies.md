@@ -58,16 +58,18 @@ Use the filters below to find board games based on players and game type.
                 <label for="max-players" class="form-label">Maximum Players</label>
                 <input type="number" id="max-players" class="form-control" placeholder="12" min="1" max="12">
             </div>
-            <div class="col-md-4">
-                <label for="type" class="form-label">Game Type</label>
-                <select id="type" class="form-select">
-                    <option value="">All</option>
-                    <option value="Strategy">Strategy</option>
-                    <option value="Party">Party</option>
-                    <option value="Deckbuilder">Deckbuilder</option>
-                    <option value="Co-op">Co-op</option>
-                </select>
-            </div>
+			<div class="col-md-4">
+				<label for="type" class="form-label">Game Type</label>
+				<select id="type" class="form-select">
+					<option value="">All</option>
+					<option value="Strategy">Strategy</option>
+					<option value="Party">Party</option>
+					<option value="Deckbuilder">Deckbuilder</option>
+					<option value="Cooperative">Cooperative</option>
+					<option value="Worker Placement">Worker Placement</option>
+					<option value="Teams">Teams</option>
+				</select>
+			</div>
         </div>
         <button class="btn btn-primary mt-3" onclick="fetchBoardGames()">Filter</button>
     </div>
