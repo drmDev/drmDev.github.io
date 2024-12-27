@@ -25,6 +25,17 @@ func withCORS(next http.Handler) http.Handler {
 	})
 }
 
+func parseOptionalInt(param string) *int {
+    if param == "" {
+        return nil
+    }
+    value, err := strconv.Atoi(param)
+    if err != nil {
+        return nil // Return nil if parsing fails
+    }
+    return &value
+}
+
 func getDBConnection() (*pgx.Conn, error) {
 	dbURL := os.Getenv("DATABASE_PUBLIC_URL")
 	if dbURL == "" {
@@ -76,7 +87,7 @@ func queryBoardGames(ctx context.Context, conn *pgx.Conn, minPlayers, maxPlayers
 
 // Handler function for fetching board games
 func getBoardGames(w http.ResponseWriter, r *http.Request) {
-	log.Printf("Incoming request: %s %s", r.Method, r.URL.String()) // Log the method and URL
+	log.Printf("Incoming request: %s %s", r.Method, r.URL.String())
 
 	conn, err := getDBConnection()
 	if err != nil {
@@ -86,26 +97,9 @@ func getBoardGames(w http.ResponseWriter, r *http.Request) {
 	}
 	defer conn.Close(context.Background())
 
-	minPlayersStr := r.URL.Query().Get("min_players")
-	maxPlayersStr := r.URL.Query().Get("max_players")
+	minPlayers := parseOptionalInt(r.URL.Query().Get("min_players"))
+	maxPlayers := parseOptionalInt(r.URL.Query().Get("max_players"))
 	gameType := r.URL.Query().Get("type")
-	
-	log.Printf("Query Parameters - min_players: %s, max_players: %s, type: %s", minPlayersStr, maxPlayersStr, gameType)
-
-	// Convert parameters
-	var minPlayers, maxPlayers *int
-	if minPlayersStr != "" {
-		minValue, err := strconv.Atoi(minPlayersStr)
-		if err == nil {
-			minPlayers = &minValue
-		}
-	}
-	if maxPlayersStr != "" {
-		maxValue, err := strconv.Atoi(maxPlayersStr)
-		if err == nil {
-			maxPlayers = &maxValue
-		}
-	}
 
 	// Query the database
 	games, err := queryBoardGames(context.Background(), conn, minPlayers, maxPlayers, gameType)
@@ -114,22 +108,16 @@ func getBoardGames(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Failed to fetch board games", http.StatusInternalServerError)
 		return
 	}
-	
-	// Check if no results were found
-	if len(games) == 0 {
-		log.Printf("No games found for the given filters")
-		w.Header().Set("Content-Type", "application/json")
-		w.WriteHeader(http.StatusNotFound)
-		json.NewEncoder(w).Encode(map[string]string{
-			"message": "No games found for the given filters.",
-		})
-		return
-	}
 
-	log.Printf("Fetched %d games: %+v", len(games), games)
+	// Handle no results
+	if len(games) == 0 {
+		log.Println("No games found for the given filters.")
+		games = []map[string]interface{}{} // Return an empty list
+	}
 
 	// Respond with the fetched games
 	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
 	json.NewEncoder(w).Encode(games)
 }
 
