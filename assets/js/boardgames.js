@@ -26,6 +26,22 @@ async function fetchBoardGames() {
 
         // Render the games
         const gameList = document.getElementById('game-list');
+		
+		if (games.length === 0) {
+            // No games found
+            gameList.innerHTML = `
+                <div class="col">
+                    <div class="card h-100 text-center">
+                        <div class="card-body">
+                            <h5 class="card-title">No games found</h5>
+                            <p class="card-text">Try adjusting your filters to see more results.</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+            return;
+        }
+		
         gameList.innerHTML = games.map(game => `
             <div class="col">
                 <div class="card h-100">
