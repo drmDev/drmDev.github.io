@@ -8,6 +8,10 @@ permalink: /
 
 Hi, I'm Derek! I'm passionate about problem-solving and automation. This has driven my love for software development and strategy games.
 
+<p style="text-align: center;">
+    <img src="/assets/images/prof_chess.jpg" alt="Picture of me playing chess" style="max-width: 300px; border-radius: 8px;">
+</p>
+
 ---
 
 ## <i class="fas fa-file-alt"></i> My Resume

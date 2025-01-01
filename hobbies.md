@@ -14,8 +14,8 @@ Chess has become my latest obsession. It's simple to learn but impossible to mas
 
 ### Resources and Links:
 <ul>
-    <li><i class="fas fa-chess-queen"></i> <a href="https://www.chess.com/lessons/guide" target="_blank" rel="noopener noreferrer">Chess.com Guides</a> (especially "New to Chess" and "Beginner"</li>
-    <li><i class="fas fa-chess-rook"></i> <a href="https://www.chessable.com/chess-basics/course/27081/" target="_blank" rel="noopener noreferrer">Chessable.com Courses</a> (like Chess Basics)</li>
+    <li><i class="fas fa-chess-queen"></i> <a href="https://www.chess.com/lessons/guide" target="_blank" rel="noopener noreferrer">Chess.com Free Guides</a> (especially the entire Fundamentals section!</li>
+    <li><i class="fas fa-chess-rook"></i> <a href="https://www.chessable.com/courses/all/all/free/" target="_blank" rel="noopener noreferrer">Chessable.com Free Courses</a> (I recommend Chess Basics, Smithy's Opening Fundamentals, and Typical Tactical Tricks)</li>
 </ul>
 
 ---
@@ -26,11 +26,8 @@ I’ve been playing Magic The Gathering since I was a kid. After taking a break 
 
 ### Resources and Links:
 <ul>
-    <li><img src="/assets/images/mtg/plains.svg" alt="Plains" width="32"> <a href="https://cubecobra.com/cube/overview/08077c8d-24d8-4e14-a571-fceff902d343" target="_blank" rel="noopener noreferrer">My first (and only) MTG Cube set!</a></li>
-    <li><img src="/assets/images/mtg/island.svg" alt="Island" width="32"> <a href="https://17lands.com/" target="_blank" rel="noopener noreferrer">17Lands: Track your draft stats and improve your Limited game!</a></li>
-    <li><img src="/assets/images/mtg/swamp.svg" alt="Swamp" width="32"> <a href="https://www.lordsoflimited.com/" target="_blank" rel="noopener noreferrer">Lords of Limited Podcast</a></li>
-    <li><img src="/assets/images/mtg/mountain.svg" alt="Mountain" width="32"> <a href="https://www.lrcast.com/" target="_blank" rel="noopener noreferrer">Limited Resources Podcast</a></li>
-    <li><img src="/assets/images/mtg/forest.svg" alt="Forest" width="32"> <a href="https://draftsim.com/" target="_blank" rel="noopener noreferrer">DraftSim: Practice drafting and explore set archetypes</a></li>
+    <li><img src="/assets/images/mtg/plains.svg" alt="Island" width="32"> <a href="https://cubecobra.com/cube/overview/08077c8d-24d8-4e14-a571-fceff902d343" target="_blank" rel="noopener noreferrer">My first (and only) MTG Cube set!</a></li>
+    <li><img src="/assets/images/mtg/island.svg" alt="Forest" width="32"> <a href="https://17lands.com/" target="_blank" rel="noopener noreferrer">17Lands: Track your draft stats and improve your Limited game!</a></li>
 </ul>
 
 ---
