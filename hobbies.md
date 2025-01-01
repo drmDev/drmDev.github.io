@@ -39,7 +39,7 @@ Board games and tabletop games have evolved far beyond the classics like Monopol
 ### Explore Board Games
 Use the filters below to find board games based on players and game type.
 
-<div class="card mb-4">
+<div class="card mb-4" id="filter-board-games">
     <div class="card-body">
         <h5 class="card-title"> Filter Board Games</h5>
 		<div class="row">
