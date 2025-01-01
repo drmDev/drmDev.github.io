@@ -14,7 +14,7 @@ Chess has become my latest obsession. It's simple to learn but impossible to mas
 
 ### Resources and Links:
 <ul>
-    <li><i class="fas fa-chess-queen"></i> <a href="https://www.chess.com/lessons/guide" target="_blank" rel="noopener noreferrer">Chess.com Free Guides</a> (especially the entire Fundamentals section!</li>
+    <li><i class="fas fa-chess-queen"></i> <a href="https://www.chess.com/lessons/guide" target="_blank" rel="noopener noreferrer">Chess.com Free Guides</a> (especially the entire Fundamentals section!)</li>
     <li><i class="fas fa-chess-rook"></i> <a href="https://www.chessable.com/courses/all/all/free/" target="_blank" rel="noopener noreferrer">Chessable.com Free Courses</a> (I recommend Chess Basics, Smithy's Opening Fundamentals, and Typical Tactical Tricks)</li>
 </ul>
 
