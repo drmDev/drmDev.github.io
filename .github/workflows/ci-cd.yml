@@ -21,15 +21,9 @@ jobs:
         password: ${{ secrets.DOCKER_PASSWORD }}
 
     - name: Build Docker Image
-      run: docker build -t drmdev/board-games-api:latest .
-
-    - name: Run Tests in Docker
       run: |
-        docker run --rm drmdev/board-games-api:latest \
-          dotnet test /app/tests --verbosity normal
-
-    - name: Push Docker Image
-      run: docker push drmdev/board-games-api:latest
+        docker build -t drmdev/board-games-api:latest .
+        docker push drmdev/board-games-api:latest
 
     - name: Set up Ruby
       uses: ruby/setup-ruby@v1
@@ -47,3 +41,24 @@ jobs:
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./_site
+
+  selenium-tests:
+    needs: build-and-deploy
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out code
+      uses: actions/checkout@v3
+
+    - name: Set up .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '8.0'
+
+    - name: Restore Selenium test dependencies
+      working-directory: SeleniumTests
+      run: dotnet restore SeleniumTests.csproj
+
+    - name: Run Selenium Tests
+      working-directory: SeleniumTests
+      run: dotnet test SeleniumTests.csproj --verbosity normal
