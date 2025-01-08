@@ -29,9 +29,10 @@ Explore my professional background and experiences:
 ## <i class="fas fa-laptop-code"></i> Technologies Behind This Site
 
 ### Frontend
-- <i class="fas fa-code"></i> **Jekyll**: Streamlines static site generation and content organization.
+- <i class="fas fa-tools"></i> **Jekyll**: Streamlines static site generation and content organization.
 - <i class="fas fa-mobile-alt"></i> **Bootstrap**: Enables responsive and visually appealing design elements.
 - <i class="fas fa-icons"></i> **FontAwesome**: Provides rich iconography for a modern user interface.
+- <i class="fas fa-code"></i> **JavaScript**: Facilitates dynamic interactions, such as making API calls to filter board games based on user inputs.
 
 ### Backend
 - <i class="fas fa-server"></i> **Go**: Powers the API handling database queries for dynamic features like filtering board games.
