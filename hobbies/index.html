@@ -22,16 +22,30 @@
     <link rel="icon" href="/assets/favicon/favicon.ico" type="image/x-icon">
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+    <nav class="navbar navbar-expand-lg bg-dark navbar-dark shadow-lg">
     <div class="container-fluid">
-        <a class="navbar-brand" href="/">Home</a>
+        <!-- Navbar Brand (Full Name) -->
+				<a class="navbar-brand fs-4 fw-bold" href="/">
+						<i class="fas fa-id-card"></i> Derek Monturo
+				</a>
+        
+        <!-- Navbar Toggle Button (for mobile view) -->
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-            <span class="navbar-toggler-icon"></span>
+            <span class="navbar-toggler-icon"></span> <strong>Menu</strong>
         </button>
+        
+        <!-- Navbar Links -->
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
+            <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="/hobbies">Hobbies</a>
+                    <a class="nav-link" href="/">
+                        <i class="fas fa-home"></i> Home
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/hobbies">
+                        <i class="fas fa-dice"></i> Hobbies
+                    </a>
                 </li>
             </ul>
         </div>
@@ -124,8 +138,8 @@
                 <p>Speedrunning is one of my favorite ways to combine gaming with goal-setting. I focus on retro classics like NES and SNES games as well as modern retro-style games like <em>Prison City</em> and <em>Iron Meat</em>.</p>
 
 
-                <p><p>Check out my runs on <a href="https://www.speedrun.com/users/nescapeplan">Speedrun.com</a>.</p>
-</p>
+                <p>Check out my runs on 
+								<a href="https://www.speedrun.com/users/nescapeplan" target="_blank" rel="noopener noreferrer">Speedrun.com!</a></p>
             </div>
         </div>
     </div>
@@ -135,15 +149,30 @@
 
 
     </main>
-    <footer class="bg-dark text-light text-center py-3">
-    <p>
-        <a href="https://github.com/drmDev" class="text-warning mx-2" target="_blank" rel="noopener noreferrer">
-            <i class="fab fa-github"></i> <!-- Updated here -->
-        </a>
-        <a href="mailto:dmontur1@gmail.com" class="text-warning mx-2">
-            <i class="fas fa-envelope"></i> <!-- Updated envelope icon to fas -->
-        </a>
-    </p>
+    <footer class="bg-dark text-light text-center py-4 mt-4">
+    <div class="container">
+        <!-- Social and Contact Info -->
+        <p class="mb-2">
+            <a href="https://github.com/drmDev" class="text-warning mx-3" target="_blank" rel="noopener noreferrer">
+                <i class="fab fa-github fa-lg"></i> <span class="ms-1">GitHub</span>
+            </a>
+            <a href="mailto:dmontur1@gmail.com" class="text-warning mx-3">
+                <i class="fas fa-envelope fa-lg"></i> <span class="ms-1">Email Me</span>
+            </a>
+        </p>
+
+        <!-- Divider line -->
+        <hr class="text-secondary my-3" style="max-width: 400px; margin: auto;">
+
+        <!-- Additional Footer Content -->
+        <p class="small mb-0">
+            © 2025 Derek Monturo. All rights reserved.
+        </p>
+        <p class="small">
+            Built with <a href="https://jekyllrb.com/" class="text-warning" target="_blank" rel="noopener noreferrer">Jekyll</a>, 
+            styled with <a href="https://getbootstrap.com/" class="text-warning" target="_blank" rel="noopener noreferrer">Bootstrap</a>.
+        </p>
+    </div>
 </footer>
 
 </body>

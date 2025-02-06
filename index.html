@@ -22,16 +22,30 @@
     <link rel="icon" href="/assets/favicon/favicon.ico" type="image/x-icon">
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+    <nav class="navbar navbar-expand-lg bg-dark navbar-dark shadow-lg">
     <div class="container-fluid">
-        <a class="navbar-brand" href="/">Home</a>
+        <!-- Navbar Brand (Full Name) -->
+				<a class="navbar-brand fs-4 fw-bold" href="/">
+						<i class="fas fa-id-card"></i> Derek Monturo
+				</a>
+        
+        <!-- Navbar Toggle Button (for mobile view) -->
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-            <span class="navbar-toggler-icon"></span>
+            <span class="navbar-toggler-icon"></span> <strong>Menu</strong>
         </button>
+        
+        <!-- Navbar Links -->
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
+            <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="/hobbies">Hobbies</a>
+                    <a class="nav-link" href="/">
+                        <i class="fas fa-home"></i> Home
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/hobbies">
+                        <i class="fas fa-dice"></i> Hobbies
+                    </a>
                 </li>
             </ul>
         </div>
@@ -39,7 +53,7 @@
 </nav>
 
     <main class="container my-5">
-        <h1 id="-welcome-to-my-portfolio"><i class="fas fa-user-circle"></i> Welcome to My Portfolio</h1>
+        <h1 id="-welcome-to-my-portfolio"><i class="fas fa-user-tie"></i> Welcome to My Portfolio</h1>
 
 <p>Hi, I’m Derek! I’m passionate about problem-solving and automation. This has driven my love for software development and strategy games. Believe it or not, there is a strong overlap with my enjoyment of the two!</p>
 
@@ -96,33 +110,56 @@
         </div>
     </div>
 
-    <div class="col">
-        <div class="card h-100 shadow-lg border-0 bg-dark text-light">
-            <div class="card-body">
-                <h5 class="card-title"><i class="fab fa-github"></i> Automation and Testing</h5>
-                
-<ul>
-  <li><strong>GitHub Actions</strong>: Automates builds and testing. <a href="https://github.com/drmDev/drmDev.github.io/blob/main/.github/workflows/ci-cd.yml">View CI/CD Workflow (YAML)</a>
-<img src="https://github.com/drmDev/drmDev.github.io/actions/workflows/ci-cd.yml/badge.svg" alt="Build Status" /></li>
-  <li><strong>Selenium WebDriver</strong>: Ensures UI functionality.
-<a href="https://github.com/drmDev/drmDev.github.io/tree/main/SeleniumTests">View Tests</a></li>
-</ul>
-
-            </div>
-        </div>
-    </div>
+	<div class="col">
+			<div class="card h-100 shadow-lg border-0 bg-dark text-light">
+					<div class="card-body">
+							<h5 class="card-title"><i class="fab fa-github"></i> Automation and Testing</h5>
+							<ul>
+									<li>
+											<strong>GitHub Actions:</strong> Automates builds and testing.											
+											<img src="https://github.com/drmDev/drmDev.github.io/actions/workflows/ci-cd.yml/badge.svg" alt="Build Status" style="max-width: 100%;" />											
+											<a href="https://github.com/drmDev/drmDev.github.io/blob/main/.github/workflows/ci-cd.yml" target="_blank" rel="noopener noreferrer">
+													View CI/CD Workflow (YAML)
+											</a>
+									</li>
+									<li>
+											<strong>Selenium WebDriver:</strong> Ensures UI functionality.
+											<br />
+											<a href="https://github.com/drmDev/drmDev.github.io/tree/cfde3d566ac2b5fb02d75c68090f84271f8e57a9/SeleniumTests" target="_blank" rel="noopener noreferrer">
+													View Tests (C#)
+											</a>
+									</li>
+							</ul>
+					</div>
+			</div>
+	</div>
 </div>
 
     </main>
-    <footer class="bg-dark text-light text-center py-3">
-    <p>
-        <a href="https://github.com/drmDev" class="text-warning mx-2" target="_blank" rel="noopener noreferrer">
-            <i class="fab fa-github"></i> <!-- Updated here -->
-        </a>
-        <a href="mailto:dmontur1@gmail.com" class="text-warning mx-2">
-            <i class="fas fa-envelope"></i> <!-- Updated envelope icon to fas -->
-        </a>
-    </p>
+    <footer class="bg-dark text-light text-center py-4 mt-4">
+    <div class="container">
+        <!-- Social and Contact Info -->
+        <p class="mb-2">
+            <a href="https://github.com/drmDev" class="text-warning mx-3" target="_blank" rel="noopener noreferrer">
+                <i class="fab fa-github fa-lg"></i> <span class="ms-1">GitHub</span>
+            </a>
+            <a href="mailto:dmontur1@gmail.com" class="text-warning mx-3">
+                <i class="fas fa-envelope fa-lg"></i> <span class="ms-1">Email Me</span>
+            </a>
+        </p>
+
+        <!-- Divider line -->
+        <hr class="text-secondary my-3" style="max-width: 400px; margin: auto;">
+
+        <!-- Additional Footer Content -->
+        <p class="small mb-0">
+            © 2025 Derek Monturo. All rights reserved.
+        </p>
+        <p class="small">
+            Built with <a href="https://jekyllrb.com/" class="text-warning" target="_blank" rel="noopener noreferrer">Jekyll</a>, 
+            styled with <a href="https://getbootstrap.com/" class="text-warning" target="_blank" rel="noopener noreferrer">Bootstrap</a>.
+        </p>
+    </div>
 </footer>
 
 </body>
