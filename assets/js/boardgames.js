@@ -43,19 +43,17 @@ async function fetchBoardGames() {
         }
 		
         gameList.innerHTML = games.map(game => `
-            <div class="col">
-                <div class="card h-100">
-                    <div class="card-body">
-                        <h5 class="card-title">${game.name}</h5>
-                        <p class="card-text">
-                            Players: ${game.min_players} - ${game.max_players}<br>
-                            Type: ${game.type}<br>
-                            Play Time: ${game.play_time} mins<br>
-                            ${game.description ? `Description: ${game.description}` : ''}
-                        </p>
-                    </div>
-                </div>
-            </div>
+				 <div class="col">
+							<div class="card h-100 bg-dark text-light shadow">
+									<div class="card-body">
+											<h5 class="card-title text-warning text-center">${game.name}</h5>
+											<h6 class="game-info"><i class="fas fa-users"></i> Players:</h6> ${game.min_players} - ${game.max_players}<br>
+											<h6 class="game-info"><i class="fas fa-tag"></i> Type:</h6> ${game.type}<br>
+											<h6 class="game-info"><i class="fas fa-clock"></i> Play Time:</h6> ${game.play_time} mins<br>
+											${game.description ? `<h6 class="game-info"><i class="fas fa-info-circle"></i> Description:</h6> ${game.description}` : ''}
+									</div>
+							</div>
+					</div>
         `).join('');
     } catch (error) {
         console.error(error.message);

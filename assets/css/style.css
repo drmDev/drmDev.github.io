@@ -29,6 +29,16 @@ h3 {
     font-family: 'Inconsolata', sans-serif;
 }
 
+h6 {
+    font-size: 1.2rem; /* Slightly smaller than h3 */
+    font-weight: bold;
+    margin-top: 1rem; /* Add space above the h6 */
+    margin-bottom: 0.5rem; /* Add space below the h6 */
+    font-family: 'Inconsolata', sans-serif;
+    letter-spacing: 0.5px; /* Slight spacing between letters for readability */
+}
+
+
 /* Navbar Styling */
 .navbar {
     background-color: #333; /* Dark background for navbar */
@@ -52,14 +62,84 @@ h3 {
     font-family: 'Inconsolata', sans-serif;
 }
 
-/* Board Game List Styling */
+/* Game card styling */
 #game-list .card {
-    background-color: #1a1a1a;
-    color: #f5f5f5;
     border: 1px solid #444;
+    background-color: #1a1a1a;
 }
 
 #game-list .card-title {
     font-weight: bold;
+    font-size: 1.5rem;
+    color: #ffc107; /* Bright yellow for card title */
+    text-align: center;
+}
+
+#game-list .game-label {
+    font-weight: bold;
+    color: #ff4500; /* Orange color for labels */
+    margin-right: 5px;
+}
+
+#game-list h6.game-info {
+    font-weight: bold;
+    font-size: 1rem;
+    color: #ff6347;
+    margin: 10px 0 5px; /* Add spacing around h6 tags */
+}
+
+/* Card Styling */
+.card {
+    background-color: #242424; /* Slightly lighter dark */
+    color: #f5f5f5;
+    border: none; /* Remove border */
+    border-radius: 12px; /* Smooth corners */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+.card-title {
     color: #ff4500;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+}
+
+.card-body {
+    font-family: 'Inconsolata', sans-serif;
+}
+
+.card a {
+    color: #ff6347; /* Slightly lighter orange for links */
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.card a:hover {
+    text-shadow: 0px 0px 8px #ff4500; /* Subtle glow effect */
+    color: #ffa07a;
+}
+
+.card h2, .card h5 {
+    color: #ff4500;
+    font-weight: bold;
+}
+
+.card p, .card li {
+    margin-bottom: 0.5rem;
+}
+
+/* List styling to remove bullets and adjust icon spacing */
+.icon-list {
+    list-style: none;
+    padding-left: 0;
+}
+
+.icon-list li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.icon-list li i, .icon-list li img {
+    margin-right: 10px;
 }
