@@ -1,25 +1,20 @@
-<nav class="navbar navbar-expand-lg bg-dark navbar-dark shadow-lg">
+<nav class="navbar navbar-expand-lg bg-dark navbar-dark">
     <div class="container-fluid">
-        <!-- Navbar Brand (Full Name) -->
-				<a class="navbar-brand fs-4 fw-bold" href="{{ "/" | relative_url }}">
-						<i class="fas fa-id-card"></i> Derek Monturo
-				</a>
-        
-        <!-- Navbar Toggle Button (for mobile view) -->
+        <a class="navbar-brand fs-4 fw-bold" href="{{ "/" | relative_url }}">
+            <i class="fas fa-user"></i> Derek Monturo
+        </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
             <span class="navbar-toggler-icon"></span> <strong>Menu</strong>
         </button>
-        
-        <!-- Navbar Links -->
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
+            <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ "/" | relative_url }}">
+                    <a class="nav-link" href="{{ "/" | relative_url }}" id="nav-home">
                         <i class="fas fa-home"></i> Home
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ "/hobbies" | relative_url }}">
+                    <a class="nav-link" href="{{ "/hobbies" | relative_url }}" id="nav-hobbies">
                         <i class="fas fa-dice"></i> Hobbies
                     </a>
                 </li>

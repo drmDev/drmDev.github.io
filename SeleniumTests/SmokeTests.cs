@@ -1,19 +1,22 @@
-using FluentAssertions;
+using OpenQA.Selenium.Support.UI;
 using OpenQA.Selenium;
 using SeleniumExtras.WaitHelpers;
+using SeleniumTests;
 
-namespace SeleniumTests
+public class NavigationTests : BaseTest
 {
-    public class SmokeTests : BaseTest
+    [Test]
+    public void HobbiesPage_ShouldRender()
     {
-        [Test]
-        public void LandingPage_ShouldRender_AndShowResumeLink()
-        {
-            driver.Navigate().GoToUrl("https://drmdev.github.io/");
+        // Navigate to the landing page
+        driver.Navigate().GoToUrl("https://drmdev.github.io/");
 
-            var resumeLink = wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//a[contains(@href, '/assets/pdf/DM_Resume_2024.pdf')]")));
+        // Click on the "Hobbies" navbar link
+        var hobbiesLink = wait.Until(ExpectedConditions.ElementToBeClickable(By.Id("nav-hobbies")));
+        hobbiesLink.Click();
 
-            resumeLink.Displayed.Should().BeTrue("Resume link is not visible on the landing page.");
-        }
+        // Verify the filter section is visible
+        var filterSection = wait.Until(ExpectedConditions.ElementIsVisible(By.Id("filter-board-games")));
+        filterSection.Displayed.Should().BeTrue("The filter section should be visible on the Hobbies page.");
     }
 }
