@@ -19,6 +19,10 @@ permalink: /hobbies/
 										<li><i class="fas fa-chess-rook"></i> <a href="https://lichess.org/learn" target="_blank" rel="noopener noreferrer">Lichess.org interactive guides</a></li>
 										<li><i class="fas fa-chess-king"></i> <a href="https://drmdev.github.io/CCCR/" target="_blank" rel="noopener noreferrer">My modernized take on our local Rochester Community Chess Club website</a></li>
 								</ul>
+								
+								<h6>Latest 5 Games on Chess.com for 15/10 controls:</h6>
+								<p><small class="text-info">(This data is fetched using Chess.com's public API with JavaScript.)</small></p>
+								<ul id="latest-games-list" class="icon-list"></ul>
             </div>
         </div>
     </div>
@@ -93,3 +97,4 @@ permalink: /hobbies/
 </div>
 
 <script src="/assets/js/boardgames.js"></script>
+<script src="/assets/js/chess-games.js"></script>
