@@ -16,13 +16,14 @@ Chess has become my latest obsession. It's simple to learn but impossible to mas
 <ul>
     <li><i class="fas fa-chess-queen"></i> <a href="https://www.chess.com/lessons/guide" target="_blank" rel="noopener noreferrer">Chess.com Free Guides</a> (especially the entire Fundamentals section!)</li>
     <li><i class="fas fa-chess-rook"></i> <a href="https://lichess.org/learn" target="_blank" rel="noopener noreferrer">Lichess.org has a plethora of free interactive guides and puzzles</a></li>
+		<li><i class="fas fa-chess-king"></i> <a href="https://drmdev.github.io/CCCR/" target="_blank" rel="noopener noreferrer">Visit my unofficial modernized take of our local Rochester Community Chess Club website!</a></li>
 </ul>
 
 ---
 
 ## <i class="fas fa-dragon"></i> Magic: The Gathering
 
-I’ve been playing Magic The Gathering since I was a kid. After taking a break in high school and college, I rediscovered the game as an adult, and it has become one of my favorite hobbies.
+I’ve been playing Magic The Gathering since I was a kid. After taking a break in high school and college, I rediscovered the game as an adult, and it has become one of my favorite hobbies!
 
 ### Resources and Links:
 <ul>
@@ -34,7 +35,7 @@ I’ve been playing Magic The Gathering since I was a kid. After taking a break 
 
 ## <i class="fas fa-dice"></i> Board Games
 
-Board games and tabletop games have evolved far beyond the classics like Monopoly, Clue, and Scrabble. Twice a month, I host a game night with close friends to explore modern games that bring new strategies and experiences.
+Board games and tabletop games have evolved far beyond the classics like Monopoly, Clue, and Scrabble. Twice a month, I host a game night with close friends to explore modern games together.
 
 ### Explore Board Games
 Use the filters below to find board games based on players and game type.

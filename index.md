@@ -6,7 +6,7 @@ permalink: /
 
 # <i class="fas fa-user-circle"></i> Welcome to My Portfolio
 
-Hi, I'm Derek! I'm passionate about problem-solving and automation. This has driven my love for software development and strategy games.
+Hi, I'm Derek! I'm passionate about problem-solving and automation. This has driven my love for software development and strategy games. Believe it or not, there is a strong overlap with my enjoyment of the two!
 
 <p style="text-align: center;">
     <img src="/assets/images/prof_chess.jpg" alt="Picture of me playing chess" style="max-width: 300px; border-radius: 8px;">
