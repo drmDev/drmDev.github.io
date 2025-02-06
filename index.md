@@ -4,7 +4,7 @@ title: Welcome
 permalink: /
 ---
 
-# <i class="fas fa-user-circle"></i> Welcome to My Portfolio
+# <i class="fas fa-user-tie"></i> Welcome to My Portfolio
 
 Hi, I'm Derek! I'm passionate about problem-solving and automation. This has driven my love for software development and strategy games. Believe it or not, there is a strong overlap with my enjoyment of the two!
 
@@ -21,6 +21,7 @@ Explore my professional background and experiences:
         <i class="fas fa-file-download"></i> Download My Resume (PDF)
     </a>
 </p>
+
 
 <iframe src="/assets/pdf/DM_Resume_2024.pdf" width="100%" height="500px" style="border: none;"></iframe>
 
@@ -57,17 +58,27 @@ Explore my professional background and experiences:
         </div>
     </div>
 
-    <div class="col">
-        <div class="card h-100 shadow-lg border-0 bg-dark text-light">
-            <div class="card-body">
-                <h5 class="card-title"><i class="fab fa-github"></i> Automation and Testing</h5>
-                {{ "
-- **GitHub Actions**: Automates builds and testing. [View CI/CD Workflow (YAML)](https://github.com/drmDev/drmDev.github.io/blob/main/.github/workflows/ci-cd.yml)
-  ![Build Status](https://github.com/drmDev/drmDev.github.io/actions/workflows/ci-cd.yml/badge.svg)
-- **Selenium WebDriver**: Ensures UI functionality.
-  [View Tests](https://github.com/drmDev/drmDev.github.io/tree/main/SeleniumTests)
-" | markdownify }}
-            </div>
-        </div>
-    </div>
+	<div class="col">
+			<div class="card h-100 shadow-lg border-0 bg-dark text-light">
+					<div class="card-body">
+							<h5 class="card-title"><i class="fab fa-github"></i> Automation and Testing</h5>
+							<ul>
+									<li>
+											<strong>GitHub Actions:</strong> Automates builds and testing.											
+											<img src="https://github.com/drmDev/drmDev.github.io/actions/workflows/ci-cd.yml/badge.svg" alt="Build Status" style="max-width: 100%;">											
+											<a href="https://github.com/drmDev/drmDev.github.io/blob/main/.github/workflows/ci-cd.yml" target="_blank" rel="noopener noreferrer">
+													View CI/CD Workflow (YAML)
+											</a>
+									</li>
+									<li>
+											<strong>Selenium WebDriver:</strong> Ensures UI functionality.
+											<br>
+											<a href="https://github.com/drmDev/drmDev.github.io/tree/cfde3d566ac2b5fb02d75c68090f84271f8e57a9/SeleniumTests" target="_blank" rel="noopener noreferrer">
+													View Tests (C#)
+											</a>
+									</li>
+							</ul>
+					</div>
+			</div>
+	</div>
 </div>
