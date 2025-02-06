@@ -4,81 +4,91 @@ title: Hobbies
 permalink: /hobbies/
 ---
 
-# My Hobbies
+<h1 class="mb-4"><i class="fas fa-gamepad"></i> My Hobbies</h1>
 
----
+<div class="row row-cols-1 row-cols-md-2 g-4">
+    <div class="col">
+        <div class="card h-100 shadow-lg border-0 bg-dark text-light">
+            <div class="card-body">
+                <h5 class="card-title"><i class="fas fa-chess-knight"></i> Chess</h5>
+                {{ "Chess has become my latest obsession. It's simple to learn but impossible to master—exactly the kind of challenge I enjoy!" | markdownify }}
 
-## <i class="fas fa-chess-knight"></i> Chess 
-
-Chess has become my latest obsession. It's simple to learn but impossible to master—exactly the kind of challenge I enjoy!
-
-### Resources and Links:
-<ul>
-    <li><i class="fas fa-chess-queen"></i> <a href="https://www.chess.com/lessons/guide" target="_blank" rel="noopener noreferrer">Chess.com Free Guides</a> (especially the entire Fundamentals section!)</li>
-    <li><i class="fas fa-chess-rook"></i> <a href="https://lichess.org/learn" target="_blank" rel="noopener noreferrer">Lichess.org has a plethora of free interactive guides and puzzles</a></li>
-		<li><i class="fas fa-chess-king"></i> <a href="https://drmdev.github.io/CCCR/" target="_blank" rel="noopener noreferrer">Visit my unofficial modernized take of our local Rochester Community Chess Club website!</a></li>
-</ul>
-
----
-
-## <i class="fas fa-dragon"></i> Magic: The Gathering
-
-I’ve been playing Magic The Gathering since I was a kid. After taking a break in high school and college, I rediscovered the game as an adult, and it has become one of my favorite hobbies!
-
-### Resources and Links:
-<ul>
-    <li><img src="/assets/images/mtg/plains.svg" alt="Island" width="32"> <a href="https://cubecobra.com/cube/overview/08077c8d-24d8-4e14-a571-fceff902d343" target="_blank" rel="noopener noreferrer">My first (and only) MTG Cube set!</a></li>
-    <li><img src="/assets/images/mtg/island.svg" alt="Forest" width="32"> <a href="https://17lands.com/" target="_blank" rel="noopener noreferrer">17Lands: Track your draft stats and improve your Limited game!</a></li>
-</ul>
-
----
-
-## <i class="fas fa-dice"></i> Board Games
-
-Board games and tabletop games have evolved far beyond the classics like Monopoly, Clue, and Scrabble. Twice a month, I host a game night with close friends to explore modern games together.
-
-### Explore Board Games
-Use the filters below to find board games based on players and game type.
-
-<div class="card mb-4" id="filter-board-games">
-    <div class="card-body">
-        <h5 class="card-title"> Filter Board Games</h5>
-		<div class="row">
-			<div class="col-md-4">
-				<label for="min-players" class="form-label"><i class="fas fa-users"></i> Minimum Players</label>
-				<input type="number" id="min-players" class="form-control" placeholder="1" min="1" max="12">
-			</div>
-			<div class="col-md-4">
-				<label for="max-players" class="form-label"><i class="fas fa-users"></i> Maximum Players</label>
-				<input type="number" id="max-players" class="form-control" placeholder="12" min="1" max="12">
-			</div>
-			<div class="col-md-4">
-				<label for="type" class="form-label"><i class="fas fa-tag"></i> Game Type</label>
-				<select id="type" class="form-select">
-					<option value="">All</option>
-					<option value="Strategy">Strategy</option>
-					<option value="Party">Party</option>
-					<option value="Deckbuilder">Deckbuilder</option>
-					<option value="Cooperative">Cooperative</option>
-					<option value="Worker Placement">Worker Placement</option>
-					<option value="Teams">Teams</option>
-				</select>
-			</div>
+								<h6>Resources and Links:</h6>
+								<ul class="icon-list">
+										<li><i class="fas fa-chess-queen"></i> <a href="https://www.chess.com/lessons/guide" target="_blank" rel="noopener noreferrer">Chess.com Free Guides</a></li>
+										<li><i class="fas fa-chess-rook"></i> <a href="https://lichess.org/learn" target="_blank" rel="noopener noreferrer">Lichess.org interactive guides</a></li>
+										<li><i class="fas fa-chess-king"></i> <a href="https://drmdev.github.io/CCCR/" target="_blank" rel="noopener noreferrer">My modernized take on our local Rochester Community Chess Club website</a></li>
+								</ul>
+            </div>
         </div>
-        <button class="btn btn-primary mt-3" onclick="fetchBoardGames()">Filter</button>
+    </div>
+
+    <div class="col">
+        <div class="card h-100 shadow-lg border-0 bg-dark text-light">
+            <div class="card-body">
+                <h5 class="card-title"><i class="fas fa-dragon"></i> Magic: The Gathering</h5>
+                {{ "I've played Magic: The Gathering since I was a kid. After a break during high school and college, I rediscovered the game as an adult, and it's now one of my favorite hobbies!" | markdownify }}
+
+								<h6>Resources and Links:</h6>
+								<ul class="icon-list">
+										<li><img src="/assets/images/mtg/plains.svg" alt="Plains" width="32"> <a href="https://cubecobra.com/cube/overview/08077c8d-24d8-4e14-a571-fceff902d343" target="_blank" rel="noopener noreferrer">My MTG Cube set!</a></li>
+										<li><img src="/assets/images/mtg/island.svg" alt="Island" width="32"> <a href="https://17lands.com/" target="_blank" rel="noopener noreferrer">17Lands: Improve your draft game</a></li>
+								</ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card h-100 shadow-lg border-0 bg-dark text-light">
+            <div class="card-body">
+                <h5 class="card-title"><i class="fas fa-dice"></i> Board Games</h5>
+                {{ "Board games have evolved far beyond classics like Monopoly. Twice a month, I host a game night with friends to explore modern board games!" | markdownify }}
+
+                <h6>Explore Board Games:</h6>
+                <p>Use the filters below to find games based on players and game type.</p>
+                <div class="card mb-4" id="filter-board-games">
+                    <div class="card-body">
+                        <h5 class="card-title">Filter Board Games</h5>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label for="min-players" class="form-label"><i class="fas fa-users"></i> Minimum Players</label>
+                                <input type="number" id="min-players" class="form-control" placeholder="1" min="1" max="12">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="max-players" class="form-label"><i class="fas fa-users"></i> Maximum Players</label>
+                                <input type="number" id="max-players" class="form-control" placeholder="12" min="1" max="12">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="type" class="form-label"><i class="fas fa-tag"></i> Game Type</label>
+                                <select id="type" class="form-select">
+                                    <option value="">All</option>
+                                    <option value="Strategy">Strategy</option>
+                                    <option value="Party">Party</option>
+                                    <option value="Deckbuilder">Deckbuilder</option>
+                                    <option value="Cooperative">Cooperative</option>
+                                    <option value="Worker Placement">Worker Placement</option>
+                                    <option value="Teams">Teams</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary mt-3" onclick="fetchBoardGames()">Filter</button>
+                    </div>
+                </div>
+                <div id="game-list" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card h-100 shadow-lg border-0 bg-dark text-light">
+            <div class="card-body">
+                <h5 class="card-title"><i class="fas fa-stopwatch"></i> Speedrunning</h5>
+                {{ "Speedrunning is one of my favorite ways to combine gaming with goal-setting. I focus on retro classics like NES and SNES games as well as modern retro-style games like *Prison City* and *Iron Meat*." | markdownify }}
+
+                <p>{{ "Check out my runs on [Speedrun.com](https://www.speedrun.com/users/nescapeplan)." | markdownify }}</p>
+            </div>
+        </div>
     </div>
 </div>
 
-<div id="game-list" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-</div>
-
 <script src="/assets/js/boardgames.js"></script>
----
-
-## <i class="fas fa-stopwatch"></i> Speedrunning
-
-<p>Speedrunning is one of my favorite ways to combine gaming with goal-setting and self-improvement. I focus mainly on retro classics from the NES and SNES era, as well as modern "retro-style" games like <em>Prison City</em> and <em>Iron Meat</em>.</p>
-
-<p>What I love most about speedrunning is breaking the challenge into smaller goals—practicing individual sections until they feel smooth—before combining everything for a live run. It's a lot like a musician rehearsing parts of a song before performing the full piece. The thrill of finally nailing a full run is unmatched, and it’s a fun way to gamify games I already love playing.</p>
-
-<p>Check out my runs and times on <i class="fas fa-video"></i> <a href="https://www.speedrun.com/users/nescapeplan" target="_blank" rel="noopener noreferrer">Speedrun.com</a>.</p>

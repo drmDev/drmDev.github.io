@@ -28,25 +28,46 @@ Explore my professional background and experiences:
 
 ## <i class="fas fa-laptop-code"></i> Technologies Behind This Site
 
-### Frontend
-- <i class="fas fa-tools"></i> **Jekyll**: Streamlines static site generation and content organization.
-- <i class="fas fa-mobile-alt"></i> **Bootstrap**: Enables responsive and visually appealing design elements.
-- <i class="fas fa-icons"></i> **FontAwesome**: Provides rich iconography for a modern user interface.
-- <i class="fas fa-code"></i> **JavaScript**: Facilitates dynamic interactions, such as making API calls to filter board games based on user inputs.
+<div class="row row-cols-1 row-cols-md-2 g-4">
+    <div class="col">
+        <div class="card h-100 shadow-lg border-0 bg-dark text-light">
+            <div class="card-body">
+                <h5 class="card-title"><i class="fas fa-tools"></i> Frontend</h5>
+                {{ "
+- **Jekyll**: Streamlines static site generation and content organization.
+- **Bootstrap**: Enables responsive design.
+- **FontAwesome**: Provides rich iconography for a modern UI.
+- **JavaScript**: Adds dynamic interactivity and API calls.
+" | markdownify }}
+            </div>
+        </div>
+    </div>
 
-### Backend
-- <i class="fas fa-server"></i> **Go**: Powers the API handling database queries for dynamic features like filtering board games.
-- <i class="fas fa-database"></i> **PostgreSQL**: Provides a robust and scalable relational database for storing board game data.
-- <i class="fas fa-box-open"></i> **Docker**:  Enables containerization for consistent deployment across environments.
-- <i class="fas fa-cloud"></i> **Railway**: Handles backend hosting and database provisioning.
+    <div class="col">
+        <div class="card h-100 shadow-lg border-0 bg-dark text-light">
+            <div class="card-body">
+                <h5 class="card-title"><i class="fas fa-server"></i> Backend</h5>
+                {{ "
+- **Go**: Handles API and database interactions.
+- **PostgreSQL**: Provides scalable data storage.
+- **Docker**: Ensures consistent deployment.
+- **Railway**: Handles backend hosting and provisioning.
+" | markdownify }}
+            </div>
+        </div>
+    </div>
 
-### Automation and Testing
-- <i class="fab fa-github"></i> **GitHub Actions**: Automates builds, testing, and deployments for this site.
+    <div class="col">
+        <div class="card h-100 shadow-lg border-0 bg-dark text-light">
+            <div class="card-body">
+                <h5 class="card-title"><i class="fab fa-github"></i> Automation and Testing</h5>
+                {{ "
+- **GitHub Actions**: Automates builds and testing. [View CI/CD Workflow (YAML)](https://github.com/drmDev/drmDev.github.io/blob/main/.github/workflows/ci-cd.yml)
   ![Build Status](https://github.com/drmDev/drmDev.github.io/actions/workflows/ci-cd.yml/badge.svg)
-  - <a href="https://github.com/drmDev/drmDev.github.io/blob/main/.github/workflows/ci-cd.yml" target="_blank" rel="noopener noreferrer">
-    <i class="fas fa-link"></i> View GitHub Actions Workflow (yml)
-  </a>
-- <i class="fas fa-bug"></i> **Selenium WebDriver**: Conducts automated UI tests to ensure functionality and reliability.
-  - <a href="https://github.com/drmDev/drmDev.github.io/tree/main/SeleniumTests" target="_blank" rel="noopener noreferrer">
-    <i class="fas fa-link"></i> View Selenium Tests (C#)
-  </a>
+- **Selenium WebDriver**: Ensures UI functionality.
+  [View Tests](https://github.com/drmDev/drmDev.github.io/tree/main/SeleniumTests)
+" | markdownify }}
+            </div>
+        </div>
+    </div>
+</div>
