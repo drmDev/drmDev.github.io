@@ -8,6 +8,7 @@ namespace SeleniumTests
     {
         protected IWebDriver driver;
         protected WebDriverWait wait;
+        protected readonly string BASE_URL = Environment.GetEnvironmentVariable("TEST_BASE_URL") ?? "https://drmdev.github.io/";
 
         [SetUp]
         public void SetUp()

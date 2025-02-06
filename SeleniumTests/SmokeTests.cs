@@ -9,7 +9,7 @@ namespace SeleniumTests
         [Test]
         public void LandingPage_ShouldRender_AndShowResumeLink()
         {
-            driver.Navigate().GoToUrl("https://drmdev.github.io/");
+            driver.Navigate().GoToUrl(BASE_URL);
 
             var resumeLink = wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//a[contains(@href, '/assets/pdf/DM_Resume_2024.pdf')]")));
 
