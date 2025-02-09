@@ -30,4 +30,5 @@ COPY --from=dotnet-builder /app/SeleniumTests/bin/Release/net8.0 /app/tests
 EXPOSE 8080 8081
 
 # Run both APIs in parallel
-CMD [ "sh", "-c", "/app/board-games-api-app & /app/chessWp-app" ]
+CMD [ "sh", "-c", "/app/board-games-api-app & /app/chessWp-app & wait" ]
+

@@ -115,6 +115,6 @@ func getPuzzles(w http.ResponseWriter, r *http.Request) {
 func main() {
 	mux := http.NewServeMux()
 	mux.HandleFunc("/api/puzzles", getPuzzles) // Expose the /api/puzzles endpoint
-	log.Println("Server is running on port 8081...")
+	log.Println("Puzzles API Server is running on port 8081...")
 	http.ListenAndServe(":8081", withCORS(mux))
 }
