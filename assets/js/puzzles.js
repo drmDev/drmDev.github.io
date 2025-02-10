@@ -6,11 +6,12 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     let puzzles = [];
     let currentPuzzleIndex = 0;
-    let gameStartTime = 0; // Track when the user starts the first puzzle
-    let totalTime = 0; // Total time spent on all puzzles
-    let puzzleStartTime = 0; // Time spent on the current puzzle
-    let category = ""; // Current puzzle's category
-    let stopwatchInterval; // To hold the interval for stopwatch
+    let gameStartTime = 0;
+    let totalTime = 0;
+    let puzzleStartTime = 0;
+    let category = "";
+    let stopwatchInterval;
+    let puzzleTimes = [];
 
     async function fetchPuzzles() {
         try {
@@ -20,7 +21,6 @@ document.addEventListener("DOMContentLoaded", async function () {
                 console.error("No puzzles found");
                 return;
             }
-            // Show the "Start Puzzle" button after fetching puzzles
             document.getElementById("startPuzzle").style.display = 'inline';
         } catch (error) {
             console.error("Error fetching puzzles:", error);
@@ -35,11 +35,11 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
 
     function startStopwatch() {
-        gameStartTime = Date.now() - totalTime; // Adjust the start time if resuming
+        gameStartTime = Date.now() - totalTime;
         stopwatchInterval = setInterval(() => {
-            totalTime = Date.now() - gameStartTime; // Update total time
+            totalTime = Date.now() - gameStartTime;
             document.getElementById("totalTime").textContent = formatTime(totalTime);
-        }, 10); // 10ms update interval
+        }, 10);
     }
 
     function stopStopwatch() {
@@ -49,46 +49,82 @@ document.addEventListener("DOMContentLoaded", async function () {
     function loadPuzzle() {
         if (currentPuzzleIndex >= puzzles.length) {
             console.log("All puzzles completed! Restarting...");
-            currentPuzzleIndex = 0; // Restart when finished
-            stopStopwatch(); // Stop the stopwatch when all puzzles are completed
+            currentPuzzleIndex = 0;
+            stopStopwatch();
             return;
         }
 
         const puzzle = puzzles[currentPuzzleIndex];
-        category = puzzle.category; // Save the puzzle's category
+        category = puzzle.category;
 
         document.getElementById("puzzleTitle").textContent = `Puzzle ${currentPuzzleIndex + 1}`;
-        document.getElementById("puzzleDetails").textContent = ""; // Clear previous puzzle details
+        document.getElementById("puzzleDetails").textContent = "";
 
-        // Open the Lichess puzzle in a new tab
         window.open(puzzle.url, '_blank');
 
-        // Show the Success and Fail buttons
+        // Show Success and Fail buttons after the first puzzle is loaded
         document.getElementById("successButton").style.display = 'inline';
         document.getElementById("failButton").style.display = 'inline';
 
-        puzzleStartTime = Date.now(); // Start tracking time for this puzzle
+        puzzleStartTime = Date.now();
+    }
+
+    function logPuzzleTime(isSuccess) {
+        if (!puzzleStartTime) return;
+
+        const puzzleEndTime = Date.now();
+        const elapsedTime = puzzleEndTime - puzzleStartTime;
+        const formattedTime = formatTime(elapsedTime);
+
+        const puzzleNumber = puzzleTimes.length + 1;
+        puzzleTimes.push({ number: puzzleNumber, time: formattedTime, success: isSuccess });
+
+        updatePuzzleHistory();
+    }
+
+    function updatePuzzleHistory() {
+        const historyElement = document.getElementById("puzzleHistory");
+        historyElement.innerHTML = "";
+
+        puzzleTimes.forEach(puzzle => {
+            const listItem = document.createElement("li");
+            listItem.className = "mb-2";
+            listItem.innerHTML = `
+                <span class="text-light">Puzzle ${puzzle.number}:</span>
+                <span class="text-info">${puzzle.time}</span>
+                <span class="${puzzle.success ? "text-success" : "text-danger"}">${puzzle.success ? "✅" : "❌"}</span>
+            `;
+            historyElement.appendChild(listItem);
+        });
     }
 
     document.getElementById("startPuzzle").addEventListener("click", function () {
-        startStopwatch(); // Start the stopwatch
-        loadPuzzle(); // Load the first puzzle
-        document.getElementById("startPuzzle").style.display = 'none'; // Hide the Start button
+        startStopwatch();
+        loadPuzzle();
+        document.getElementById("startPuzzle").style.display = 'none'; // Hide Start button
     });
 
     document.getElementById("successButton").addEventListener("click", function () {
         const timeTaken = Math.floor((Date.now() - puzzleStartTime) / 1000);
         document.getElementById("puzzleDetails").textContent = `You completed the puzzle in ${timeTaken} seconds. Category: ${category}`;
+        
+        logPuzzleTime(true);
         currentPuzzleIndex++;
-        setTimeout(loadPuzzle, 2000); // Load the next puzzle after a short delay
+        setTimeout(loadPuzzle, 2000);
     });
 
     document.getElementById("failButton").addEventListener("click", function () {
         const timeTaken = Math.floor((Date.now() - puzzleStartTime) / 1000);
         document.getElementById("puzzleDetails").textContent = `You failed the puzzle in ${timeTaken} seconds. Category: ${category}`;
+        
+        logPuzzleTime(false);
         currentPuzzleIndex++;
-        setTimeout(loadPuzzle, 2000); // Load the next puzzle after a short delay
+        setTimeout(loadPuzzle, 2000);
     });
+
+    // Ensure Success and Fail buttons are hidden initially
+    document.getElementById("successButton").style.display = 'none';
+    document.getElementById("failButton").style.display = 'none';
 
     fetchPuzzles();
 });

@@ -153,7 +153,7 @@ h6 {
     margin-right: 10px;
 }
 
-/* Button Styles */
+/* Puzzles Styling */
 .btn {
     padding: 10px 20px;
     font-size: 16px;
@@ -165,12 +165,19 @@ h6 {
 }
 
 #startPuzzle {
-    background-color: #007bff; /* Blue for Start Puzzle */
-    color: white;
+    font-size: 1.5rem;
+    padding: 15px 30px;
+    background-color: #007bff; /* Strong blue */
+    border: none;
+    border-radius: 8px;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0px 0px 10px rgba(0, 123, 255, 0.8); /* Glowing effect */
 }
 
 #startPuzzle:hover {
-    background-color: #0056b3; /* Darker blue on hover */
+    background-color: #0056b3;
+    box-shadow: 0px 0px 15px rgba(0, 123, 255, 1);
+    transform: scale(1.05); /* Slightly increase size on hover */
 }
 
 #successButton {
@@ -189,4 +196,14 @@ h6 {
 
 #failButton:hover {
     background-color: #c82333; /* Darker red on hover */
+}
+
+#totalTime {
+    font-size: 2rem; /* Bigger text */
+    font-family: 'Courier New', monospace; /* Digital feel */
+    font-weight: bold;
+    color: #00ffcc; /* Neon-like effect */
+    text-shadow: 0px 0px 10px #00ffcc; /* Soft glow effect */
+    display: inline-block;
+    margin-left: 5px;
 }

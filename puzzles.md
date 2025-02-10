@@ -4,33 +4,63 @@ title: "Chess Woodpecker App"
 permalink: /puzzles/
 ---
 
-# Chess Woodpecker App
+<h1><i class="fa-solid fa-crow"></i> Chess Woodpecker App</h1>
 
-This tool helps you improve your pattern recognition using the "Woodpecker Method." By repeatedly solving the same set of puzzles, you'll become faster at recognizing key tactical motifs like forks, pins, and discovered attacks. This method is great for sharpening your tactical awareness and boosting your chess skills.
+{{ "This tool helps you improve your pattern recognition using the **Woodpecker Method.**  
+By repeatedly solving the same set of puzzles, you'll become faster at recognizing key tactical motifs like forks, pins, and discovered attacks.  
+This method is great for sharpening your tactical awareness and boosting your chess skills." | markdownify }}
 
 <div class="alert alert-warning" role="alert">
-  <strong>Note:</strong> This app is still in early development, and many improvements are being worked on.
+    {{ "**Note:** This app is still in early development, and many improvements are being worked on." | markdownify }}
 </div>
 
-## How to Use:
-1. Click the <span style="color: blue;">Start Puzzle</span> button (to begin).
+<div class="card bg-dark text-light mb-4">
+    <div class="card-header text-warning">
+        <i class="fas fa-info-circle"></i> How to Use
+    </div>
+    <div class="card-body">
+        {{ "
+1. Click the **<span class='text-primary'>Start Session</span>** button to begin.
 2. A new tab will open with a Lichess puzzle.
-3. After solving, return here and mark it as <span style="color: green;">Success</span> if you solved it correctly, or <span style="color: red;">Fail</span> if you didn't.
+3. After solving, return here and mark it as  
+   **<span class='text-success'>Success <i class='fas fa-check-circle'></i></span>** if correct, or  
+   **<span class='text-danger'>Fail <i class='fas fa-times-circle'></i></span>** if not.
 4. The next puzzle will load automatically once you mark the current one.
+        " | markdownify }}
+    </div>
+</div>
 
-Your goal is to complete all puzzles and improve your speed over time.
+<div id="puzzle-container" class="text-center">
+    <h2 class="text-warning"><i class="fas fa-chess-knight"></i> Now Solving: <span id="puzzleTitle">Puzzle 1</span></h2>
 
-## Progress Tracker
-**Time Spent on Puzzles:**  
-<span id="totalTime">00:00.000</span>
+    <button id="startPuzzle" class="btn btn-primary">
+        Start Session
+    </button>
 
-<div id="puzzle-container" style="text-align: center;">
-  <h2 id="puzzleTitle"></h2>
-  <button id="startPuzzle" class="btn">Start Puzzle</button>
-  <br><br>
-  <button id="successButton" class="btn" style="display: none;">Success</button>
-  <button id="failButton" class="btn" style="display: none;">Fail</button>
-  <p id="puzzleDetails" style="font-size: 18px; margin-top: 20px;"></p>
+    <br><br>
+
+    <button id="successButton" class="btn btn-success" style="display: none;">
+        <i class="fas fa-check-circle"></i> Success
+    </button>
+    <button id="failButton" class="btn btn-danger" style="display: none;">
+        <i class="fas fa-times-circle"></i> Fail
+    </button>
+
+    <p id="puzzleDetails" class="mt-3" style="font-size: 18px;"></p>
+</div>
+
+<div class="card bg-dark text-light mt-4">
+    <div class="card-header text-warning">
+        <i class="fas fa-stopwatch"></i> Puzzle History
+    </div>
+    <div class="card-body">
+        <ul id="puzzleHistory" class="list-unstyled">
+            <!-- Puzzle times will be dynamically added here -->
+        </ul>
+				<h3 class="text-info">
+            {{ "<span id='totalTime' class='display-6'>00:00.000</span>" | markdownify }}
+        </h3>
+    </div>
 </div>
 
 <script src="/assets/js/puzzles.js"></script>
