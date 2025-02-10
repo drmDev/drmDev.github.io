@@ -31,6 +31,39 @@ document.addEventListener("DOMContentLoaded", async function () {
         updatePuzzleHistory();
     }
 
+		function disablePuzzleButtons() {
+				const successBtn = document.getElementById("successButton");
+				const failBtn = document.getElementById("failButton");
+
+				successBtn.style.pointerEvents = "none";
+				failBtn.style.pointerEvents = "none";
+				successBtn.style.opacity = "0.5";
+				failBtn.style.opacity = "0.5";
+		}
+
+		function enablePuzzleButtons() {
+				const successBtn = document.getElementById("successButton");
+				const failBtn = document.getElementById("failButton");
+
+				successBtn.style.pointerEvents = "auto";
+				failBtn.style.pointerEvents = "auto";
+				successBtn.style.opacity = "1";
+				failBtn.style.opacity = "1";
+		}
+		
+		function resetSession() {
+				currentPuzzleIndex = 0;
+				totalTime = 0;
+				puzzleTimes = [];
+
+				localStorage.removeItem("currentPuzzleIndex");
+				localStorage.removeItem("totalTime");
+				localStorage.removeItem("puzzleTimes");
+
+				document.getElementById("puzzleHistory").innerHTML = "";
+				document.getElementById("totalTime").textContent = formatTime(0);
+		}
+
     async function fetchPuzzles() {
         try {
             const response = await fetch(apiUrl);
@@ -87,32 +120,32 @@ document.addEventListener("DOMContentLoaded", async function () {
         puzzleStartTime = Date.now();
     }
 
-		function logPuzzleTime(isSuccess) {
-				if (!puzzleStartTime) return;
+    function logPuzzleTime(isSuccess) {
+        if (!puzzleStartTime) return;
 
-				const puzzleEndTime = Date.now();
-				const elapsedTime = puzzleEndTime - puzzleStartTime;
-				const formattedTime = formatTime(elapsedTime);
+        const puzzleEndTime = Date.now();
+        const elapsedTime = puzzleEndTime - puzzleStartTime;
+        const formattedTime = formatTime(elapsedTime);
 
-				const puzzleNumber = puzzleTimes.length + 1;
-				puzzleTimes.push({ number: puzzleNumber, time: formattedTime, success: isSuccess });
+        const puzzleNumber = puzzleTimes.length + 1;
+        puzzleTimes.push({ number: puzzleNumber, time: formattedTime, success: isSuccess });
 
-				// Save progress
-				localStorage.setItem("currentPuzzleIndex", currentPuzzleIndex);
-				localStorage.setItem("totalTime", totalTime);
-				localStorage.setItem("puzzleTimes", JSON.stringify(puzzleTimes));
+        // Save progress
+        localStorage.setItem("currentPuzzleIndex", currentPuzzleIndex);
+        localStorage.setItem("totalTime", totalTime);
+        localStorage.setItem("puzzleTimes", JSON.stringify(puzzleTimes));
 
-				updatePuzzleHistory();
+        updatePuzzleHistory();
 
-				// Check if all puzzles have been completed
-				if (currentPuzzleIndex >= puzzles.length) {
-						stopStopwatch();
-						document.getElementById("successButton").style.display = 'none';
-						document.getElementById("failButton").style.display = 'none';
-						document.getElementById("stopPuzzle").style.display = 'none'; // Disable stop button
-						alert("You've completed all puzzles!");
-				}
-		}
+        // Check if all puzzles have been completed
+        if (currentPuzzleIndex >= puzzles.length) {
+            stopStopwatch();
+            document.getElementById("successButton").style.display = 'none';
+            document.getElementById("failButton").style.display = 'none';
+            document.getElementById("stopPuzzle").style.display = 'none';
+            alert("You've completed all puzzles!");
+        }
+    }
 
     function updatePuzzleHistory() {
         const historyElement = document.getElementById("puzzleHistory");
@@ -131,15 +164,21 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
 
     document.getElementById("startPuzzle").addEventListener("click", function () {
-        startStopwatch();
-        loadPuzzle();
-        
-        localStorage.setItem("currentPuzzleIndex", currentPuzzleIndex);
-        localStorage.setItem("totalTime", totalTime);
-        localStorage.setItem("puzzleTimes", JSON.stringify(puzzleTimes));
+        // If user has completed all 100 puzzles, reset session data
+        if (currentPuzzleIndex  >= 100) {
+            console.log("Resetting session - All 100 puzzles completed.");
+						resetSession(); // Clears session history if 100 puzzles are done
+        }
 
-        document.getElementById("startPuzzle").style.display = 'none'; 
-        document.getElementById("stopPuzzle").style.display = 'inline'; 
+				startStopwatch();
+				loadPuzzle();
+				
+				localStorage.setItem("currentPuzzleIndex", currentPuzzleIndex);
+				localStorage.setItem("totalTime", totalTime);
+				localStorage.setItem("puzzleTimes", JSON.stringify(puzzleTimes));
+
+				document.getElementById("startPuzzle").style.display = 'none'; 
+				document.getElementById("stopPuzzle").style.display = 'inline'; 
     });
 
     document.getElementById("stopPuzzle").addEventListener("click", function () {
@@ -154,23 +193,45 @@ document.addEventListener("DOMContentLoaded", async function () {
         document.getElementById("failButton").style.display = 'none';
     });
 
-    document.getElementById("successButton").addEventListener("click", function () {
-        const timeTaken = Math.floor((Date.now() - puzzleStartTime) / 1000);
-        document.getElementById("puzzleDetails").textContent = `You completed the puzzle in ${timeTaken} seconds. Category: ${category}`;
-        
-        logPuzzleTime(true);
-        currentPuzzleIndex++;
-        setTimeout(loadPuzzle, 2000);
-    });
+		document.getElementById("successButton").addEventListener("click", function () {
+				if (currentPuzzleIndex >= 100) {
+						alert("You have completed all puzzles! Restarting the session will clear history.");
+						return;
+				}
 
-    document.getElementById("failButton").addEventListener("click", function () {
-        const timeTaken = Math.floor((Date.now() - puzzleStartTime) / 1000);
-        document.getElementById("puzzleDetails").textContent = `You failed the puzzle in ${timeTaken} seconds. Category: ${category}`;
-        
-        logPuzzleTime(false);
-        currentPuzzleIndex++;
-        setTimeout(loadPuzzle, 2000);
-    });
+				disablePuzzleButtons();
+
+				const timeTaken = Math.floor((Date.now() - puzzleStartTime) / 1000);
+				document.getElementById("puzzleDetails").textContent = `You completed the puzzle in ${timeTaken} seconds. Category: ${category}`;
+				
+				logPuzzleTime(true);
+				currentPuzzleIndex++;
+
+				setTimeout(() => {
+						loadPuzzle();
+						enablePuzzleButtons();
+				}, 2000);
+		});
+
+		document.getElementById("failButton").addEventListener("click", function () {
+				if (currentPuzzleIndex >= 100) {
+						alert("You have completed all puzzles! Restarting the session will clear history.");
+						return;
+				}
+
+				disablePuzzleButtons();
+
+				const timeTaken = Math.floor((Date.now() - puzzleStartTime) / 1000);
+				document.getElementById("puzzleDetails").textContent = `You failed the puzzle in ${timeTaken} seconds. Category: ${category}`;
+				
+				logPuzzleTime(false);
+				currentPuzzleIndex++;
+
+				setTimeout(() => {
+						loadPuzzle();
+						enablePuzzleButtons();
+				}, 2000);
+		});
 
     // Ensure Success and Fail buttons are hidden initially
     document.getElementById("successButton").style.display = 'none';

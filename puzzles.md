@@ -10,7 +10,7 @@ permalink: /puzzles/
 By repeatedly solving the same set of puzzles, you'll become faster at recognizing key tactical motifs like forks, pins, skewers, and discovered attacks!" | markdownify }}
 
 <div class="alert alert-warning" role="alert">
-    {{ "**Note:** This app is still in early development, and many improvements are being worked on. Please be aware that currently, this app does not function well on mobile devices. Specifically, the Lichess app may launch on mobile, instead of opening puzzles in a new tab. A mobile-compatible version will be available soon. Additionally, your session is only preserved for as long as you remain on this page." | markdownify }}
+    {{ "**Note:** This app is still in early development, and many improvements are being worked on. Please be aware that currently, this app does not function well on mobile devices. Specifically, the Lichess app may launch on mobile, instead of opening puzzles in a new tab. A mobile-compatible version will be available soon. Additionally, currently your session is only preserved for as long as you remain on this page." | markdownify }}
 </div>
 
 <div class="card bg-dark text-light mb-4">
@@ -62,5 +62,20 @@ By repeatedly solving the same set of puzzles, you'll become faster at recognizi
         </h3>
     </div>
 </div>
+
+<div class="card bg-dark text-light mt-5">
+    <div class="card-header text-warning">
+        <i class="fas fa-hourglass-half"></i> Upcoming Features
+    </div>
+    <div class="card-body">
+        <ul class="list-unstyled">
+            <li><i class="fas fa-user-lock text-info"></i> Save your session progress, even if you leave the page.</li>
+            <li><i class="fas fa-mobile-alt text-info"></i> Full mobile compatibility.</li>
+            <li><i class="fas fa-chart-line text-info"></i> Track your improvement over time with stats.</li>
+        </ul>
+        <p>Have suggestions? Let me know!</p>
+    </div>
+</div>
+
 
 <script src="/assets/js/puzzles.js"></script>
