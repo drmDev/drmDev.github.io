@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const puzzleFrame = document.getElementById("puzzleFrame");
 		const baseUrl = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
 		? 'http://localhost:8081'
-		: 'https://drmdevgithubio-production.up.railway.app';
+		: 'https://chesswoodpecker-production.up.railway.app';
 		let apiUrl = `${baseUrl}/api/puzzles`;
 
     fetch(apiUrl)
