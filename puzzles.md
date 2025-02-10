@@ -10,7 +10,7 @@ permalink: /puzzles/
 By repeatedly solving the same set of puzzles, you'll become faster at recognizing key tactical motifs like forks, pins, skewers, and discovered attacks!" | markdownify }}
 
 <div class="alert alert-warning" role="alert">
-    {{ "**Note:** This app is still in early development, and many improvements are being worked on." | markdownify }}
+    {{ "**Note:** This app is still in early development, and many improvements are being worked on. Please be aware that currently, this app does not function well on mobile devices. Specifically, the Lichess app may launch on mobile, instead of opening puzzles in a new tab. A mobile-compatible version will be available soon. Additionally, your session is only preserved for as long as you remain on this page." | markdownify }}
 </div>
 
 <div class="card bg-dark text-light mb-4">
@@ -25,6 +25,7 @@ By repeatedly solving the same set of puzzles, you'll become faster at recognizi
    **<span class='text-success'>Success <i class='fas fa-check-circle'></i></span>** if correct, or  
    **<span class='text-danger'>Fail <i class='fas fa-times-circle'></i></span>** if not.
 4. The next puzzle will load automatically once you mark the current one.
+5. Click the **<span class='text-warning'>Stop Session</span>** button to end the session.
         " | markdownify }}
     </div>
 </div>
@@ -35,9 +36,9 @@ By repeatedly solving the same set of puzzles, you'll become faster at recognizi
     <button id="startPuzzle" class="btn btn-primary">
         Start Session
     </button>
-
-    <br><br>
-
+    <button id="stopPuzzle" class="btn btn-warning" style="display: none;">
+        <i class="fas fa-stop-circle"></i> Stop Session
+    </button>
     <button id="successButton" class="btn btn-success" style="display: none;">
         <i class="fas fa-check-circle"></i> Success
     </button>
