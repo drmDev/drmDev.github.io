@@ -7,8 +7,7 @@ permalink: /puzzles/
 <h1><i class="fa-solid fa-crow"></i> Chess Woodpecker App</h1>
 
 {{ "This tool helps you improve your pattern recognition using the **Woodpecker Method.**  
-By repeatedly solving the same set of puzzles, you'll become faster at recognizing key tactical motifs like forks, pins, and discovered attacks.  
-This method is great for sharpening your tactical awareness and boosting your chess skills." | markdownify }}
+By repeatedly solving the same set of puzzles, you'll become faster at recognizing key tactical motifs like forks, pins, skewers, and discovered attacks!" | markdownify }}
 
 <div class="alert alert-warning" role="alert">
     {{ "**Note:** This app is still in early development, and many improvements are being worked on." | markdownify }}
@@ -31,7 +30,7 @@ This method is great for sharpening your tactical awareness and boosting your ch
 </div>
 
 <div id="puzzle-container" class="text-center">
-    <h2 class="text-warning"><i class="fas fa-chess-knight"></i> Now Solving: <span id="puzzleTitle">Puzzle 1</span></h2>
+    <h2 class="text-warning"><i class="fas fa-chess-knight"></i> Now Solving: <span id="puzzleTitle">Puzzle 1</span> <i class="fas fa-chess-knight"></i></h2>
 
     <button id="startPuzzle" class="btn btn-primary">
         Start Session
