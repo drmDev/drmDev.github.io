@@ -13,6 +13,24 @@ document.addEventListener("DOMContentLoaded", async function () {
     let stopwatchInterval;
     let puzzleTimes = [];
 
+    // Check for an active session in localStorage
+    const savedIndex = localStorage.getItem("currentPuzzleIndex");
+    const savedTime = localStorage.getItem("totalTime");
+    const savedTimes = localStorage.getItem("puzzleTimes");
+
+    // If a previous session exists, resume it
+    if (savedIndex !== null) {
+        currentPuzzleIndex = parseInt(savedIndex, 10);
+    }
+    if (savedTime !== null) {
+        totalTime = parseInt(savedTime, 10);
+        document.getElementById("totalTime").textContent = formatTime(totalTime);
+    }
+    if (savedTimes !== null) {
+        puzzleTimes = JSON.parse(savedTimes);
+        updatePuzzleHistory();
+    }
+
     async function fetchPuzzles() {
         try {
             const response = await fetch(apiUrl);
@@ -21,6 +39,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                 console.error("No puzzles found");
                 return;
             }
+            // Initialize session if puzzles are loaded
             document.getElementById("startPuzzle").style.display = 'inline';
         } catch (error) {
             console.error("Error fetching puzzles:", error);
@@ -62,25 +81,38 @@ document.addEventListener("DOMContentLoaded", async function () {
 
         window.open(puzzle.url, '_blank');
 
-        // Show Success and Fail buttons after the first puzzle is loaded
         document.getElementById("successButton").style.display = 'inline';
         document.getElementById("failButton").style.display = 'inline';
 
         puzzleStartTime = Date.now();
     }
 
-    function logPuzzleTime(isSuccess) {
-        if (!puzzleStartTime) return;
+		function logPuzzleTime(isSuccess) {
+				if (!puzzleStartTime) return;
 
-        const puzzleEndTime = Date.now();
-        const elapsedTime = puzzleEndTime - puzzleStartTime;
-        const formattedTime = formatTime(elapsedTime);
+				const puzzleEndTime = Date.now();
+				const elapsedTime = puzzleEndTime - puzzleStartTime;
+				const formattedTime = formatTime(elapsedTime);
 
-        const puzzleNumber = puzzleTimes.length + 1;
-        puzzleTimes.push({ number: puzzleNumber, time: formattedTime, success: isSuccess });
+				const puzzleNumber = puzzleTimes.length + 1;
+				puzzleTimes.push({ number: puzzleNumber, time: formattedTime, success: isSuccess });
 
-        updatePuzzleHistory();
-    }
+				// Save progress
+				localStorage.setItem("currentPuzzleIndex", currentPuzzleIndex);
+				localStorage.setItem("totalTime", totalTime);
+				localStorage.setItem("puzzleTimes", JSON.stringify(puzzleTimes));
+
+				updatePuzzleHistory();
+
+				// Check if all puzzles have been completed
+				if (currentPuzzleIndex >= puzzles.length) {
+						stopStopwatch();
+						document.getElementById("successButton").style.display = 'none';
+						document.getElementById("failButton").style.display = 'none';
+						document.getElementById("stopPuzzle").style.display = 'none'; // Disable stop button
+						alert("You've completed all puzzles!");
+				}
+		}
 
     function updatePuzzleHistory() {
         const historyElement = document.getElementById("puzzleHistory");
@@ -101,7 +133,25 @@ document.addEventListener("DOMContentLoaded", async function () {
     document.getElementById("startPuzzle").addEventListener("click", function () {
         startStopwatch();
         loadPuzzle();
-        document.getElementById("startPuzzle").style.display = 'none'; // Hide Start button
+        
+        localStorage.setItem("currentPuzzleIndex", currentPuzzleIndex);
+        localStorage.setItem("totalTime", totalTime);
+        localStorage.setItem("puzzleTimes", JSON.stringify(puzzleTimes));
+
+        document.getElementById("startPuzzle").style.display = 'none'; 
+        document.getElementById("stopPuzzle").style.display = 'inline'; 
+    });
+
+    document.getElementById("stopPuzzle").addEventListener("click", function () {
+        stopStopwatch();
+        localStorage.removeItem("currentPuzzleIndex");
+        localStorage.removeItem("totalTime");
+        localStorage.removeItem("puzzleTimes");
+
+        document.getElementById("stopPuzzle").style.display = 'none';
+        document.getElementById("startPuzzle").style.display = 'inline';
+        document.getElementById("successButton").style.display = 'none';
+        document.getElementById("failButton").style.display = 'none';
     });
 
     document.getElementById("successButton").addEventListener("click", function () {

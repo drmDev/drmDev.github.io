@@ -59,7 +59,7 @@
 By repeatedly solving the same set of puzzles, you’ll become faster at recognizing key tactical motifs like forks, pins, skewers, and discovered attacks!</p>
 
 <div class="alert alert-warning" role="alert">
-    <p><strong>Note:</strong> This app is still in early development, and many improvements are being worked on.</p>
+    <p><strong>Note:</strong> This app is still in early development, and many improvements are being worked on. Please be aware that currently, this app does not function well on mobile devices. Specifically, the Lichess app may launch on mobile, instead of opening puzzles in a new tab. A mobile-compatible version will be available soon. Additionally, your session is only preserved for as long as you remain on this page.</p>
 
 </div>
 
@@ -76,6 +76,7 @@ By repeatedly solving the same set of puzzles, you’ll become faster at recogni
 <strong><span class="text-success">Success <i class="fas fa-check-circle"></i></span></strong> if correct, or<br />
 <strong><span class="text-danger">Fail <i class="fas fa-times-circle"></i></span></strong> if not.</li>
   <li>The next puzzle will load automatically once you mark the current one.</li>
+  <li>Click the <strong><span class="text-warning">Stop Session</span></strong> button to end the session.</li>
 </ol>
 
 
@@ -88,9 +89,9 @@ By repeatedly solving the same set of puzzles, you’ll become faster at recogni
     <button id="startPuzzle" class="btn btn-primary">
         Start Session
     </button>
-
-    <br /><br />
-
+    <button id="stopPuzzle" class="btn btn-warning" style="display: none;">
+        <i class="fas fa-stop-circle"></i> Stop Session
+    </button>
     <button id="successButton" class="btn btn-success" style="display: none;">
         <i class="fas fa-check-circle"></i> Success
     </button>
