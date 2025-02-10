@@ -152,3 +152,41 @@ h6 {
 .icon-list li i, .icon-list li img {
     margin-right: 10px;
 }
+
+/* Button Styles */
+.btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#startPuzzle {
+    background-color: #007bff; /* Blue for Start Puzzle */
+    color: white;
+}
+
+#startPuzzle:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+#successButton {
+    background-color: #28a745; /* Green for Success */
+    color: white;
+}
+
+#successButton:hover {
+    background-color: #218838; /* Darker green on hover */
+}
+
+#failButton {
+    background-color: #dc3545; /* Red for Fail */
+    color: white;
+}
+
+#failButton:hover {
+    background-color: #c82333; /* Darker red on hover */
+}

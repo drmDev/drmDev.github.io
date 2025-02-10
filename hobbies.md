@@ -10,19 +10,20 @@ permalink: /hobbies/
     <div class="col">
         <div class="card h-100 shadow-lg border-0 bg-dark text-light">
             <div class="card-body">
-                <h5 class="card-title"><i class="fas fa-chess-knight"></i> Chess</h5>
-                {{ "Chess has become my latest obsession. It's simple to learn but impossible to master—exactly the kind of challenge I enjoy!" | markdownify }}
+							<h5 class="card-title"><i class="fas fa-chess-knight"></i> Chess</h5>
+							{{ "Chess has become my latest obsession. It's simple to learn but impossible to master—exactly the kind of challenge I enjoy!" | markdownify }}
 
-								<h6>Resources and Links:</h6>
-								<ul class="icon-list">
-										<li><i class="fas fa-chess-queen"></i> <a href="https://www.chess.com/lessons/guide" target="_blank" rel="noopener noreferrer">Chess.com Free Guides</a></li>
-										<li><i class="fas fa-chess-rook"></i> <a href="https://lichess.org/learn" target="_blank" rel="noopener noreferrer">Lichess.org interactive guides</a></li>
-										<li><i class="fas fa-chess-king"></i> <a href="https://drmdev.github.io/CCCR/" target="_blank" rel="noopener noreferrer">My modernized take on our local Rochester Community Chess Club website</a></li>
-								</ul>
-								
-								<h6>Latest 5 Games on Chess.com for 15/10 controls:</h6>
-								<p><small class="text-info">(This data is fetched using Chess.com's public API with JavaScript.)</small></p>
-								<ul id="latest-games-list" class="icon-list"></ul>
+							<h6>Resources and Links:</h6>
+							<ul class="icon-list">
+									<li><i class="fas fa-chess-queen"></i> <a href="https://www.chess.com/lessons/guide" target="_blank" rel="noopener noreferrer">Chess.com Free Guides</a></li>
+									<li><i class="fas fa-chess-rook"></i> <a href="https://lichess.org/learn" target="_blank" rel="noopener noreferrer">Lichess.org Interactive Guides</a></li>
+									<li><i class="fas fa-chess-king"></i> <a href="https://drmdev.github.io/CCCR/" target="_blank" rel="noopener noreferrer">My modernized take on our local Rochester Community Chess Club website</a></li>
+									<li><i class="fas fa-brain"></i> <a href="{{ '/puzzles' | relative_url }}" target="_blank" rel="noopener noreferrer">My Chess Woodpecker App</a></li>
+							</ul>
+
+							<h6>Latest 5 Games on Chess.com for 15/10 controls:</h6>
+							<p><small class="text-info">(This data is fetched using Chess.com's public API with JavaScript.)</small></p>
+							<ul id="latest-games-list" class="icon-list"></ul>
             </div>
         </div>
     </div>
