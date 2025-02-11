@@ -166,7 +166,7 @@ h6 {
 
 #startPuzzle {
     font-size: 1.5rem;
-    padding: 15px 30px;
+    padding: 5px 15px;
     background-color: #007bff; /* Strong blue */
     border: none;
     border-radius: 8px;
@@ -180,30 +180,201 @@ h6 {
     transform: scale(1.05); /* Slightly increase size on hover */
 }
 
-#successButton {
-    background-color: #28a745; /* Green for Success */
-    color: white;
-}
-
-#successButton:hover {
-    background-color: #218838; /* Darker green on hover */
-}
-
-#failButton {
-    background-color: #dc3545; /* Red for Fail */
-    color: white;
-}
-
-#failButton:hover {
-    background-color: #c82333; /* Darker red on hover */
-}
-
+/* Centralize the total time text */
 #totalTime {
     font-size: 2rem; /* Bigger text */
     font-family: 'Courier New', monospace; /* Digital feel */
     font-weight: bold;
     color: #00ffcc; /* Neon-like effect */
     text-shadow: 0px 0px 10px #00ffcc; /* Soft glow effect */
-    display: inline-block;
-    margin-left: 5px;
+    display: block; /* Ensure it takes up full width */
+    margin: 20px auto; /* Center with margin */
+}
+
+#chessboard {
+    width: 400px !important;
+    height: 400px !important;
+    margin: auto !important;
+    position: relative;
+}
+
+.puzzle-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+/* Adjust the button container and spacing */
+#puzzle-container .d-flex {
+    justify-content: flex-start; /* Align buttons to the left */
+    align-items: center;
+}
+
+/* Spacing between the buttons and Now Solving text */
+#puzzle-container .d-flex > button {
+    margin-right: 15px; /* Space between buttons */
+}
+
+/* Additional padding between the 'Now Solving' text and the buttons */
+#puzzle-container h2 {
+    margin-left: 20px; /* Ensure space between the buttons and text */
+    font-size: 1.75rem; /* Adjust text size */
+    display: flex;
+    align-items: center; /* Align the icons and text vertically */
+}
+
+/* Optional: Adjust icon spacing */
+#puzzle-container h2 i {
+    margin: 0 5px; /* Space between icons and text */
+}
+
+/* Puzzle History Styling */
+#puzzleHistory {
+    max-width: 800px; /* Optional: Limit the width of the puzzle history for better readability */
+    margin: 0 auto; /* Automatically center the list */
+    padding: 0; /* Remove default padding */
+    width: 100%; /* Ensure full width */
+}
+
+/* Centralizing only the Puzzle History card */
+#puzzleHistoryCard {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center all content within the card */
+    justify-content: center; /* Center the content vertically */
+    text-align: center; /* Ensure text is centered */
+}
+
+
+#puzzleHistory li {
+    display: grid; /* Use grid layout instead of flex for easier alignment */
+    grid-template-columns: 1fr 1fr 2fr 2fr 1fr; /* Define column widths */
+    align-items: center; /* Vertically align content */
+    background-color: #333; /* Darker background for each entry */
+    border-radius: 5px;     /* Rounded corners */
+    margin-bottom: 10px;    /* Spacing between entries */
+    padding: 10px 15px;     /* Padding for better spacing */
+    color: #eaeaea;         /* Lighter text color */
+    font-size: 1.1rem;      /* Slightly larger font size */
+}
+
+#puzzleHistory li b, 
+#puzzleHistory li span, 
+#puzzleHistory li i, 
+#puzzleHistory li a {
+    text-align: left; /* Ensure left alignment for all content */
+}
+
+#puzzleHistory li .elapsed-time {
+    background-color: #444;  /* Slightly darker background for elapsed time */
+    color: #fff;             /* White text */
+    padding: 5px 10px;       /* Padding around the time */
+    border-radius: 8px;      /* Rounded corners */
+    font-size: 1rem;         /* Adjust font size */
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);  /* Soft shadow effect */
+    text-align: center;      /* Center the time text */
+}
+
+#puzzleHistory li .category {
+    font-style: italic;
+    text-align: left; /* Left-align the category */
+}
+
+#puzzleHistory li a {
+    color: #ffb74d;  /* Soft orange color for links */
+    text-decoration: none;  /* Remove underline */
+}
+
+#puzzleHistory li a:hover {
+    color: #ff9800;  /* Darker orange for hover effect */
+    text-decoration: underline;  /* Underline on hover */
+}
+
+/* Add a margin to the status icon */
+#puzzleHistory li .status-icon {
+    margin-left: 60px; /* Adjust the spacing as needed */
+}
+
+
+/* Optional: Time in green for success, red for failure */
+.success-time {
+    background-color: #4CAF50; /* Green background for success */
+    color: white;
+}
+
+.failure-time {
+    background-color: #f44336; /* Red background for failure */
+    color: white;
+}
+
+
+/* Coordinate fixes */
+.cg-wrap coords {
+    position: absolute !important;
+    pointer-events: none !important;
+    color: #fff !important; /* Visible text */
+    font-size: 12px !important;
+}
+.cg-wrap coords.ranks {
+    right: -20px !important;
+    left: auto !important;
+}
+.cg-wrap coords.files {
+    bottom: -20px !important;
+}
+
+#turnIndicator {
+  font-size: 1.25rem;
+  letter-spacing: 0.5px;
+}
+
+.turn-display {
+    font-size: 1.25rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    margin: 1rem 0;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+}
+
+/* Styling for the loading state */
+.turn-display.loading {
+    color: #ff9900; /* Orange color for loading */
+    font-style: italic;
+}
+
+
+.white-turn {
+    background: #f0d9b5;
+    color: #1a1a1a;
+    border: 2px solid #1a1a1a;
+}
+
+.black-turn {
+    background: #1a1a1a;
+    color: #f0d9b5;
+    border: 2px solid #f0d9b5;
+}
+
+/* Hint styling */
+.hint-container {
+    margin: 10px 0;
+}
+
+#hintText {
+    font-size: 1.1em;
+    padding: 5px;
+    margin-top: 10px;
+    border-radius: 4px;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.btn-outline-info, .btn-outline-warning {
+    border-width: 2px;
+}
+
+.btn-outline-info:hover, .btn-outline-warning:hover {
+    transform: translateY(-1px);
+    transition: transform 0.2s;
 }

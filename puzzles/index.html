@@ -13,10 +13,14 @@
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    
+		    
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     
+		<!-- Chessground CSS -->
+	  <link rel="stylesheet" href="/assets/css/chessground.base.css">  
+    <link rel="stylesheet" href="/assets/css/chessground.brown.css">
+		
     <!-- Custom Styles -->
     <link rel="stylesheet" href="/assets/css/style.css">
     <link rel="icon" href="/assets/favicon/favicon.ico" type="image/x-icon">
@@ -55,54 +59,43 @@
     <main class="container my-5">
         <h1><i class="fa-solid fa-crow"></i> Chess Woodpecker App</h1>
 
-<p>This tool helps you improve your pattern recognition using the <strong>Woodpecker Method.</strong><br />
-By repeatedly solving the same set of puzzles, you’ll become faster at recognizing key tactical motifs like forks, pins, skewers, and discovered attacks!</p>
+<p>This tool helps you improve your pattern recognition using the <strong>Woodpecker Method.</strong> By repeatedly solving the same set of puzzles, you’ll become faster at recognizing key tactical motifs like forks, pins, skewers, and discovered attacks!</p>
 
 <div class="alert alert-warning" role="alert">
-    <p><strong>Note:</strong> This app is still in early development, and many improvements are being worked on. Please be aware that currently, this app does not function well on mobile devices. Specifically, the Lichess app may launch on mobile, instead of opening puzzles in a new tab. A mobile-compatible version will be available soon. Additionally, currently your session is only preserved for as long as you remain on this page.</p>
+    <p><strong>Note:</strong> This app is still in early development, and many improvements are being worked on. Currently your session is only preserved for as long as you remain on this page.</p>
 
-</div>
-
-<div class="card bg-dark text-light mb-4">
-    <div class="card-header text-warning">
-        <i class="fas fa-info-circle"></i> How to Use
-    </div>
-    <div class="card-body">
-        
-<ol>
-  <li>Click the <strong><span class="text-primary">Start Session</span></strong> button to begin.</li>
-  <li>A new tab will open with a Lichess puzzle.</li>
-  <li>After solving, return here and mark it as<br />
-<strong><span class="text-success">Success <i class="fas fa-check-circle"></i></span></strong> if correct, or<br />
-<strong><span class="text-danger">Fail <i class="fas fa-times-circle"></i></span></strong> if not.</li>
-  <li>The next puzzle will load automatically once you mark the current one.</li>
-  <li>Click the <strong><span class="text-warning">Stop Session</span></strong> button to end the session.</li>
-</ol>
-
-
-    </div>
 </div>
 
 <div id="puzzle-container" class="text-center">
-    <h2 class="text-warning"><i class="fas fa-chess-knight"></i> Now Solving: <span id="puzzleTitle">Puzzle 1</span> <i class="fas fa-chess-knight"></i></h2>
+    <div class="d-flex justify-content-center align-items-center mb-4">
+        
+        <!-- Start/Stop buttons -->
+        <button id="startPuzzle" class="btn btn-primary mr-3">
+            Start Session
+        </button>
+        <button id="stopPuzzle" class="btn btn-warning" style="display: none;">
+            <i class="fas fa-stop-circle"></i> Stop Session
+        </button>
+        
+        <!-- Now Solving text -->
+        <h2 class="text-warning mb-0 ml-4"><i class="fas fa-chess-knight"></i> 
+            Now Solving: <span id="puzzleTitle">Puzzle 1</span> 
+            <i class="fas fa-chess-knight"></i>
+        </h2>
 
-    <button id="startPuzzle" class="btn btn-primary">
-        Start Session
-    </button>
-    <button id="stopPuzzle" class="btn btn-warning" style="display: none;">
-        <i class="fas fa-stop-circle"></i> Stop Session
-    </button>
-    <button id="successButton" class="btn btn-success" style="display: none;">
-        <i class="fas fa-check-circle"></i> Success
-    </button>
-    <button id="failButton" class="btn btn-danger" style="display: none;">
-        <i class="fas fa-times-circle"></i> Fail
-    </button>
+    </div>
+
+    <div id="failMessage" style="display: none; color: red; font-size: 20px; text-align: center; margin-top: 10px;">
+        Incorrect move! Watch the correct solution.
+    </div>
+
+    <div id="turnIndicator" class="turn-display"></div>
+    <div id="chessboard" style="width: 400px; height: 400px; margin: auto;"></div>
 
     <p id="puzzleDetails" class="mt-3" style="font-size: 18px;"></p>
 </div>
 
-<div class="card bg-dark text-light mt-4">
+<div id="puzzleHistoryCard" class="card bg-dark text-light mt-4">
     <div class="card-header text-warning">
         <i class="fas fa-stopwatch"></i> Puzzle History
     </div>
@@ -110,7 +103,7 @@ By repeatedly solving the same set of puzzles, you’ll become faster at recogni
         <ul id="puzzleHistory" class="list-unstyled">
             <!-- Puzzle times will be dynamically added here -->
         </ul>
-				<h3 class="text-info">
+        <h3 class="text-info">
             <p><span id="totalTime" class="display-6">00:00.000</span></p>
 
         </h3>
@@ -131,7 +124,16 @@ By repeatedly solving the same set of puzzles, you’ll become faster at recogni
     </div>
 </div>
 
-<script src="/assets/js/puzzles.js"></script>
+<!-- Import Chessground and Chess.js from CDN -->
+<script type="module">
+    import { Chessground } from "https://cdnjs.cloudflare.com/ajax/libs/chessground/9.1.1/chessground.min.js";
+    import { Chess } from "https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.13.4/chess.min.js";
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/dayjs@1.10.7/dayjs.min.js"></script>
+
+<!-- Link to your puzzles.js file -->
+<script type="module" src="/assets/js/puzzles.js"></script>
 
 
     </main>
