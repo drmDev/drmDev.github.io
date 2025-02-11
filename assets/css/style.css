@@ -153,6 +153,49 @@ h6 {
     margin-right: 10px;
 }
 
+/* Woodpecker styling */
+/* Add this CSS to your stylesheet */
+.puzzle-categories {
+    background: #333;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+}
+
+.category-group {
+    margin-bottom: 1.5rem;
+}
+
+.category-group:last-child {
+    margin-bottom: 0;
+}
+
+.category-group h3 {
+    color: #ffd700;
+    font-size: 1.1rem;
+    margin-bottom: 0.75rem;
+    font-weight: 600;
+}
+
+.category-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+.category-items span {
+    background: #444;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    color: #fff;
+    font-size: 0.95rem;
+    transition: background-color 0.2s ease;
+}
+
+.category-items span:hover {
+    background: #555;
+}
+
 /* Puzzles Styling */
 .btn {
     padding: 10px 20px;
@@ -283,7 +326,24 @@ h6 {
 #puzzleHistoryCard .card-body {
     padding: 1.25rem;
 }
+
 /* History Entry Styling */
+#puzzleHistory li .status-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+}
+
+#puzzleHistory li .status-icon.success {
+    color: #4CAF50;
+}
+
+#puzzleHistory li .status-icon.failure {
+    color: #f44336;
+}
+
 #puzzleHistory li {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 2fr 1fr;
@@ -305,6 +365,19 @@ h6 {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    color: #ffb74d;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+#puzzleHistory li b {
+    color: #ffd700; /* Golden color for puzzle numbers */
+    font-weight: 600;
+}
+
+#puzzleHistory li a:hover {
+    color: #ffd700; /* Golden hover state */
+    text-decoration: underline;
 }
 
 #puzzleHistory li .elapsed-time {
@@ -317,18 +390,19 @@ h6 {
     text-align: center;
 }
 
+#puzzleHistory li .elapsed-time.success {
+    background-color: #4CAF50;
+    color: white;
+}
+
+#puzzleHistory li .elapsed-time.failure {
+    background-color: #f44336;
+    color: white;
+}
+
 #puzzleHistory li .category {
     font-style: italic;
-}
-
-#puzzleHistory li a {
-    color: #ffb74d;
-    text-decoration: none;
-}
-
-#puzzleHistory li a:hover {
-    color: #ff9800;
-    text-decoration: underline;
+    color: #d180ad;
 }
 
 /* Enhanced failure message styling */
