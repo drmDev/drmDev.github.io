@@ -31,7 +31,9 @@ document.addEventListener("DOMContentLoaded", async function () {
         'a1', 'b1', 'c1', 'd1', 'e1', 'f1', 'g1', 'h1'
     ];
 
-    const boardElement = document.getElementById("chessboard");
+    const BOARD_ELEMENT = document.getElementById("chessboard");
+
+    const MOVE_DELAY = 2000;
 
     document.getElementById("startPuzzle").addEventListener("click", function () {
         startStopwatch();
@@ -97,8 +99,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     function resetAndSolvePuzzle() {
 
-        // Reset game to initial position
-        game = new Chess();
+        game = new Chess(); // Reset game to initial position
         const pgnMoves = currentPuzzleData.game.pgn.split(" ").filter(m => !/\d+\./.test(m));
         const initialPly = currentPuzzleData.puzzle.initialPly;
 
@@ -225,7 +226,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     function initializeChessboard() {
         const isWhiteTurn = game.turn() === 'w';
 
-        board = Chessground(boardElement, {
+        board = Chessground(BOARD_ELEMENT, {
             fen: game.fen(),
             orientation: isWhiteTurn ? 'white' : 'black',
             turnColor: isWhiteTurn ? 'white' : 'black',
