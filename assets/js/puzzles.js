@@ -314,13 +314,6 @@ document.addEventListener("DOMContentLoaded", async function () {
             success,
             category
         });
-
-        puzzleTimes.push({
-            number: puzzleNumber,
-            time: formattedTime,
-            success,
-            category
-        });
     }
 
     function updateTurnDisplay(isPuzzleComplete = false) {
@@ -358,12 +351,6 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
 
     function onMove(orig, dest) {
-        console.log("👉 User attempted move", {
-            orig,
-            dest,
-            currentSolutionIndex,
-            expectedMove: currentPuzzleData.solutionSAN[currentSolutionIndex]
-        });
 
         const move = game.move({
             from: orig,
@@ -372,23 +359,22 @@ document.addEventListener("DOMContentLoaded", async function () {
         });
 
         if (!move) {
-            console.log("❌ Invalid move attempted");
             return;
         }
 
         const expectedMove = currentPuzzleData.solutionSAN[currentSolutionIndex];
 
-        if (move.san !== expectedMove) {
-            document.getElementById("failMessage").style.display = "block";
-            document.getElementById("failMessage").textContent = "Incorrect move! Watch the correct solution.";
-
-            setTimeout(() => {
-                document.getElementById("failMessage").style.display = "none";
-                onPuzzleFailure(); // Log the failure and replay the solution
-            }, 2000);
-
-            return;
-        }
+			if (move.san !== expectedMove) {
+					const failMessage = document.getElementById("failMessage");
+					failMessage.style.display = "block";
+					
+					setTimeout(() => {
+							failMessage.style.display = "none";
+							onPuzzleFailure();
+					}, 2000);
+					
+					return;
+			}
 
         // Update board after player's move
         updateBoardState(game.fen(), [orig, dest]);

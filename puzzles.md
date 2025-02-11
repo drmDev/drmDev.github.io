@@ -12,32 +12,44 @@ permalink: /puzzles/
     {{ "**Note:** This app is still in early development, and many improvements are being worked on. Currently your session is only preserved for as long as you remain on this page." | markdownify }}
 </div>
 
-<div id="puzzle-container" class="text-center">
-    <div class="d-flex justify-content-center align-items-center mb-4">
-        
-        <!-- Start/Stop buttons -->
-        <button id="startPuzzle" class="btn btn-primary mr-3">
-            Start Session
-        </button>
-        <button id="stopPuzzle" class="btn btn-warning" style="display: none;">
-            <i class="fas fa-stop-circle"></i> Stop Session
-        </button>
-        
-        <!-- Now Solving text -->
-        <h2 class="text-warning mb-0 ml-4"><i class="fas fa-chess-knight"></i> 
-            Now Solving: <span id="puzzleTitle">Puzzle 1</span> 
-            <i class="fas fa-chess-knight"></i>
-        </h2>
-
+<div id="puzzle-container" class="text-center container-fluid">
+    <!-- Control buttons row -->
+    <div class="row mb-3">
+        <div class="col-12 d-flex justify-content-center">
+            <button id="startPuzzle" class="btn btn-primary puzzle-btn">
+                Start Session
+            </button>
+            <button id="stopPuzzle" class="btn btn-warning puzzle-btn ms-2" style="display: none;">
+                <i class="fas fa-stop-circle"></i> Stop Session
+            </button>
+        </div>
     </div>
 
-    <div id="failMessage" style="display: none; color: red; font-size: 20px; text-align: center; margin-top: 10px;">
-        Incorrect move! Watch the correct solution.
+    <!-- Puzzle title row -->
+    <div class="row mb-3">
+        <div class="col-12">
+            <h2 class="text-warning puzzle-title">
+                <i class="fas fa-chess-knight"></i> 
+                <span class="puzzle-title-text">Now Solving: </span>
+                <span id="puzzleTitle" class="ms-1">Puzzle 1</span> 
+                <i class="fas fa-chess-knight"></i>
+            </h2>
+        </div>
     </div>
 
+    <!-- Enhanced failure message -->
+    <div id="failMessage" class="row mb-3" style="display: none;">
+        <div class="col-12">
+            <div class="failure-alert">
+                <i class="fas fa-times-circle"></i>
+                Incorrect move! Watch the correct solution.
+            </div>
+        </div>
+    </div>
+
+    <!-- Rest of your container... -->
     <div id="turnIndicator" class="turn-display"></div>
-    <div id="chessboard" style="width: 400px; height: 400px; margin: auto;"></div>
-
+    <div id="chessboard" class="responsive-board"></div>
     <p id="puzzleDetails" class="mt-3" style="font-size: 18px;"></p>
 </div>
 
@@ -45,16 +57,15 @@ permalink: /puzzles/
     <div class="card-header text-warning">
         <i class="fas fa-stopwatch"></i> Puzzle History
     </div>
-    <div class="card-body">
+    <div class="card-body text-center">
         <ul id="puzzleHistory" class="list-unstyled">
             <!-- Puzzle times will be dynamically added here -->
         </ul>
         <h3 class="text-info">
-            {{ "<span id='totalTime' class='display-6'>00:00.000</span>" | markdownify }}
+            <span id='totalTime' class='display-6'>00:00.000</span>
         </h3>
     </div>
 </div>
-
 
 <div class="card bg-dark text-light mt-5">
     <div class="card-header text-warning">
