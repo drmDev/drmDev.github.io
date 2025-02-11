@@ -6,50 +6,42 @@ permalink: /puzzles/
 
 <h1><i class="fa-solid fa-crow"></i> Chess Woodpecker App</h1>
 
-{{ "This tool helps you improve your pattern recognition using the **Woodpecker Method.**  
-By repeatedly solving the same set of puzzles, you'll become faster at recognizing key tactical motifs like forks, pins, skewers, and discovered attacks!" | markdownify }}
+{{ "This tool helps you improve your pattern recognition using the **Woodpecker Method.** By repeatedly solving the same set of puzzles, you'll become faster at recognizing key tactical motifs like forks, pins, skewers, and discovered attacks!" | markdownify }}
 
 <div class="alert alert-warning" role="alert">
-    {{ "**Note:** This app is still in early development, and many improvements are being worked on. Please be aware that currently, this app does not function well on mobile devices. Specifically, the Lichess app may launch on mobile, instead of opening puzzles in a new tab. A mobile-compatible version will be available soon. Additionally, currently your session is only preserved for as long as you remain on this page." | markdownify }}
-</div>
-
-<div class="card bg-dark text-light mb-4">
-    <div class="card-header text-warning">
-        <i class="fas fa-info-circle"></i> How to Use
-    </div>
-    <div class="card-body">
-        {{ "
-1. Click the **<span class='text-primary'>Start Session</span>** button to begin.
-2. A new tab will open with a Lichess puzzle.
-3. After solving, return here and mark it as  
-   **<span class='text-success'>Success <i class='fas fa-check-circle'></i></span>** if correct, or  
-   **<span class='text-danger'>Fail <i class='fas fa-times-circle'></i></span>** if not.
-4. The next puzzle will load automatically once you mark the current one.
-5. Click the **<span class='text-warning'>Stop Session</span>** button to end the session.
-        " | markdownify }}
-    </div>
+    {{ "**Note:** This app is still in early development, and many improvements are being worked on. Currently your session is only preserved for as long as you remain on this page." | markdownify }}
 </div>
 
 <div id="puzzle-container" class="text-center">
-    <h2 class="text-warning"><i class="fas fa-chess-knight"></i> Now Solving: <span id="puzzleTitle">Puzzle 1</span> <i class="fas fa-chess-knight"></i></h2>
+    <div class="d-flex justify-content-center align-items-center mb-4">
+        
+        <!-- Start/Stop buttons -->
+        <button id="startPuzzle" class="btn btn-primary mr-3">
+            Start Session
+        </button>
+        <button id="stopPuzzle" class="btn btn-warning" style="display: none;">
+            <i class="fas fa-stop-circle"></i> Stop Session
+        </button>
+        
+        <!-- Now Solving text -->
+        <h2 class="text-warning mb-0 ml-4"><i class="fas fa-chess-knight"></i> 
+            Now Solving: <span id="puzzleTitle">Puzzle 1</span> 
+            <i class="fas fa-chess-knight"></i>
+        </h2>
 
-    <button id="startPuzzle" class="btn btn-primary">
-        Start Session
-    </button>
-    <button id="stopPuzzle" class="btn btn-warning" style="display: none;">
-        <i class="fas fa-stop-circle"></i> Stop Session
-    </button>
-    <button id="successButton" class="btn btn-success" style="display: none;">
-        <i class="fas fa-check-circle"></i> Success
-    </button>
-    <button id="failButton" class="btn btn-danger" style="display: none;">
-        <i class="fas fa-times-circle"></i> Fail
-    </button>
+    </div>
+
+    <div id="failMessage" style="display: none; color: red; font-size: 20px; text-align: center; margin-top: 10px;">
+        Incorrect move! Watch the correct solution.
+    </div>
+
+    <div id="turnIndicator" class="turn-display"></div>
+    <div id="chessboard" style="width: 400px; height: 400px; margin: auto;"></div>
 
     <p id="puzzleDetails" class="mt-3" style="font-size: 18px;"></p>
 </div>
 
-<div class="card bg-dark text-light mt-4">
+<div id="puzzleHistoryCard" class="card bg-dark text-light mt-4">
     <div class="card-header text-warning">
         <i class="fas fa-stopwatch"></i> Puzzle History
     </div>
@@ -57,11 +49,12 @@ By repeatedly solving the same set of puzzles, you'll become faster at recognizi
         <ul id="puzzleHistory" class="list-unstyled">
             <!-- Puzzle times will be dynamically added here -->
         </ul>
-				<h3 class="text-info">
+        <h3 class="text-info">
             {{ "<span id='totalTime' class='display-6'>00:00.000</span>" | markdownify }}
         </h3>
     </div>
 </div>
+
 
 <div class="card bg-dark text-light mt-5">
     <div class="card-header text-warning">
@@ -77,5 +70,13 @@ By repeatedly solving the same set of puzzles, you'll become faster at recognizi
     </div>
 </div>
 
+<!-- Import Chessground and Chess.js from CDN -->
+<script type="module">
+    import { Chessground } from "https://cdnjs.cloudflare.com/ajax/libs/chessground/9.1.1/chessground.min.js";
+    import { Chess } from "https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.13.4/chess.min.js";
+</script>
 
-<script src="/assets/js/puzzles.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/dayjs@1.10.7/dayjs.min.js"></script>
+
+<!-- Link to your puzzles.js file -->
+<script type="module" src="/assets/js/puzzles.js"></script>

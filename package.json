@@ -1,0 +1,25 @@
+{
+  "dependencies": {
+    "chess.js": "^1.0.0",
+    "chessground": "^9.1.1",
+    "vite": "^6.1.0"
+  },
+  "name": "drmdev.github.io",
+  "version": "1.0.0",
+  "description": "A portfolio showcasing my technical skills, including backend development, frontend design, and automation using various technologies.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/drmDev/drmDev.github.io.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/drmDev/drmDev.github.io/issues"
+  },
+  "homepage": "https://github.com/drmDev/drmDev.github.io#readme"
+}
