@@ -4,13 +4,34 @@ title: "Chess Woodpecker App"
 permalink: /puzzles/
 ---
 
-<h1><i class="fa-solid fa-crow"></i> Chess Woodpecker App</h1>
-
-{{ "This tool helps you improve your pattern recognition using the **Woodpecker Method.** By repeatedly solving the same set of puzzles, you'll become faster at recognizing key tactical motifs like forks, pins, skewers, and discovered attacks!" | markdownify }}
-
 <div class="alert alert-warning" role="alert">
     {{ "**Note:** This app is still in early development, and many improvements are being worked on. Currently your session is only preserved for as long as you remain on this page." | markdownify }}
 </div>
+
+<h1><i class="fa-solid fa-crow"></i> Chess Woodpecker App</h1>
+
+{{ "This tool helps you improve your pattern recognition using the **Woodpecker Method** - named after how woodpeckers repeatedly strike the same spot, just as you'll repeatedly solve the same tactical puzzles to reinforce pattern recognition. The **100-puzzle** collection features five essential chess themes, with 20 puzzles each:
+
+<div class='puzzle-categories'>
+    <div class='category-group'>
+        <h3>Basic Tactics</h3>
+        <div class='category-items'>
+            <span>Pins</span>
+            <span>Skewers</span>
+            <span>Forks</span>
+            <span>Discovered Attacks</span>
+        </div>
+    </div>
+    
+    <div class='category-group'>
+        <h3>Endgame Practice</h3>
+        <div class='category-items'>
+            <span>Rook and Pawn Endgames</span>
+        </div>
+    </div>
+</div>
+
+Regular practice with these puzzles will help you spot these patterns more quickly in your own games!" | markdownify }}
 
 <div id="puzzle-container" class="text-center container-fluid">
     <!-- Control buttons row -->
@@ -47,10 +68,9 @@ permalink: /puzzles/
         </div>
     </div>
 
-    <!-- Rest of your container... -->
+    <!-- Board and turn indicator -->
     <div id="turnIndicator" class="turn-display"></div>
     <div id="chessboard" class="responsive-board"></div>
-    <p id="puzzleDetails" class="mt-3" style="font-size: 18px;"></p>
 </div>
 
 <div id="puzzleHistoryCard" class="card bg-dark text-light mt-4">
@@ -76,18 +96,16 @@ permalink: /puzzles/
             <li><i class="fas fa-user-lock text-info"></i> Save your session progress, even if you leave the page.</li>
             <li><i class="fas fa-mobile-alt text-info"></i> Full mobile compatibility.</li>
             <li><i class="fas fa-chart-line text-info"></i> Track your improvement over time with stats.</li>
+            <li><i class="fas fa-lightbulb text-info"></i> Hint features to help you learn.</li>
         </ul>
         <p>Have suggestions? Let me know!</p>
     </div>
 </div>
 
-<!-- Import Chessground and Chess.js from CDN -->
 <script type="module">
     import { Chessground } from "https://cdnjs.cloudflare.com/ajax/libs/chessground/9.1.1/chessground.min.js";
     import { Chess } from "https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.13.4/chess.min.js";
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/dayjs@1.10.7/dayjs.min.js"></script>
-
-<!-- Link to your puzzles.js file -->
 <script type="module" src="/assets/js/puzzles.js"></script>
