@@ -91,7 +91,6 @@
    <!-- Control buttons row -->
     <div class="row mb-3">
         <div class="col-12 d-flex justify-content-center">
-            <!-- CHANGED: Added sound toggle button and grouped controls -->
             <div class="control-group">
                 <button id="startPuzzle" class="btn btn-primary puzzle-btn">
                     Start Session
@@ -133,10 +132,10 @@
             <!-- Hidden audio elements -->
             <div id="chess-audio-container" style="display: none;">
                 <audio id="moveSound" preload="auto">
-                    <source src="https://lichess1.org/assets/sound/standard/Move.ogg" type="audio/ogg" />
+                    <source src="../assets/sounds/move-self.mp3" type="audio/mpeg" />
                 </audio>
                 <audio id="captureSound" preload="auto">
-                    <source src="https://lichess1.org/assets/sound/standard/Capture.ogg" type="audio/ogg" />
+                    <source src="../assets/sounds/capture.mp3" type="audio/mpeg" />
                 </audio>
                 <audio id="checkSound" preload="auto">
                     <source src="../assets/sounds/move-check.mp3" type="audio/mpeg" />
@@ -233,6 +232,11 @@
     <div class="container">
         <!-- Social and Contact Info -->
         <p class="mb-2">
+            <a href="https://www.linkedin.com/in/derek-monturo-6a3585b/" class="text-warning mx-3" target="_blank"
+                rel="noopener noreferrer">
+                <i class="fab fa-linkedin fa-lg"></i> <span class="ms-1">LinkedIn</span>
+            </a>
+
             <a href="https://github.com/drmDev" class="text-warning mx-3" target="_blank" rel="noopener noreferrer">
                 <i class="fab fa-github fa-lg"></i> <span class="ms-1">Github</span>
             </a>
