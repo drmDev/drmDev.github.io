@@ -37,7 +37,6 @@ Regular practice with these puzzles will help you spot these patterns more quick
    <!-- Control buttons row -->
     <div class="row mb-3">
         <div class="col-12 d-flex justify-content-center">
-            <!-- CHANGED: Added sound toggle button and grouped controls -->
             <div class="control-group">
                 <button id="startPuzzle" class="btn btn-primary puzzle-btn">
                     Start Session
@@ -79,10 +78,10 @@ Regular practice with these puzzles will help you spot these patterns more quick
             <!-- Hidden audio elements -->
             <div id="chess-audio-container" style="display: none;">
                 <audio id="moveSound" preload="auto">
-                    <source src="https://lichess1.org/assets/sound/standard/Move.ogg" type="audio/ogg">
+                    <source src="../assets/sounds/move-self.mp3" type="audio/mpeg">
                 </audio>
                 <audio id="captureSound" preload="auto">
-                    <source src="https://lichess1.org/assets/sound/standard/Capture.ogg" type="audio/ogg">
+                    <source src="../assets/sounds/capture.mp3" type="audio/mpeg">
                 </audio>
                 <audio id="checkSound" preload="auto">
                     <source src="../assets/sounds/move-check.mp3" type="audio/mpeg">
