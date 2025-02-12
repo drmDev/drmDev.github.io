@@ -19,6 +19,11 @@ document.addEventListener("DOMContentLoaded", async function () {
     let currentPuzzleData = null;
     let currentSolutionIndex = 0;
     let autoSolveTimeout = null;
+    let isSoundEnabled = true;
+    const moveSound = document.getElementById('moveSound');
+    const captureSound = document.getElementById('captureSound');
+    const checkSound = document.getElementById('checkSound');
+    const toggleSoundBtn = document.getElementById('toggleSound');
 
     const SQUARES = [
         'a8', 'b8', 'c8', 'd8', 'e8', 'f8', 'g8', 'h8',
@@ -44,6 +49,49 @@ document.addEventListener("DOMContentLoaded", async function () {
         stopStopwatch();
         toggleSessionButtons(false);
     });
+
+    initializeSoundControls();
+
+    function initializeSoundControls() {
+        const toggleSoundBtn = document.getElementById('toggleSound');
+        if (!toggleSoundBtn) return;
+
+        isSoundEnabled = localStorage.getItem('chessSoundEnabled') !== 'false';
+        updateSoundIcon();
+
+        toggleSoundBtn.addEventListener('click', () => {
+            isSoundEnabled = !isSoundEnabled;
+            localStorage.setItem('chessSoundEnabled', isSoundEnabled);
+            updateSoundIcon();
+        });
+    }
+
+    function updateSoundIcon() {
+        const toggleSoundBtn = document.getElementById('toggleSound');
+        if (!toggleSoundBtn) return;
+
+        const iconClass = isSoundEnabled ? 'fa-volume-up' : 'fa-volume-mute';
+        const buttonText = isSoundEnabled ? 'Sound On' : 'Sound Off';
+        const buttonClass = isSoundEnabled ? 'btn-success' : 'btn-secondary';
+
+        toggleSoundBtn.innerHTML = `<i class="fas ${iconClass}"></i> ${buttonText}`;
+        toggleSoundBtn.className = `btn puzzle-btn ms-2 ${buttonClass}`;
+    }
+
+    function playChessSound(move, position) {
+        if (!isSoundEnabled || !moveSound || !captureSound || !checkSound) return;
+
+        if (position.in_check()) {
+            checkSound.currentTime = 0;
+            checkSound.play();
+        } else if (move.captured) {
+            captureSound.currentTime = 0;
+            captureSound.play();
+        } else {
+            moveSound.currentTime = 0;
+            moveSound.play();
+        }
+    }
 
     function toggleSessionButtons(isStarting) {
         document.getElementById("startPuzzle").style.display = isStarting ? 'none' : 'inline';
@@ -116,7 +164,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
         updateTurnDisplay(true); // Update turn display to "Loading next puzzle"
         playSolutionAutomatically(() => {
-            setTimeout(loadNextPuzzle, 2000);
+            setTimeout(loadNextPuzzle, MOVE_DELAY);
         });
     }
 
@@ -126,7 +174,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             autoSolveTimeout = setTimeout(() => {
                 if (onComplete)
                     onComplete();
-            }, 2000);
+            }, MOVE_DELAY);
             return;
         }
 
@@ -135,11 +183,12 @@ document.addEventListener("DOMContentLoaded", async function () {
         if (!move) {
             return;
         }
+        playChessSound(move, game);
 
         updateBoardState(game.fen(), [move.from, move.to], false);
 
         currentSolutionIndex++;
-        autoSolveTimeout = setTimeout(() => playSolutionAutomatically(onComplete), 2000);
+        autoSolveTimeout = setTimeout(() => playSolutionAutomatically(onComplete), MOVE_DELAY);
     }
 
     async function convertUCIToSAN(uciMoves, initialFEN) {
@@ -315,7 +364,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     function onPuzzleComplete() {
         logPuzzleCompletion(true);
         updateTurnDisplay(true);
-        setTimeout(loadNextPuzzle, 2000);
+        setTimeout(loadNextPuzzle, MOVE_DELAY);
     }
 
     function onPuzzleFailure() {
@@ -341,6 +390,8 @@ document.addEventListener("DOMContentLoaded", async function () {
             return;
         }
 
+        playChessSound(move, game);
+
         const expectedMove = currentPuzzleData.solutionSAN[currentSolutionIndex];
 
         if (move.san !== expectedMove) {
@@ -350,7 +401,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             setTimeout(() => {
                     failMessage.style.display = "none";
                     onPuzzleFailure();
-            }, 2000);
+            }, MOVE_DELAY);
             
             return;
         }
@@ -376,6 +427,8 @@ document.addEventListener("DOMContentLoaded", async function () {
         if (!move) {
             return;
         }
+
+        playChessSound(move, game);
 
         updateBoardState(game.fen(), [move.from, move.to]);
         currentSolutionIndex++;
