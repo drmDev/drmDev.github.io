@@ -153,8 +153,103 @@ h6 {
     margin-right: 10px;
 }
 
+/* Sound control styles */
+.control-group {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.puzzle-btn {
+    min-width: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+#toggleSound.btn-success {
+    background-color: #28a745;
+    border-color: #28a745;
+    color: white;
+}
+
+#toggleSound.btn-secondary {
+    background-color: #6c757d;
+    border-color: #6c757d;
+    color: white;
+}
+
+#toggleSound:hover {
+    opacity: 0.9;
+}
+
+#toggleSound i {
+    margin-right: 4px;
+}
+
+/* Version history styling */
+.version-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.version-item {
+    border-left: 3px solid #17a2b8;
+    /* text-info color */
+    padding-left: 1rem;
+}
+
+.version-item:not(:last-child) {
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid #444;
+}
+
+.version-item h5 {
+    margin-bottom: 0.75rem;
+    font-weight: 600;
+}
+
+.version-item ul li {
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.version-item ul li:last-child {
+    margin-bottom: 0;
+}
+
+/* Icon colors */
+.version-item .fa-plus-circle {
+    color: #28a745;
+    /* Bootstrap success color */
+}
+
+.version-item .fa-check-circle {
+    color: #17a2b8;
+    /* Bootstrap info color */
+}
+
+.card-header[data-bs-toggle="collapse"] {
+    transition: background-color 0.2s ease;
+}
+
+.card-header[data-bs-toggle="collapse"]:hover {
+    background-color: #2d2d2d;
+}
+
+.version-toggle {
+    transition: transform 0.2s ease;
+}
+
+.card-header[aria-expanded="true"] .version-toggle {
+    transform: rotate(180deg);
+}
+
 /* Woodpecker styling */
-/* Add this CSS to your stylesheet */
 .puzzle-categories {
     background: #333;
     border-radius: 12px;
