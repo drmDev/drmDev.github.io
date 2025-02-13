@@ -47,6 +47,9 @@ Regular practice with these puzzles will help you spot these patterns more quick
                 <button id="toggleSound" class="btn puzzle-btn ms-2">
                     <i class="fas fa-volume-up"></i> Sound On
                 </button>
+                <button id="hintButton" class="btn btn-info puzzle-btn ms-2" style="display: none;">
+                    <i class="fas fa-lightbulb"></i> Show Category
+                </button>
             </div>
         </div>
     </div>
@@ -58,6 +61,9 @@ Regular practice with these puzzles will help you spot these patterns more quick
                 <i class="fas fa-chess-knight"></i> 
                 <span class="puzzle-title-text">Now Solving: </span>
                 <span id="puzzleTitle" class="ms-1">Puzzle 1</span> 
+                <span id="puzzleHint" class="text-info ms-2" style="display: none;">
+                    (<i class="fas fa-tag"></i> <span id="puzzleCategory"></span>)
+                </span>
                 <i class="fas fa-chess-knight"></i>
             </h2>
         </div>
@@ -91,6 +97,48 @@ Regular practice with these puzzles will help you spot these patterns more quick
             <!-- Turn indicator and chessboard -->
             <div id="turnIndicator" class="turn-display"></div>
             <div id="chessboard" class="responsive-board"></div>
+        </div>
+    </div>
+</div>
+
+<!-- Session Report Summary -->
+<div class="modal fade" id="sessionSummaryModal" tabindex="-1" aria-labelledby="sessionSummaryLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content bg-dark text-light">
+            <div class="modal-header">
+                <h5 class="modal-title text-warning" id="sessionSummaryLabel">
+                    <i class="fas fa-chart-bar"></i> Session Summary
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Overall Stats -->
+                <div class="stats-section mb-4">
+                    <h6 class="text-info"><i class="fas fa-calculator"></i> Overall Performance</h6>
+                    <div class="stats-content" id="overallStats">
+                        <!-- Will be populated by JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Category Stats -->
+                <div class="stats-section mb-4">
+                    <h6 class="text-info"><i class="fas fa-tags"></i> Performance by Category</h6>
+                    <div class="stats-content" id="categoryStats">
+                        <!-- Will be populated by JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Failed Puzzles -->
+                <div class="stats-section">
+                    <h6 class="text-info"><i class="fas fa-exclamation-circle"></i> Failed Puzzles</h6>
+                    <div class="stats-content" id="failedPuzzles">
+                        <!-- Will be populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
         </div>
     </div>
 </div>
