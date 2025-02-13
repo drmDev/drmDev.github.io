@@ -196,6 +196,13 @@ Regular practice with these puzzles will help you spot these patterns more quick
         <div class="card-body">
             <div class="version-list">
                 <div class="version-item">
+                    <h5 class="text-info">v1.2.0 - February 12, 2025</h5>
+                    <ul class="list-unstyled">
+                        <li><i class="fas fa-plus-circle text-success"></i> Added Hint #1 (displays the Category of the puzzle).</li>
+                        <li><i class="fas fa-plus-circle text-success"></i> Added Session Summary Reports.</li>
+                    </ul>
+                </div>
+                <div class="version-item">
                     <h5 class="text-info">v1.1.0 - February 11, 2025</h5>
                     <ul class="list-unstyled">
                         <li><i class="fas fa-plus-circle text-success"></i> Added chess sound effects for moves, captures, and checks</li>
