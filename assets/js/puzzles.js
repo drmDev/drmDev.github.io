@@ -20,10 +20,22 @@ document.addEventListener("DOMContentLoaded", async function () {
     let currentSolutionIndex = 0;
     let autoSolveTimeout = null;
     let isSoundEnabled = true;
+    let hintUsed = false;
+    let category;
+    let sessionStats = {
+        totalPuzzles: 0,
+        correctPuzzles: 0,
+        categoryStats: {},
+        failedPuzzles: []
+    };
+
     const moveSound = document.getElementById('moveSound');
     const captureSound = document.getElementById('captureSound');
     const checkSound = document.getElementById('checkSound');
     const toggleSoundBtn = document.getElementById('toggleSound');
+    const hintButton = document.getElementById('hintButton');
+    const puzzleHint = document.getElementById('puzzleHint');
+    const puzzleCategory = document.getElementById('puzzleCategory');
 
     const SQUARES = [
         'a8', 'b8', 'c8', 'd8', 'e8', 'f8', 'g8', 'h8',
@@ -40,6 +52,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     const MOVE_DELAY = 2000;
 
+    // Event Listeners
     document.getElementById("startPuzzle").addEventListener("click", function () {
         startStopwatch();
         loadPuzzle();
@@ -48,12 +61,24 @@ document.addEventListener("DOMContentLoaded", async function () {
     document.getElementById("stopPuzzle").addEventListener("click", function () {
         stopStopwatch();
         toggleSessionButtons(false);
+        hintButton.style.display = 'none';
+        showSessionSummary();
+    });
+    hintButton.addEventListener('click', function () {
+        if (!currentPuzzleData || hintUsed) return;
+
+        category = dbPuzzles[currentPuzzleIndex].category;
+        puzzleCategory.textContent = category;
+        puzzleHint.style.display = 'inline';
+
+        hintButton.disabled = true;
+        hintUsed = true;
     });
 
+    // Sounds
     initializeSoundControls();
 
     function initializeSoundControls() {
-        const toggleSoundBtn = document.getElementById('toggleSound');
         if (!toggleSoundBtn) return;
 
         isSoundEnabled = localStorage.getItem('chessSoundEnabled') !== 'false';
@@ -67,7 +92,6 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
 
     function updateSoundIcon() {
-        const toggleSoundBtn = document.getElementById('toggleSound');
         if (!toggleSoundBtn) return;
 
         const iconClass = isSoundEnabled ? 'fa-volume-up' : 'fa-volume-mute';
@@ -93,6 +117,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         }
     }
 
+    // Update states
     function toggleSessionButtons(isStarting) {
         document.getElementById("startPuzzle").style.display = isStarting ? 'none' : 'inline';
         document.getElementById("stopPuzzle").style.display = isStarting ? 'inline' : 'none';
@@ -116,19 +141,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         board.set(boardConfig);
     }
 
-    async function fetchPuzzles() {
-        try {
-            const response = await fetch(apiUrl);
-            dbPuzzles = await response.json();
-            if (dbPuzzles.length === 0) {
-                return;
-            }
-            document.getElementById("startPuzzle").style.display = 'inline';
-        } catch (error) {
-            console.error("Error fetching puzzles from our database:", error);
-        }
-    }
-
+    // Time formatting
     function formatElapsedTime(ms) {
         return dayjs(ms).format('mm:ss.SSS');
     }
@@ -143,6 +156,62 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     function stopStopwatch() {
         clearInterval(stopwatchInterval);
+    }
+
+    // Session Summary Reports
+    function showSessionSummary() {
+        // Calculate overall stats
+        const successRate = (sessionStats.correctPuzzles / sessionStats.totalPuzzles * 100).toFixed(1);
+        const overallStatsHtml = `
+            <div class="alert alert-info">
+                <strong>Puzzles Completed:</strong> ${sessionStats.correctPuzzles}/${sessionStats.totalPuzzles} (${successRate}%)
+            </div>
+        `;
+        document.getElementById('overallStats').innerHTML = overallStatsHtml;
+
+        // Calculate category stats
+        let categoryStatsHtml = '';
+        for (const category in sessionStats.categoryStats) {
+            const stats = sessionStats.categoryStats[category];
+            const categoryRate = (stats.correct / stats.total * 100).toFixed(1);
+            categoryStatsHtml += `
+                <div class="category-stat">
+                    <span>${category}</span>
+                    <span>${stats.correct}/${stats.total} (${categoryRate}%)</span>
+                </div>
+            `;
+        }
+        document.getElementById('categoryStats').innerHTML = categoryStatsHtml || '<p>No category data available</p>';
+
+        // Display failed puzzles
+        let failedPuzzlesHtml = '';
+        if (sessionStats.failedPuzzles.length > 0) {
+            failedPuzzlesHtml = sessionStats.failedPuzzles.map(puzzle => `
+                <a href="${puzzle.url}" class="failed-puzzle-link" target="_blank">
+                    <i class="fas fa-external-link-alt"></i> ${puzzle.category} Puzzle #${puzzle.id}
+                </a>
+            `).join('');
+        } else {
+            failedPuzzlesHtml = '<p class="text-success">No failed puzzles! Great job!</p>';
+        }
+        document.getElementById('failedPuzzles').innerHTML = failedPuzzlesHtml;
+
+        // Show the modal
+        const modal = new bootstrap.Modal(document.getElementById('sessionSummaryModal'));
+        modal.show();
+    }
+
+    async function fetchPuzzles() {
+        try {
+            const response = await fetch(apiUrl);
+            dbPuzzles = await response.json();
+            if (dbPuzzles.length === 0) {
+                return;
+            }
+            document.getElementById("startPuzzle").style.display = 'inline';
+        } catch (error) {
+            console.error("Error fetching puzzles from our database:", error);
+        }
     }
 
     function resetAndSolvePuzzle() {
@@ -215,13 +284,31 @@ document.addEventListener("DOMContentLoaded", async function () {
         return sanMoves;
     }
 
+    // Load each puzzle
     async function loadPuzzle() {
         if (currentPuzzleIndex >= dbPuzzles.length) {
             currentPuzzleIndex = 0;
             return;
         }
 
+        // Reset hint state
+        hintButton.style.display = 'inline-flex';
+        hintButton.disabled = false;
+        hintUsed = false;
+        puzzleHint.style.display = 'none';
+
+        document.getElementById("puzzleTitle").textContent = `Puzzle ${currentPuzzleIndex + 1}`;
+
         const puzzleMetadata = dbPuzzles[currentPuzzleIndex];
+        sessionStats.totalPuzzles++;
+        // Initialize category stats if needed
+        if (!sessionStats.categoryStats[puzzleMetadata.category]) {
+            sessionStats.categoryStats[puzzleMetadata.category] = {
+                total: 0,
+                correct: 0
+            };
+        }
+        sessionStats.categoryStats[puzzleMetadata.category].total++;
 
         try {
             currentPuzzleData = await fetchPuzzleData(puzzleMetadata.lichess_id);
@@ -362,12 +449,24 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
 
     function onPuzzleComplete() {
+        const puzzleMetadata = dbPuzzles[currentPuzzleIndex];
+        sessionStats.correctPuzzles++;
+        sessionStats.categoryStats[puzzleMetadata.category].correct++;
+
         logPuzzleCompletion(true);
         updateTurnDisplay(true);
         setTimeout(loadNextPuzzle, MOVE_DELAY);
     }
 
     function onPuzzleFailure() {
+        const puzzleMetadata = dbPuzzles[currentPuzzleIndex];
+        sessionStats.failedPuzzles.push({
+            id: puzzleMetadata.puzzle_id,
+            category: puzzleMetadata.category,
+            url: puzzleMetadata.url
+        });
+
+        hintButton.style.display = 'none';
         logPuzzleCompletion(false);
         resetAndSolvePuzzle();
     }
