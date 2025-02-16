@@ -1,6 +1,7 @@
 import { Chessground } from "https://cdnjs.cloudflare.com/ajax/libs/chessground/9.1.1/chessground.min.js";
 import { Chess } from "https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.13.4/chess.min.js";
 import { soundManager } from './sounds.js';
+import { MoveHandler, MOVE_DELAY } from './moves.js';
 
 document.addEventListener("DOMContentLoaded", async function () {
 
@@ -15,10 +16,9 @@ document.addEventListener("DOMContentLoaded", async function () {
     let stopwatchInterval;
     let dbPuzzles = [];
     let currentPuzzleData = null;
-    let currentSolutionIndex = 0;
-    let autoSolveTimeout = null;
     let hintUsed = false;
     let category;
+    let moveHandler;
     let sessionStats = {
         totalPuzzles: 0,
         correctPuzzles: 0,
@@ -46,22 +46,8 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     const hintButton = document.getElementById('hintButton');
     const puzzleHint = document.getElementById('puzzleHint');
-    const puzzleCategory = document.getElementById('puzzleCategory');    
-
-    const SQUARES = [
-        'a8', 'b8', 'c8', 'd8', 'e8', 'f8', 'g8', 'h8',
-        'a7', 'b7', 'c7', 'd7', 'e7', 'f7', 'g7', 'h7',
-        'a6', 'b6', 'c6', 'd6', 'e6', 'f6', 'g6', 'h6',
-        'a5', 'b5', 'c5', 'd5', 'e5', 'f5', 'g5', 'h5',
-        'a4', 'b4', 'c4', 'd4', 'e4', 'f4', 'g4', 'h4',
-        'a3', 'b3', 'c3', 'd3', 'e3', 'f3', 'g3', 'h3',
-        'a2', 'b2', 'c2', 'd2', 'e2', 'f2', 'g2', 'h2',
-        'a1', 'b1', 'c1', 'd1', 'e1', 'f1', 'g1', 'h1'
-    ];
-
+    const puzzleCategory = document.getElementById('puzzleCategory');
     const BOARD_ELEMENT = document.getElementById("chessboard");
-
-    const MOVE_DELAY = 2000;
 
     // Start puzzle listener with error handling
     document.getElementById("startPuzzle").addEventListener("click", async function () {
@@ -154,24 +140,6 @@ document.addEventListener("DOMContentLoaded", async function () {
         document.getElementById("stopPuzzle").style.display = isStarting ? 'inline' : 'none';
     }
 
-    function updateBoardState(fen, lastMove = null, allowMoves = true) {
-        const isWhiteTurn = game.turn() === 'w';
-        const boardConfig = {
-            fen: fen,
-            turnColor: isWhiteTurn ? 'white' : 'black',
-            movable: {
-                color: allowMoves ? (isWhiteTurn ? 'white' : 'black') : null,
-                dests: allowMoves ? getLegalMoves(game) : null
-            }
-        };
-
-        if (lastMove) {
-            boardConfig.lastMove = lastMove;
-        }
-
-        board.set(boardConfig);
-    }
-
     // Time formatting
     function formatElapsedTime(ms) {
         return dayjs(ms).format('mm:ss.SSS');
@@ -249,52 +217,6 @@ document.addEventListener("DOMContentLoaded", async function () {
             console.error("Error fetching puzzles from our database:", error);
             return false;
         }
-    }
-
-    function resetAndSolvePuzzle() {
-
-        game = new Chess(); // Reset game to initial position
-        const pgnMoves = currentPuzzleData.game.pgn.split(" ").filter(m => !/\d+\./.test(m));
-        const initialPly = currentPuzzleData.puzzle.initialPly;
-
-        for (let i = 0; i < initialPly + 1; i++) {
-            game.move(pgnMoves[i], {
-                sloppy: true
-            });
-        }
-
-        // during the reset, do not allow the user to move the pieces
-        updateBoardState(game.fen(), [], false);
-
-        currentSolutionIndex = 0;
-
-        updateTurnDisplay(true); // Update turn display to "Loading next puzzle"
-        playSolutionAutomatically(() => {
-            setTimeout(loadNextPuzzle, MOVE_DELAY);
-        });
-    }
-
-    function playSolutionAutomatically(onComplete) {
-
-        if (currentSolutionIndex >= currentPuzzleData.solutionSAN.length) {
-            autoSolveTimeout = setTimeout(() => {
-                if (onComplete)
-                    onComplete();
-            }, MOVE_DELAY);
-            return;
-        }
-
-        const nextMoveSAN = currentPuzzleData.solutionSAN[currentSolutionIndex];
-        const move = game.move(nextMoveSAN);
-        if (!move) {
-            return;
-        }
-        soundManager.playChessSound(move, game);
-
-        updateBoardState(game.fen(), [move.from, move.to], false);
-
-        currentSolutionIndex++;
-        autoSolveTimeout = setTimeout(() => playSolutionAutomatically(onComplete), MOVE_DELAY);
     }
 
     async function convertUCIToSAN(uciMoves, initialFEN) {
@@ -382,8 +304,9 @@ document.addEventListener("DOMContentLoaded", async function () {
     function initializePuzzleState() {
         puzzleStartTime = Date.now();
         document.getElementById("puzzleTitle").textContent = `Puzzle ${currentPuzzleIndex + 1}`;
-        currentSolutionIndex = 0;
-        stopAutoSolve();
+        if (moveHandler) {
+            moveHandler.stopAutoSolve();
+        }
     }
 
     async function setupGamePosition() {
@@ -412,38 +335,33 @@ document.addEventListener("DOMContentLoaded", async function () {
             movable: {
                 free: false,
                 color: isWhiteTurn ? 'white' : 'black',
-                dests: getLegalMoves(game),
-                events: {
-                    after: (orig, dest) => {
-                        onMove(orig, dest);
-                    }
-                }
+                dests: new Map()  // Start with empty moves
             },
             highlight: {
                 lastMove: true,
                 check: true
             }
         });
-    }
 
-    function getLegalMoves(chess) {
-        const dests = new Map();
-        const currentTurn = chess.turn();
+        // Initialize moveHandler first
+        moveHandler = new MoveHandler(game, board);
 
-        SQUARES.forEach(square => {
-            const piece = chess.get(square);
-            if (piece && piece.color === currentTurn) {
-                const moves = chess.moves({
-                    square,
-                    verbose: true,
-                    color: currentTurn
-                });
-                if (moves.length) {
-                    dests.set(square, moves.map(m => m.to));
+        // Now update the board with proper move destinations
+        board.set({
+            movable: {
+                free: false,
+                color: isWhiteTurn ? 'white' : 'black',
+                dests: moveHandler.getLegalMoves(),
+                events: {
+                    after: (orig, dest) => {
+                        moveHandler.onMove(orig, dest, currentPuzzleData, {
+                            onSuccess: onPuzzleComplete,
+                            onFailure: onPuzzleFailure,
+                        });
+                    }
                 }
             }
         });
-        return dests;
     }
 
     function logPuzzleCompletion(success) {
@@ -511,74 +429,14 @@ document.addEventListener("DOMContentLoaded", async function () {
 
         hintButton.style.display = 'none';
         logPuzzleCompletion(false);
-        resetAndSolvePuzzle();
+        moveHandler.resetAndSolvePuzzle(currentPuzzleData, {
+            onComplete: loadNextPuzzle,
+            onUpdateDisplay: updateTurnDisplay
+        });
     }
 
     function loadNextPuzzle() {
         currentPuzzleIndex++;
         loadPuzzle();
-    }
-
-    function onMove(orig, dest) {
-        const move = game.move({
-            from: orig,
-            to: dest,
-            promotion: "q"
-        });
-
-        if (!move) {
-            return;
-        }
-
-        soundManager.playChessSound(move, game);
-
-        const expectedMove = currentPuzzleData.solutionSAN[currentSolutionIndex];
-
-        if (move.san !== expectedMove) {
-            soundManager.playResultSound(false);
-            const failMessage = document.getElementById("failMessage");
-            failMessage.style.display = "block";
-            
-            setTimeout(() => {
-                failMessage.style.display = "none";
-                onPuzzleFailure();
-            }, MOVE_DELAY);
-            
-            return;
-        }
-
-        updateBoardState(game.fen(), [orig, dest]);
-        currentSolutionIndex++;
-
-        if (currentSolutionIndex >= currentPuzzleData.solutionSAN.length) {
-            onPuzzleComplete();
-        } else {
-            setTimeout(aiMove, 500);
-        }
-    }
-
-    function aiMove() {
-        if (!currentPuzzleData || currentSolutionIndex >= currentPuzzleData.solutionSAN.length) {            
-            return;
-        }
-
-        const nextMoveSAN = currentPuzzleData.solutionSAN[currentSolutionIndex];
-        const move = game.move(nextMoveSAN);
-
-        if (!move) {
-            return;
-        }
-
-        soundManager.playChessSound(move, game);
-
-        updateBoardState(game.fen(), [move.from, move.to]);
-        currentSolutionIndex++;
-    }
-
-    function stopAutoSolve() {
-        if (autoSolveTimeout) {
-            clearTimeout(autoSolveTimeout);
-            autoSolveTimeout = null;
-        }
     }
 });
