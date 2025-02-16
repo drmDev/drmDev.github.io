@@ -51,7 +51,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                 await fetchPuzzles();
             }
 
-            console.log('Starting new puzzle session');
+            // console.log('Starting new puzzle session');
             uiManager.toggleSessionButtons(true);
             timerManager.start();
             await loadPuzzle();
@@ -62,13 +62,13 @@ document.addEventListener("DOMContentLoaded", async function () {
     });
 
     document.getElementById("stopPuzzle").addEventListener("click", function () {
-        console.log('Stopping puzzle session');
+        // console.log('Stopping puzzle session');
         timerManager.stop();
         uiManager.toggleSessionButtons(false);
         uiManager.hideHintButton();
         uiManager.showSessionSummary(sessionStats, {
             onNewSession: async () => {
-                console.log('Starting new session from summary');
+                // console.log('Starting new session from summary');
                 resetSession();
                 await loadPuzzle();
                 timerManager.start();
@@ -90,10 +90,10 @@ document.addEventListener("DOMContentLoaded", async function () {
             await fetchPuzzles();
             if (dbPuzzles && dbPuzzles.length > 0) {
                 if (!uiManager.isSessionActive) {
-                    console.log('Initial load - setting up start button');
+                    // console.log('Initial load - setting up start button');
                     uiManager.toggleSessionButtons(false);
                 } else {
-                    console.log('Session already active - maintaining current state');
+                    // console.log('Session already active - maintaining current state');
                 }
             } else {
                 console.error('No puzzles available');
@@ -192,7 +192,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
 
     function resetSession() {
-        console.log('Resetting session state');
+        // console.log('Resetting session state');
         currentPuzzleIndex = 0;
         currentPuzzleData = null;
         hintUsed = false;

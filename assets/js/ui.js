@@ -23,12 +23,12 @@ export class UIManager {
     }
 
     isInActiveSession() {
-        console.log(`Checking session state: ${this.isSessionActive}`);
+        // console.log(`Checking session state: ${this.isSessionActive}`);
         return this.isSessionActive;
     }
 
     setSessionState(isActive) {
-        console.log(`Setting session state to: ${isActive ? 'ACTIVE' : 'INACTIVE'}`);
+        // console.log(`Setting session state to: ${isActive ? 'ACTIVE' : 'INACTIVE'}`);
         this.isSessionActive = isActive;
     }
 
@@ -79,30 +79,30 @@ export class UIManager {
     }
 
     toggleSessionButtons(isStarting) {
-        console.log(`Toggle Session called. Is Starting? ${isStarting}. Current session state: ${this.isSessionActive}`);
+        //console.log(`Toggle Session called. Is Starting? ${isStarting}. Current session state: ${this.isSessionActive}`);
 
         // Prevent redundant state changes
         if (isStarting === this.isSessionActive) {
-            console.log('Skipping toggle - state already matches requested state');
+            // console.log('Skipping toggle - state already matches requested state');
             return;
         }
 
         // Only allow state changes in specific conditions
         if (this.isSessionActive && !isStarting) {
-            console.log('Stopping active session');
+            //console.log('Stopping active session');
             this.setSessionState(false);
         } else if (!this.isSessionActive && isStarting) {
-            console.log('Starting new session');
+            //console.log('Starting new session');
             this.setSessionState(true);
         } else {
-            console.log('Invalid state transition attempted - maintaining current state');
+            // console.log('Invalid state transition attempted - maintaining current state');
             return;
         }
 
         this.elements.startPuzzle.style.display = this.isSessionActive ? 'none' : 'inline';
         this.elements.stopPuzzle.style.display = this.isSessionActive ? 'inline' : 'none';
 
-        console.log(`Button visibility updated - Start: ${this.elements.startPuzzle.style.display}, Stop: ${this.elements.stopPuzzle.style.display}`);
+        // console.log(`Button visibility updated - Start: ${this.elements.startPuzzle.style.display}, Stop: ${this.elements.stopPuzzle.style.display}`);
     }
 
     showSessionSummary(sessionStats, callbacks) {
@@ -200,7 +200,7 @@ export class UIManager {
         const addedLink = this.elements.puzzleHistory.querySelector('li:last-child .puzzle-link');
         if (addedLink) {
             addedLink.addEventListener('click', (e) => {
-                console.log('Opening puzzle in new tab, maintaining current session state');
+                // console.log('Opening puzzle in new tab, maintaining current session state');
             });
         }
 
@@ -213,7 +213,7 @@ export class UIManager {
     }
 
     resetUI() {
-        console.log('Resetting UI - Maintaining current session state');
+        // console.log('Resetting UI - Maintaining current session state');
         this.elements.puzzleHistory.innerHTML = '';
         this.elements.turnIndicator.textContent = '';
         this.elements.puzzleTitle.textContent = '';
