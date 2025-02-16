@@ -4,10 +4,6 @@ title: "Chess Woodpecker App"
 permalink: /puzzles/
 ---
 
-<div class="alert alert-warning" role="alert">
-    {{ "**Note:** This app is still in early development, and many improvements are being worked on. Currently your session is only preserved for as long as you remain on this page." | markdownify }}
-</div>
-
 <h1><i class="fa-solid fa-crow"></i> Chess Woodpecker App</h1>
 
 {{ "This tool helps you improve your pattern recognition using the **Woodpecker Method** - named after how woodpeckers repeatedly strike the same spot, just as you'll repeatedly solve the same tactical puzzles to reinforce pattern recognition. The **100-puzzle** collection features five essential chess themes, with 20 puzzles each:
@@ -33,21 +29,33 @@ permalink: /puzzles/
 
 Regular practice with these puzzles will help you spot these patterns more quickly in your own games!" | markdownify }}
 
-<div id="puzzle-container" class="text-center container-fluid">
-   <!-- Control buttons row -->
+<div id="authContainer" class="row mb-3">
+    <div class="col-12">
+        <!-- Auth status will be dynamically inserted here with matching Bootstrap styles -->
+    </div>
+</div>
+
+<div id="puzzle-container" class="text-center container-fluid" style="display: none;">
+    <!-- Control buttons row -->
     <div class="row mb-3">
         <div class="col-12 d-flex justify-content-center">
             <div class="control-group">
-                <button id="startPuzzle" class="btn btn-primary puzzle-btn">
-                    Start Session
-                </button>
-                <button id="stopPuzzle" class="btn btn-warning puzzle-btn ms-2" style="display: none;">
+                <div id="startSessionContainer">
+                    <button id="startPuzzle" class="btn btn-primary puzzle-btn">
+                        Start Session
+                    </button>
+                </div>
+
+                <!-- EXISTING: Unchanged buttons -->
+                <button id="stopPuzzle" class="btn btn-warning puzzle-btn ms-2" 
+                        style="display: none;">
                     <i class="fas fa-stop-circle"></i> Stop Session
                 </button>
                 <button id="toggleSound" class="btn puzzle-btn ms-2">
                     <i class="fas fa-volume-up"></i> Sound On
                 </button>
-                <button id="hintButton" class="btn btn-info puzzle-btn ms-2" style="display: none;">
+                <button id="hintButton" class="btn btn-info puzzle-btn ms-2" 
+                        style="display: none;">
                     <i class="fas fa-lightbulb"></i> Show Category
                 </button>
             </div>
@@ -196,6 +204,12 @@ Regular practice with these puzzles will help you spot these patterns more quick
         <div class="card-body">
             <div class="version-list">
                 <div class="version-item">
+                    <h5 class="text-info">v1.3.0 - February 15, 2025</h5>
+                    <ul class="list-unstyled">
+                        <li><i class="fas fa-plus-circle text-success"></i> Added Google OAuth Sign In. (NOTE: still work to be done to persist sessions in the account)
+                    </ul>
+                </div>
+                <div class="version-item">
                     <h5 class="text-info">v1.2.0 - February 12, 2025</h5>
                     <ul class="list-unstyled">
                         <li><i class="fas fa-plus-circle text-success"></i> Added Hint #1 (displays the Category of the puzzle).</li>
@@ -227,5 +241,7 @@ Regular practice with these puzzles will help you spot these patterns more quick
     import { Chess } from "https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.13.4/chess.min.js";
 </script>
 
+<script src="https://unpkg.com/@supabase/supabase-js@2.39.3"></script>
 <script src="https://cdn.jsdelivr.net/npm/dayjs@1.10.7/dayjs.min.js"></script>
+<script src="{{ '/assets/js/auth.js' | relative_url }}"></script>
 <script type="module" src="/assets/js/puzzles.js"></script>
