@@ -205,7 +205,6 @@ Regular practice with these puzzles will help you spot these patterns more quick
             <ul class="list-unstyled">
                 <li><i class="fas fa-user-lock text-info"></i> Save your session progress, even if you leave the page.</li>
                 <li><i class="fas fa-file-upload text-info"></i> Import your own puzzle lists to practice.</li>
-                <li><i class="fas fa-file-export text-info"></i> Export your progress and solved puzzles.</li>
             </ul>
             <p>Have suggestions? Let me know!</p>
         </div>
