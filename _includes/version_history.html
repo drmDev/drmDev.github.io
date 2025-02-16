@@ -1,0 +1,33 @@
+<div class="card bg-dark text-light mb-4">
+    <div class="card-header text-warning" role="button" data-bs-toggle="collapse"
+        data-bs-target="#versionHistoryContent" aria-expanded="false" aria-controls="versionHistoryContent"
+        style="cursor: pointer;">
+        <div class="d-flex justify-content-between align-items-center">
+            <span><i class="fas fa-code-branch me-2"></i> Version History</span>
+            <i class="fas fa-chevron-down version-toggle"></i>
+        </div>
+    </div>
+    <div class="collapse" id="versionHistoryContent">
+        <div class="card-body">
+            <div class="version-list">
+                {% for version in include.versions %}
+                <div class="version-item">
+                    <h5 class="text-info">
+                        v{{ version.number }}
+                        {% if version.initial %}- Initial Release{% endif %}
+                        - {{ version.date }}
+                    </h5>
+                    <ul class="list-unstyled">
+                        {% for change in version.changes %}
+                        <li>
+                            <i class="fas fa-check-circle text-success"></i>
+                            {{ change }}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>

@@ -29,7 +29,7 @@ permalink: /puzzles/
 
 Regular practice with these puzzles will help you spot these patterns more quickly in your own games!" | markdownify }}
 
-<div class="alert alert-info mb-3">
+<div id="googleSignInInfo" class="alert alert-info mb-3">
     <h4>About Google Sign-In</h4>
     <p>
         When you click "Sign in with Google", you'll see an authorization request from:
@@ -63,8 +63,6 @@ Regular practice with these puzzles will help you spot these patterns more quick
                         Start Session
                     </button>
                 </div>
-
-                <!-- EXISTING: Unchanged buttons -->
                 <button id="stopPuzzle" class="btn btn-warning puzzle-btn ms-2" 
                         style="display: none;">
                     <i class="fas fa-stop-circle"></i> Stop Session
@@ -196,11 +194,7 @@ Regular practice with these puzzles will help you spot these patterns more quick
         <div class="card-body">
             <ul class="list-unstyled">
                 <li><i class="fas fa-user-lock text-info"></i> Save your session progress, even if you leave the page.</li>
-                <li><i class="fas fa-mobile-alt text-info"></i> Full mobile compatibility.</li>
-                <li><i class="fas fa-chart-line text-info"></i> Track your improvement over time with stats.</li>
-                <li><i class="fas fa-lightbulb text-info"></i> Hint features to help you learn.</li>
                 <li><i class="fas fa-file-upload text-info"></i> Import your own puzzle lists to practice.</li>
-                <li><i class="fas fa-calendar-alt text-info"></i> Spaced repetition scheduling for optimal learning.</li>
                 <li><i class="fas fa-file-export text-info"></i> Export your progress and solved puzzles.</li>
             </ul>
             <p>Have suggestions? Let me know!</p>
@@ -209,50 +203,8 @@ Regular practice with these puzzles will help you spot these patterns more quick
 </div>
 
 <br>
-<div class="card bg-dark text-light mb-4">
-    <div class="card-header text-warning" role="button" data-bs-toggle="collapse" 
-         data-bs-target="#versionHistoryContent" aria-expanded="false" 
-         aria-controls="versionHistoryContent" style="cursor: pointer;">
-        <div class="d-flex justify-content-between align-items-center">
-            <span><i class="fas fa-code-branch me-2"></i> Version History</span>
-            <i class="fas fa-chevron-down version-toggle"></i>
-        </div>
-    </div>
-    <div class="collapse" id="versionHistoryContent">
-        <div class="card-body">
-            <div class="version-list">
-                <div class="version-item">
-                    <h5 class="text-info">v1.3.0 - February 15, 2025</h5>
-                    <ul class="list-unstyled">
-                        <li><i class="fas fa-plus-circle text-success"></i> Added Google OAuth Sign In. (NOTE: still work to be done to persist sessions in the account)
-                    </ul>
-                </div>
-                <div class="version-item">
-                    <h5 class="text-info">v1.2.0 - February 12, 2025</h5>
-                    <ul class="list-unstyled">
-                        <li><i class="fas fa-plus-circle text-success"></i> Added Hint #1 (displays the Category of the puzzle).</li>
-                        <li><i class="fas fa-plus-circle text-success"></i> Added Session Summary Reports.</li>
-                    </ul>
-                </div>
-                <div class="version-item">
-                    <h5 class="text-info">v1.1.0 - February 11, 2025</h5>
-                    <ul class="list-unstyled">
-                        <li><i class="fas fa-plus-circle text-success"></i> Added chess sound effects for moves, captures, and checks</li>
-                        <li><i class="fas fa-plus-circle text-success"></i> Added sound toggle controls</li>
-                    </ul>
-                </div>
-                <div class="version-item">
-                    <h5 class="text-info">v1.0.0 - Initial Release - February 9, 2025</h5>
-                    <ul class="list-unstyled">
-                        <li><i class="fas fa-check-circle text-success"></i> Basic puzzle solving functionality</li>
-                        <li><i class="fas fa-check-circle text-success"></i> Progress tracking</li>
-                        <li><i class="fas fa-check-circle text-success"></i> Session timing</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+{% assign version_history = site.data.versions.puzzles %}
+{% include version_history.html versions=version_history %}
 
 <script type="module">
     import { Chessground } from "https://cdnjs.cloudflare.com/ajax/libs/chessground/9.1.1/chessground.min.js";

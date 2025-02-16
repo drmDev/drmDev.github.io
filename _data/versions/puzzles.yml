@@ -1,0 +1,24 @@
+- number: "1.3.0"
+  date: "February 15, 2025"
+  changes:
+    - "Added Google OAuth Sign In. (NOTE: still work to be done to persist sessions in the account)"
+
+- number: "1.2.0"
+  date: "February 12, 2025"
+  changes:
+    - "Added Hint #1 (displays the Category of the puzzle)."
+    - "Added Session Summary Reports."
+
+- number: "1.1.0"
+  date: "February 11, 2025"
+  changes:
+    - "Added chess sound effects for moves, captures, and checks"
+    - "Added sound toggle controls"
+
+- number: "1.0.0"
+  date: "February 9, 2025"
+  initial: true
+  changes:
+    - "Basic puzzle solving functionality"
+    - "Progress tracking"
+    - "Session timing"
