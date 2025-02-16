@@ -35,11 +35,9 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     console.log('DOMContentLoaded event fired');
 
-    // MODIFIED: Enhanced auth state handling
     const { data: { session } } = await supabaseClient.auth.getSession();
     updateAuthUI(session);
 
-    // MODIFIED: Enhanced auth state change listener
     supabaseClient.auth.onAuthStateChange(async (event, session) => {
         console.log('Auth state changed:', event);
         updateAuthUI(session);
@@ -174,28 +172,34 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     // Update states
     function updateAuthUI(session) {
+        const googleSignInInfo = document.getElementById('googleSignInInfo');
         const authContainer = document.getElementById('authContainer');
         const puzzleContainer = document.getElementById('puzzle-container');
 
         if (session) {
+            googleSignInInfo.style.display = 'none';
+
             // Authenticated state
             authContainer.innerHTML = `
-            <div class="alert alert-success">
-                Signed in as: ${session.user.email}
-                <button onclick="window.auth.signOut()" class="btn btn-outline-danger btn-sm ms-3">
-                    Sign Out
-                </button>
-            </div>`;
+                <div class="alert alert-success">
+                    Signed in as: ${session.user.email}
+                    <button onclick="window.auth.signOut()" class="btn btn-outline-danger btn-sm ms-3">
+                        Sign Out
+                    </button>
+                </div>`;
             puzzleContainer.style.display = 'block';
         } else {
+            // Show the Google Sign-In info when not authenticated
+            googleSignInInfo.style.display = 'block';
+
             // Not authenticated
             authContainer.innerHTML = `
-            <div class="alert alert-warning">
-                Please sign in to access puzzles
-                <button onclick="window.auth.signInWithGoogle()" class="btn btn-primary ms-3">
-                    Sign in with Google
-                </button>
-            </div>`;
+                <div class="alert alert-warning">
+                    Please sign in to access puzzles
+                    <button onclick="window.auth.signInWithGoogle()" class="btn btn-primary ms-3">
+                        Sign in with Google
+                    </button>
+                </div>`;
             puzzleContainer.style.display = 'none';
         }
     }
