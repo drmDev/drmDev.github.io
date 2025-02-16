@@ -29,6 +29,24 @@ permalink: /puzzles/
 
 Regular practice with these puzzles will help you spot these patterns more quickly in your own games!" | markdownify }}
 
+<div class="alert alert-info mb-3">
+    <h4>About Google Sign-In</h4>
+    <p>
+        When you click "Sign in with Google", you'll see an authorization request from:
+        <code>https://acrhtrgvkhjxbejrdgjn.supabase.co</code>
+    </p>
+    <p>
+        This is our secure authentication provider hosted by Supabase. We only request access to:
+        <ul>
+            <li>Your Google account ID (to create a unique identifier)</li>
+            <li>Your email address (for authentication only)</li>
+        </ul>
+    </p>
+    <p>
+        We do not store or share your personal information. Your puzzle progress will be securely tied to your account. (At a later point when I buy my own domain, the Google OAuth consent screen will display showing my app name instead.)
+    </p>
+</div>
+
 <div id="authContainer" class="row mb-3">
     <div class="col-12">
         <!-- Auth status will be dynamically inserted here with matching Bootstrap styles -->
