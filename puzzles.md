@@ -132,28 +132,38 @@ Regular practice with these puzzles will help you spot these patterns more quick
                 </h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-                <!-- Overall Stats -->
-                <div class="stats-section mb-4">
-                    <h6 class="text-info"><i class="fas fa-calculator"></i> Overall Performance</h6>
-                    <div class="stats-content" id="overallStats">
-                        <!-- Will be populated by JavaScript -->
+            <!-- Added id while preserving original structure -->
+            <div id="sessionSummaryContent">
+                <div class="modal-body">
+                    <!-- Overall Stats -->
+                    <div class="stats-section mb-4">
+                        <h6 class="text-info"><i class="fas fa-calculator"></i> Overall Performance</h6>
+                        <div class="stats-content" id="overallStats">
+                            <!-- Will be populated by JavaScript -->
+                        </div>
                     </div>
-                </div>
 
-                <!-- Category Stats -->
-                <div class="stats-section mb-4">
-                    <h6 class="text-info"><i class="fas fa-tags"></i> Performance by Category</h6>
-                    <div class="stats-content" id="categoryStats">
-                        <!-- Will be populated by JavaScript -->
+                    <!-- Category Stats -->
+                    <div class="stats-section mb-4">
+                        <h6 class="text-info"><i class="fas fa-tags"></i> Performance by Category</h6>
+                        <div class="stats-content" id="categoryStats">
+                            <!-- Will be populated by JavaScript -->
+                        </div>
                     </div>
-                </div>
 
-                <!-- Failed Puzzles -->
-                <div class="stats-section">
-                    <h6 class="text-info"><i class="fas fa-exclamation-circle"></i> Failed Puzzles</h6>
-                    <div class="stats-content" id="failedPuzzles">
-                        <!-- Will be populated by JavaScript -->
+                    <!-- Failed Puzzles -->
+                    <div class="stats-section">
+                        <h6 class="text-info"><i class="fas fa-exclamation-circle"></i> Failed Puzzles</h6>
+                        <div class="stats-content" id="failedPuzzles">
+                            <!-- Will be populated by JavaScript -->
+                        </div>
+                    </div>
+
+                    <!-- New section for Start New Session button -->
+                    <div class="text-center mt-4">
+                        <button id="startNewSession" class="btn btn-primary">
+                            <i class="fas fa-play"></i> Start New Session
+                        </button>
                     </div>
                 </div>
             </div>
@@ -202,13 +212,6 @@ Regular practice with these puzzles will help you spot these patterns more quick
 <br>
 {% assign version_history = site.data.versions.puzzles %}
 {% include version_history.html versions=version_history %}
-
-<!-- 
-<script type="module">
-    import { Chessground } from "https://cdnjs.cloudflare.com/ajax/libs/chessground/9.1.1/chessground.min.js";
-    import { Chess } from "https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.13.4/chess.min.js";
-</script>
--->
 
 <!-- Third-party libraries (global scope) -->
 <script src="https://unpkg.com/@supabase/supabase-js@2.39.3"></script>
