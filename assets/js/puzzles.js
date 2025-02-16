@@ -4,11 +4,11 @@ import { soundManager } from './sounds.js';
 import { MoveHandler, MOVE_DELAY } from './moves.js';
 import { SessionStats } from './stats.js';
 import { TimerManager } from './timer.js';
+import { UIManager } from './ui.js';
 
 document.addEventListener("DOMContentLoaded", async function () {
     let currentPuzzleIndex = 0;
     let puzzleStartTime;
-    let puzzleTimes = [];
     let game;
     let board;
     let dbPuzzles = [];
@@ -16,8 +16,10 @@ document.addEventListener("DOMContentLoaded", async function () {
     let hintUsed = false;
     let category;
     let moveHandler;
+    let puzzleTimes = [];
     const sessionStats = new SessionStats();
     const timerManager = new TimerManager();
+    const uiManager = new UIManager();
 
     const baseUrl = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
         ? 'http://localhost:8081'
@@ -25,24 +27,18 @@ document.addEventListener("DOMContentLoaded", async function () {
     const apiUrl = `${baseUrl}/api/puzzles`;
 
     const { supabaseClient } = window.auth;
-
+    const BOARD_ELEMENT = document.getElementById("chessboard");
     const { data: { session } } = await supabaseClient.auth.getSession();
-    updateAuthUI(session);
+    uiManager.updateAuthUI(session);
 
     supabaseClient.auth.onAuthStateChange(async (event, session) => {
-        updateAuthUI(session);
+        uiManager.updateAuthUI(session);
 
         if (session && event === 'SIGNED_IN') {
             await initializePuzzles();
         }
     });
 
-    const hintButton = document.getElementById('hintButton');
-    const puzzleHint = document.getElementById('puzzleHint');
-    const puzzleCategory = document.getElementById('puzzleCategory');
-    const BOARD_ELEMENT = document.getElementById("chessboard");
-
-    // Start puzzle listener with error handling
     document.getElementById("startPuzzle").addEventListener("click", async function () {
         try {
             const { data: { session } } = await supabaseClient.auth.getSession();
@@ -55,29 +51,37 @@ document.addEventListener("DOMContentLoaded", async function () {
                 await fetchPuzzles();
             }
 
+            // console.log('Starting new puzzle session');
+            uiManager.toggleSessionButtons(true);
             timerManager.start();
             await loadPuzzle();
-            toggleSessionButtons(true);
         } catch (error) {
             console.error('Error starting puzzle session:', error);
+            uiManager.toggleSessionButtons(false);
         }
     });
 
     document.getElementById("stopPuzzle").addEventListener("click", function () {
+        // console.log('Stopping puzzle session');
         timerManager.stop();
-        toggleSessionButtons(false);
-        hintButton.style.display = 'none';
-        showSessionSummary();
+        uiManager.toggleSessionButtons(false);
+        uiManager.hideHintButton();
+        uiManager.showSessionSummary(sessionStats, {
+            onNewSession: async () => {
+                // console.log('Starting new session from summary');
+                resetSession();
+                await loadPuzzle();
+                timerManager.start();
+                uiManager.toggleSessionButtons(true);
+            }
+        });
     });
 
     hintButton.addEventListener('click', function () {
         if (!currentPuzzleData || hintUsed) return;
 
         category = dbPuzzles[currentPuzzleIndex].category;
-        puzzleCategory.textContent = category;
-        puzzleHint.style.display = 'inline';
-
-        hintButton.disabled = true;
+        uiManager.showHint(category);
         hintUsed = true;
     });
 
@@ -85,111 +89,18 @@ document.addEventListener("DOMContentLoaded", async function () {
         try {
             await fetchPuzzles();
             if (dbPuzzles && dbPuzzles.length > 0) {
-                document.getElementById("startPuzzle").style.display = 'inline';
+                if (!uiManager.isSessionActive) {
+                    // console.log('Initial load - setting up start button');
+                    uiManager.toggleSessionButtons(false);
+                } else {
+                    // console.log('Session already active - maintaining current state');
+                }
             } else {
                 console.error('No puzzles available');
             }
         } catch (error) {
             console.error('Error initializing puzzles:', error);
         }
-    }
-
-    // Update states
-    function updateAuthUI(session) {
-        const googleSignInInfo = document.getElementById('googleSignInInfo');
-        const authContainer = document.getElementById('authContainer');
-        const puzzleContainer = document.getElementById('puzzle-container');
-
-        if (session) {
-            googleSignInInfo.style.display = 'none';
-
-            // Authenticated state
-            authContainer.innerHTML = `
-                <div class="alert alert-success">
-                    Signed in as: ${session.user.email}
-                    <button onclick="window.auth.signOut()" class="btn btn-outline-danger btn-sm ms-3">
-                        Sign Out
-                    </button>
-                </div>`;
-            puzzleContainer.style.display = 'block';
-        } else {
-            // Show the Google Sign-In info when not authenticated
-            googleSignInInfo.style.display = 'block';
-
-            // Not authenticated
-            authContainer.innerHTML = `
-                <div class="alert alert-warning">
-                    Please sign in to access puzzles
-                    <button onclick="window.auth.signInWithGoogle()" class="btn btn-primary ms-3">
-                        Sign in with Google
-                    </button>
-                </div>`;
-            puzzleContainer.style.display = 'none';
-        }
-    }
-
-    function toggleSessionButtons(isStarting) {
-        document.getElementById("startPuzzle").style.display = isStarting ? 'none' : 'inline';
-        document.getElementById("stopPuzzle").style.display = isStarting ? 'inline' : 'none';
-    }
-
-    function showSessionSummary() {
-        const stats = sessionStats.getStats();
-        const successRate = sessionStats.getSuccessRate();
-
-        const overallStatsHtml = `
-            <div class="alert alert-info">
-                <strong>Puzzles Completed:</strong> ${stats.correctPuzzles}/${stats.totalPuzzles} (${successRate}%)
-            </div>
-        `;
-
-        let categoryStatsHtml = '';
-        for (const category in stats.categoryStats) {
-            const catStats = stats.categoryStats[category];
-            const categoryRate = (catStats.correct / catStats.total * 100).toFixed(1);
-            categoryStatsHtml += `
-                <div class="category-stat">
-                    <span>${category}</span>
-                    <span>${catStats.correct}/${catStats.total} (${categoryRate}%)</span>
-                </div>
-            `;
-        }
-
-        let failedPuzzlesHtml = '';
-        if (stats.failedPuzzles.length > 0) {
-            failedPuzzlesHtml = stats.failedPuzzles.map(puzzle => `
-                <a href="${puzzle.url}" class="failed-puzzle-link" target="_blank">
-                    <i class="fas fa-external-link-alt"></i> ${puzzle.category} Puzzle #${puzzle.id}
-                </a>
-            `).join('');
-        } else {
-            failedPuzzlesHtml = '<p class="text-success">No failed puzzles! Great job!</p>';
-        }
-
-        document.getElementById('overallStats').innerHTML = overallStatsHtml;
-        document.getElementById('categoryStats').innerHTML = categoryStatsHtml || '<p>No category data available</p>';
-        document.getElementById('failedPuzzles').innerHTML = failedPuzzlesHtml;
-
-        const exportButton = document.getElementById('exportSummary');
-        if (exportButton) {
-            exportButton.addEventListener('click', () => {
-                sessionStats.exportToCSV();
-            });
-        }
-
-        // Add event listener for new session button
-        document.getElementById('startNewSession').addEventListener('click', async () => {
-            const modal = bootstrap.Modal.getInstance(document.getElementById('sessionSummaryModal'));
-            modal.hide();
-            resetSession();
-            await loadPuzzle();
-            timerManager.start();
-            toggleSessionButtons(true);
-        });
-
-        // Show the modal
-        const modal = new bootstrap.Modal(document.getElementById('sessionSummaryModal'));
-        modal.show();
     }
 
     async function fetchPuzzles() {
@@ -235,7 +146,6 @@ document.addEventListener("DOMContentLoaded", async function () {
         return sanMoves;
     }
 
-    // Load each puzzle
     async function loadPuzzle() {
         if (!dbPuzzles || dbPuzzles.length === 0) {
             console.error('No puzzles loaded');
@@ -245,30 +155,29 @@ document.addEventListener("DOMContentLoaded", async function () {
         // auto stop the session when all 100 puzzles are done
         if (currentPuzzleIndex >= dbPuzzles.length) {
             timerManager.stop();
-            toggleSessionButtons(false);
-            hintButton.style.display = 'none';
-            showSessionSummary();
+            uiManager.hideHintButton();
+            uiManager.showSessionSummary(sessionStats, {
+                onNewSession: async () => {
+                    resetSession();
+                    await loadPuzzle();
+                    timerManager.start();
+                }
+            });
             return;
         }
 
-        // Reset hint state
-        hintButton.style.display = 'inline-flex';
-        hintButton.disabled = false;
+        uiManager.resetHint();
         hintUsed = false;
-        puzzleHint.style.display = 'none';
-
-        document.getElementById("puzzleTitle").textContent = `Puzzle ${currentPuzzleIndex + 1}`;
-
+        uiManager.setPuzzleTitle(currentPuzzleIndex + 1);
         const puzzleMetadata = dbPuzzles[currentPuzzleIndex];
-
-        sessionStats.recordPuzzleAttempt(puzzleMetadata, false);  // false because puzzle is just starting
+        sessionStats.recordPuzzleAttempt(puzzleMetadata, false);
 
         try {
             currentPuzzleData = await fetchPuzzleData(puzzleMetadata.lichess_id);
             initializePuzzleState();
             await setupGamePosition();
             initializeChessboard();
-            updateTurnDisplay();
+            uiManager.updateTurnDisplay(game);
 
             console.log("✅ Puzzle loaded successfully", {
                 isWhiteTurn: game.turn() === 'w',
@@ -283,20 +192,14 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
 
     function resetSession() {
-        // Reset all session-related variables
+        // console.log('Resetting session state');
         currentPuzzleIndex = 0;
-        puzzleTimes = [];
         currentPuzzleData = null;
         hintUsed = false;
+        puzzleTimes.length = 0;
         sessionStats.reset();
         timerManager.reset();
-
-        // Reset UI elements
-        document.getElementById("puzzleHistory").innerHTML = '';
-        document.getElementById("turnIndicator").textContent = '';
-        document.getElementById("puzzleTitle").textContent = '';
-        puzzleHint.style.display = 'none';
-        hintButton.style.display = 'none';
+        uiManager.resetUI();
     }
 
     async function fetchPuzzleData(lichessId) {
@@ -309,7 +212,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     function initializePuzzleState() {
         puzzleStartTime = Date.now();
-        document.getElementById("puzzleTitle").textContent = `Puzzle ${currentPuzzleIndex + 1}`;
+        uiManager.setPuzzleTitle(currentPuzzleIndex + 1);
         if (moveHandler) {
             moveHandler.stopAutoSolve();
         }
@@ -370,69 +273,39 @@ document.addEventListener("DOMContentLoaded", async function () {
         });
     }
 
-    function logPuzzleCompletion(success) {
-        const elapsedTime = Date.now() - puzzleStartTime;
-        const formattedTime = timerManager.formatElapsedTime(elapsedTime);
-
-        const puzzleMetadata = dbPuzzles[currentPuzzleIndex];
-        const category = puzzleMetadata ? puzzleMetadata.category : "Unknown";
-        const puzzleLink = puzzleMetadata ? `https://lichess.org/training/${puzzleMetadata.lichess_id}` : "#";
-
-        const puzzleNumber = currentPuzzleIndex + 1;
-        const statusElement = success ?
-            '<span class="status-icon success">✔️</span>' :
-            '<span class="status-icon failure">❌</span>';
-
-        const historyEntry = `
-        <li>
-            <b>Puzzle ${puzzleNumber}</b>
-            <span class="elapsed-time ${success ? 'success' : 'failure'}">${formattedTime}</span> 
-            ${statusElement}
-            <i class="category">${category}</i> 
-            <a href="${puzzleLink}" target="_blank">View Puzzle</a>
-        </li>`;
-        document.getElementById("puzzleHistory").innerHTML += historyEntry;
-
-        puzzleTimes.push({
-            number: puzzleNumber,
-            time: formattedTime,
-            success,
-            category
-        });
-    }
-
-    function updateTurnDisplay(isPuzzleComplete = false) {
-        const turnIndicator = document.getElementById('turnIndicator');
-
-        if (isPuzzleComplete) {
-            turnIndicator.textContent = '... Loading next puzzle ...';
-            turnIndicator.className = 'turn-display loading';
-        } else {
-            const turnColor = game.turn() === 'w' ? 'White' : 'Black';
-            turnIndicator.textContent = `${turnColor} to move`;
-            turnIndicator.className = `turn-display ${turnColor.toLowerCase()}-turn`;
-        }
-    }
-
     function onPuzzleComplete() {
         soundManager.playResultSound(true);
         const puzzleMetadata = dbPuzzles[currentPuzzleIndex];
         sessionStats.recordPuzzleAttempt(puzzleMetadata, true);
 
-        logPuzzleCompletion(true);
-        updateTurnDisplay(true);
+        uiManager.logPuzzleCompletion(
+            puzzleMetadata,
+            currentPuzzleIndex,
+            true,
+            timerManager,
+            puzzleStartTime
+        );
+
+        uiManager.updateTurnDisplay(game, true);
         setTimeout(loadNextPuzzle, MOVE_DELAY);
     }
 
     function onPuzzleFailure() {
         const puzzleMetadata = dbPuzzles[currentPuzzleIndex];
         sessionStats.recordPuzzleAttempt(puzzleMetadata, false);
+        uiManager.hideHintButton();
 
-        hintButton.style.display = 'none';
-        logPuzzleCompletion(false);
+        uiManager.logPuzzleCompletion(
+            puzzleMetadata,
+            currentPuzzleIndex,
+            false,
+            timerManager,
+            puzzleStartTime
+        );
+
         moveHandler.resetAndSolvePuzzle(currentPuzzleData, {
             onComplete: loadNextPuzzle,
-            onUpdateDisplay: updateTurnDisplay
+            onUpdateDisplay: (isPuzzleComplete) => uiManager.updateTurnDisplay(game, isPuzzleComplete)
         });
     }
 
