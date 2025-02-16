@@ -1,5 +1,6 @@
 import { Chessground } from "https://cdnjs.cloudflare.com/ajax/libs/chessground/9.1.1/chessground.min.js";
 import { Chess } from "https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.13.4/chess.min.js";
+import { soundManager } from './sounds.js';
 
 document.addEventListener("DOMContentLoaded", async function () {
 
@@ -16,7 +17,6 @@ document.addEventListener("DOMContentLoaded", async function () {
     let currentPuzzleData = null;
     let currentSolutionIndex = 0;
     let autoSolveTimeout = null;
-    let isSoundEnabled = true;
     let hintUsed = false;
     let category;
     let sessionStats = {
@@ -33,25 +33,17 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     const { supabaseClient } = window.auth;
 
-    console.log('DOMContentLoaded event fired');
-
     const { data: { session } } = await supabaseClient.auth.getSession();
     updateAuthUI(session);
 
     supabaseClient.auth.onAuthStateChange(async (event, session) => {
-        console.log('Auth state changed:', event);
         updateAuthUI(session);
 
         if (session && event === 'SIGNED_IN') {
-            console.log('User signed in, initializing puzzles');
-            await initializePuzzles(); // CHANGED: Call new initializePuzzles function
+            await initializePuzzles();
         }
     });
 
-    const moveSound = document.getElementById('moveSound');
-    const captureSound = document.getElementById('captureSound');
-    const checkSound = document.getElementById('checkSound');
-    const toggleSoundBtn = document.getElementById('toggleSound');
     const hintButton = document.getElementById('hintButton');
     const puzzleHint = document.getElementById('puzzleHint');
     const puzzleCategory = document.getElementById('puzzleCategory');    
@@ -71,7 +63,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     const MOVE_DELAY = 2000;
 
-    // MODIFIED: Start puzzle listener with error handling
+    // Start puzzle listener with error handling
     document.getElementById("startPuzzle").addEventListener("click", async function () {
         try {
             const { data: { session } } = await supabaseClient.auth.getSession();
@@ -81,7 +73,6 @@ document.addEventListener("DOMContentLoaded", async function () {
             }
 
             if (!dbPuzzles || dbPuzzles.length === 0) {
-                console.log('No puzzles loaded, fetching...');
                 await fetchPuzzles();
             }
 
@@ -90,7 +81,6 @@ document.addEventListener("DOMContentLoaded", async function () {
             toggleSessionButtons(true);
         } catch (error) {
             console.error('Error starting puzzle session:', error);
-            alert('Failed to start puzzle session. Please try again.');
         }
     });
 
@@ -112,61 +102,16 @@ document.addEventListener("DOMContentLoaded", async function () {
         hintUsed = true;
     });
 
-    // Sounds
-    initializeSoundControls();
-
-    function initializeSoundControls() {
-        if (!toggleSoundBtn) return;
-
-        isSoundEnabled = localStorage.getItem('chessSoundEnabled') !== 'false';
-        updateSoundIcon();
-
-        toggleSoundBtn.addEventListener('click', () => {
-            isSoundEnabled = !isSoundEnabled;
-            localStorage.setItem('chessSoundEnabled', isSoundEnabled);
-            updateSoundIcon();
-        });
-    }
-
-    function updateSoundIcon() {
-        if (!toggleSoundBtn) return;
-
-        const iconClass = isSoundEnabled ? 'fa-volume-up' : 'fa-volume-mute';
-        const buttonText = isSoundEnabled ? 'Sound On' : 'Sound Off';
-        const buttonClass = isSoundEnabled ? 'btn-success' : 'btn-secondary';
-
-        toggleSoundBtn.innerHTML = `<i class="fas ${iconClass}"></i> ${buttonText}`;
-        toggleSoundBtn.className = `btn puzzle-btn ms-2 ${buttonClass}`;
-    }
-
-    function playChessSound(move, position) {
-        if (!isSoundEnabled || !moveSound || !captureSound || !checkSound) return;
-
-        if (position.in_check()) {
-            checkSound.currentTime = 0;
-            checkSound.play();
-        } else if (move.captured) {
-            captureSound.currentTime = 0;
-            captureSound.play();
-        } else {
-            moveSound.currentTime = 0;
-            moveSound.play();
-        }
-    }
-
     async function initializePuzzles() {
         try {
             await fetchPuzzles();
             if (dbPuzzles && dbPuzzles.length > 0) {
-                console.log('Puzzles initialized:', dbPuzzles.length);
                 document.getElementById("startPuzzle").style.display = 'inline';
             } else {
                 console.error('No puzzles available');
-                // You might want to show a message to the user here
             }
         } catch (error) {
             console.error('Error initializing puzzles:', error);
-            // Handle error appropriately
         }
     }
 
@@ -289,22 +234,19 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     async function fetchPuzzles() {
         try {
-            console.log('Fetching puzzles from:', apiUrl);
             const response = await fetch(apiUrl);
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
             dbPuzzles = await response.json();
-            console.log('Fetched puzzles:', dbPuzzles.length);
 
             if (dbPuzzles.length === 0) {
-                console.warn('No puzzles available in response');
+                console.error('No puzzles available in response');
                 return false;
             }
             return true;
         } catch (error) {
             console.error("Error fetching puzzles from our database:", error);
-            // You might want to show an error message to the user here
             return false;
         }
     }
@@ -347,7 +289,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         if (!move) {
             return;
         }
-        playChessSound(move, game);
+        soundManager.playChessSound(move, game);
 
         updateBoardState(game.fen(), [move.from, move.to], false);
 
@@ -383,7 +325,6 @@ document.addEventListener("DOMContentLoaded", async function () {
     async function loadPuzzle() {
         if (!dbPuzzles || dbPuzzles.length === 0) {
             console.error('No puzzles loaded');
-            alert('No puzzles available. Please try again later.');
             return;
         }
 
@@ -511,8 +452,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
         const puzzleMetadata = dbPuzzles[currentPuzzleIndex];
         const category = puzzleMetadata ? puzzleMetadata.category : "Unknown";
-        const puzzleLink = puzzleMetadata ?
-`https://lichess.org/training/${puzzleMetadata.lichess_id}` : "#";
+        const puzzleLink = puzzleMetadata ? `https://lichess.org/training/${puzzleMetadata.lichess_id}` : "#";
 
         const puzzleNumber = currentPuzzleIndex + 1;
         const statusElement = success ?
@@ -551,6 +491,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
 
     function onPuzzleComplete() {
+        soundManager.playResultSound(true);
         const puzzleMetadata = dbPuzzles[currentPuzzleIndex];
         sessionStats.correctPuzzles++;
         sessionStats.categoryStats[puzzleMetadata.category].correct++;
@@ -574,13 +515,11 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
 
     function loadNextPuzzle() {
-
         currentPuzzleIndex++;
         loadPuzzle();
     }
 
     function onMove(orig, dest) {
-
         const move = game.move({
             from: orig,
             to: dest,
@@ -591,17 +530,18 @@ document.addEventListener("DOMContentLoaded", async function () {
             return;
         }
 
-        playChessSound(move, game);
+        soundManager.playChessSound(move, game);
 
         const expectedMove = currentPuzzleData.solutionSAN[currentSolutionIndex];
 
         if (move.san !== expectedMove) {
+            soundManager.playResultSound(false);
             const failMessage = document.getElementById("failMessage");
             failMessage.style.display = "block";
             
             setTimeout(() => {
-                    failMessage.style.display = "none";
-                    onPuzzleFailure();
+                failMessage.style.display = "none";
+                onPuzzleFailure();
             }, MOVE_DELAY);
             
             return;
@@ -629,7 +569,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             return;
         }
 
-        playChessSound(move, game);
+        soundManager.playChessSound(move, game);
 
         updateBoardState(game.fen(), [move.from, move.to]);
         currentSolutionIndex++;

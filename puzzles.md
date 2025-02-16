@@ -107,15 +107,12 @@ Regular practice with these puzzles will help you spot these patterns more quick
         <div class="col-12">
             <!-- Hidden audio elements -->
             <div id="chess-audio-container" style="display: none;">
-                <audio id="moveSound" preload="auto">
-                    <source src="../assets/sounds/move-self.mp3" type="audio/mpeg">
+                {% assign sounds = "move,capture,check,illegal,success" | split: "," %}
+                {% for sound in sounds %}
+                <audio id="{{ sound }}Sound" preload="auto">
+                    <source src="../assets/sounds/{{ sound }}.mp3" type="audio/mpeg">
                 </audio>
-                <audio id="captureSound" preload="auto">
-                    <source src="../assets/sounds/capture.mp3" type="audio/mpeg">
-                </audio>
-                <audio id="checkSound" preload="auto">
-                    <source src="../assets/sounds/move-check.mp3" type="audio/mpeg">
-                </audio>
+                {% endfor %}
             </div>
 
             <!-- Turn indicator and chessboard -->
@@ -206,12 +203,18 @@ Regular practice with these puzzles will help you spot these patterns more quick
 {% assign version_history = site.data.versions.puzzles %}
 {% include version_history.html versions=version_history %}
 
+<!-- 
 <script type="module">
     import { Chessground } from "https://cdnjs.cloudflare.com/ajax/libs/chessground/9.1.1/chessground.min.js";
     import { Chess } from "https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.13.4/chess.min.js";
 </script>
+-->
 
+<!-- Third-party libraries (global scope) -->
 <script src="https://unpkg.com/@supabase/supabase-js@2.39.3"></script>
 <script src="https://cdn.jsdelivr.net/npm/dayjs@1.10.7/dayjs.min.js"></script>
+
+<!-- Application scripts -->
 <script src="{{ '/assets/js/auth.js' | relative_url }}"></script>
-<script type="module" src="/assets/js/puzzles.js"></script>
+<script type="module" src="{{ '/assets/js/sounds.js' | relative_url }}"></script>
+<script type="module" src="{{ '/assets/js/puzzles.js' | relative_url }}"></script>
