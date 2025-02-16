@@ -157,16 +157,14 @@ document.addEventListener("DOMContentLoaded", async function () {
         clearInterval(stopwatchInterval);
     }
 
-    // Session Summary Reports
     function showSessionSummary() {
         // Calculate overall stats
         const successRate = (sessionStats.correctPuzzles / sessionStats.totalPuzzles * 100).toFixed(1);
         const overallStatsHtml = `
-            <div class="alert alert-info">
-                <strong>Puzzles Completed:</strong> ${sessionStats.correctPuzzles}/${sessionStats.totalPuzzles} (${successRate}%)
-            </div>
-        `;
-        document.getElementById('overallStats').innerHTML = overallStatsHtml;
+        <div class="alert alert-info">
+            <strong>Puzzles Completed:</strong> ${sessionStats.correctPuzzles}/${sessionStats.totalPuzzles} (${successRate}%)
+        </div>
+    `;
 
         // Calculate category stats
         let categoryStatsHtml = '';
@@ -174,26 +172,39 @@ document.addEventListener("DOMContentLoaded", async function () {
             const stats = sessionStats.categoryStats[category];
             const categoryRate = (stats.correct / stats.total * 100).toFixed(1);
             categoryStatsHtml += `
-                <div class="category-stat">
-                    <span>${category}</span>
-                    <span>${stats.correct}/${stats.total} (${categoryRate}%)</span>
-                </div>
-            `;
+            <div class="category-stat">
+                <span>${category}</span>
+                <span>${stats.correct}/${stats.total} (${categoryRate}%)</span>
+            </div>
+        `;
         }
-        document.getElementById('categoryStats').innerHTML = categoryStatsHtml || '<p>No category data available</p>';
 
         // Display failed puzzles
         let failedPuzzlesHtml = '';
         if (sessionStats.failedPuzzles.length > 0) {
             failedPuzzlesHtml = sessionStats.failedPuzzles.map(puzzle => `
-                <a href="${puzzle.url}" class="failed-puzzle-link" target="_blank">
-                    <i class="fas fa-external-link-alt"></i> ${puzzle.category} Puzzle #${puzzle.id}
-                </a>
-            `).join('');
+            <a href="${puzzle.url}" class="failed-puzzle-link" target="_blank">
+                <i class="fas fa-external-link-alt"></i> ${puzzle.category} Puzzle #${puzzle.id}
+            </a>
+        `).join('');
         } else {
             failedPuzzlesHtml = '<p class="text-success">No failed puzzles! Great job!</p>';
         }
+
+        // Update individual sections instead of entire modal content
+        document.getElementById('overallStats').innerHTML = overallStatsHtml;
+        document.getElementById('categoryStats').innerHTML = categoryStatsHtml || '<p>No category data available</p>';
         document.getElementById('failedPuzzles').innerHTML = failedPuzzlesHtml;
+
+        // Add event listener for new session button
+        document.getElementById('startNewSession').addEventListener('click', async () => {
+            const modal = bootstrap.Modal.getInstance(document.getElementById('sessionSummaryModal'));
+            modal.hide();
+            resetSession();
+            await loadPuzzle();
+            startStopwatch();
+            toggleSessionButtons(true);
+        });
 
         // Show the modal
         const modal = new bootstrap.Modal(document.getElementById('sessionSummaryModal'));
@@ -250,8 +261,13 @@ document.addEventListener("DOMContentLoaded", async function () {
             return;
         }
 
+        // auto stop the session when all 100 puzzles are done
         if (currentPuzzleIndex >= dbPuzzles.length) {
-            currentPuzzleIndex = 0;
+            stopStopwatch();
+            toggleSessionButtons(false);
+            hintButton.style.display = 'none';
+            showSessionSummary();
+            return;
         }
 
         // Reset hint state
@@ -264,14 +280,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
         const puzzleMetadata = dbPuzzles[currentPuzzleIndex];
         sessionStats.totalPuzzles++;
-
-        // Initialize category stats if needed
-        if (!sessionStats.categoryStats[puzzleMetadata.category]) {
-            sessionStats.categoryStats[puzzleMetadata.category] = {
-                total: 0,
-                correct: 0
-            };
-        }
+        ensureCategoryStats(puzzleMetadata.category);
         sessionStats.categoryStats[puzzleMetadata.category].total++;
 
         try {
@@ -291,6 +300,32 @@ document.addEventListener("DOMContentLoaded", async function () {
             currentPuzzleIndex++;
             await loadPuzzle();
         }
+    }
+
+    function resetSession() {
+        // Reset all session-related variables
+        currentPuzzleIndex = 0;
+        gameStartTime = 0;
+        totalTime = 0;
+        puzzleTimes = [];
+        currentPuzzleData = null;
+        hintUsed = false;
+
+        // Reset session stats
+        sessionStats = {
+            totalPuzzles: 0,
+            correctPuzzles: 0,
+            categoryStats: {},
+            failedPuzzles: []
+        };
+
+        // Reset UI elements
+        document.getElementById("puzzleHistory").innerHTML = '';
+        document.getElementById("totalTime").textContent = '00:00.000';
+        document.getElementById("turnIndicator").textContent = '';
+        document.getElementById("puzzleTitle").textContent = '';
+        puzzleHint.style.display = 'none';
+        hintButton.style.display = 'none';
     }
 
     async function fetchPuzzleData(lichessId) {
@@ -408,10 +443,19 @@ document.addEventListener("DOMContentLoaded", async function () {
         }
     }
 
+    function ensureCategoryStats(category) {
+        if (!sessionStats.categoryStats[category]) {
+            sessionStats.categoryStats[category] = {
+                total: 0,
+                correct: 0
+            };
+        }
+    }
+
     function onPuzzleComplete() {
         soundManager.playResultSound(true);
         const puzzleMetadata = dbPuzzles[currentPuzzleIndex];
-        sessionStats.correctPuzzles++;
+        sessionStats.correctPuzzles++;        
         sessionStats.categoryStats[puzzleMetadata.category].correct++;
 
         logPuzzleCompletion(true);
