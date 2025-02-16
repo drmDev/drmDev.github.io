@@ -2,29 +2,22 @@ import { Chessground } from "https://cdnjs.cloudflare.com/ajax/libs/chessground/
 import { Chess } from "https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.13.4/chess.min.js";
 import { soundManager } from './sounds.js';
 import { MoveHandler, MOVE_DELAY } from './moves.js';
+import { SessionStats } from './stats.js';
+import { TimerManager } from './timer.js';
 
 document.addEventListener("DOMContentLoaded", async function () {
-
-    // declare vars
     let currentPuzzleIndex = 0;
-    let gameStartTime = 0;
-    let totalTime = 0;
     let puzzleStartTime;
     let puzzleTimes = [];
     let game;
     let board;
-    let stopwatchInterval;
     let dbPuzzles = [];
     let currentPuzzleData = null;
     let hintUsed = false;
     let category;
     let moveHandler;
-    let sessionStats = {
-        totalPuzzles: 0,
-        correctPuzzles: 0,
-        categoryStats: {},
-        failedPuzzles: []
-    };
+    const sessionStats = new SessionStats();
+    const timerManager = new TimerManager();
 
     const baseUrl = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
         ? 'http://localhost:8081'
@@ -62,7 +55,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                 await fetchPuzzles();
             }
 
-            startStopwatch();
+            timerManager.start();
             await loadPuzzle();
             toggleSessionButtons(true);
         } catch (error) {
@@ -71,7 +64,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     });
 
     document.getElementById("stopPuzzle").addEventListener("click", function () {
-        stopStopwatch();
+        timerManager.stop();
         toggleSessionButtons(false);
         hintButton.style.display = 'none';
         showSessionSummary();
@@ -140,61 +133,49 @@ document.addEventListener("DOMContentLoaded", async function () {
         document.getElementById("stopPuzzle").style.display = isStarting ? 'inline' : 'none';
     }
 
-    // Time formatting
-    function formatElapsedTime(ms) {
-        return dayjs(ms).format('mm:ss.SSS');
-    }
-
-    function startStopwatch() {
-        gameStartTime = Date.now() - totalTime;
-        stopwatchInterval = setInterval(() => {
-            totalTime = Date.now() - gameStartTime;
-            document.getElementById("totalTime").textContent = formatElapsedTime(totalTime);
-        }, 10);
-    }
-
-    function stopStopwatch() {
-        clearInterval(stopwatchInterval);
-    }
-
     function showSessionSummary() {
-        // Calculate overall stats
-        const successRate = (sessionStats.correctPuzzles / sessionStats.totalPuzzles * 100).toFixed(1);
-        const overallStatsHtml = `
-        <div class="alert alert-info">
-            <strong>Puzzles Completed:</strong> ${sessionStats.correctPuzzles}/${sessionStats.totalPuzzles} (${successRate}%)
-        </div>
-    `;
+        const stats = sessionStats.getStats();
+        const successRate = sessionStats.getSuccessRate();
 
-        // Calculate category stats
-        let categoryStatsHtml = '';
-        for (const category in sessionStats.categoryStats) {
-            const stats = sessionStats.categoryStats[category];
-            const categoryRate = (stats.correct / stats.total * 100).toFixed(1);
-            categoryStatsHtml += `
-            <div class="category-stat">
-                <span>${category}</span>
-                <span>${stats.correct}/${stats.total} (${categoryRate}%)</span>
+        const overallStatsHtml = `
+            <div class="alert alert-info">
+                <strong>Puzzles Completed:</strong> ${stats.correctPuzzles}/${stats.totalPuzzles} (${successRate}%)
             </div>
         `;
+
+        let categoryStatsHtml = '';
+        for (const category in stats.categoryStats) {
+            const catStats = stats.categoryStats[category];
+            const categoryRate = (catStats.correct / catStats.total * 100).toFixed(1);
+            categoryStatsHtml += `
+                <div class="category-stat">
+                    <span>${category}</span>
+                    <span>${catStats.correct}/${catStats.total} (${categoryRate}%)</span>
+                </div>
+            `;
         }
 
-        // Display failed puzzles
         let failedPuzzlesHtml = '';
-        if (sessionStats.failedPuzzles.length > 0) {
-            failedPuzzlesHtml = sessionStats.failedPuzzles.map(puzzle => `
-            <a href="${puzzle.url}" class="failed-puzzle-link" target="_blank">
-                <i class="fas fa-external-link-alt"></i> ${puzzle.category} Puzzle #${puzzle.id}
-            </a>
-        `).join('');
+        if (stats.failedPuzzles.length > 0) {
+            failedPuzzlesHtml = stats.failedPuzzles.map(puzzle => `
+                <a href="${puzzle.url}" class="failed-puzzle-link" target="_blank">
+                    <i class="fas fa-external-link-alt"></i> ${puzzle.category} Puzzle #${puzzle.id}
+                </a>
+            `).join('');
         } else {
             failedPuzzlesHtml = '<p class="text-success">No failed puzzles! Great job!</p>';
         }
 
-        // Update individual sections instead of entire modal content
         document.getElementById('overallStats').innerHTML = overallStatsHtml;
         document.getElementById('categoryStats').innerHTML = categoryStatsHtml || '<p>No category data available</p>';
         document.getElementById('failedPuzzles').innerHTML = failedPuzzlesHtml;
+
+        const exportButton = document.getElementById('exportSummary');
+        if (exportButton) {
+            exportButton.addEventListener('click', () => {
+                sessionStats.exportToCSV();
+            });
+        }
 
         // Add event listener for new session button
         document.getElementById('startNewSession').addEventListener('click', async () => {
@@ -202,7 +183,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             modal.hide();
             resetSession();
             await loadPuzzle();
-            startStopwatch();
+            timerManager.start();
             toggleSessionButtons(true);
         });
 
@@ -263,7 +244,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
         // auto stop the session when all 100 puzzles are done
         if (currentPuzzleIndex >= dbPuzzles.length) {
-            stopStopwatch();
+            timerManager.stop();
             toggleSessionButtons(false);
             hintButton.style.display = 'none';
             showSessionSummary();
@@ -279,9 +260,8 @@ document.addEventListener("DOMContentLoaded", async function () {
         document.getElementById("puzzleTitle").textContent = `Puzzle ${currentPuzzleIndex + 1}`;
 
         const puzzleMetadata = dbPuzzles[currentPuzzleIndex];
-        sessionStats.totalPuzzles++;
-        ensureCategoryStats(puzzleMetadata.category);
-        sessionStats.categoryStats[puzzleMetadata.category].total++;
+
+        sessionStats.recordPuzzleAttempt(puzzleMetadata, false);  // false because puzzle is just starting
 
         try {
             currentPuzzleData = await fetchPuzzleData(puzzleMetadata.lichess_id);
@@ -305,23 +285,14 @@ document.addEventListener("DOMContentLoaded", async function () {
     function resetSession() {
         // Reset all session-related variables
         currentPuzzleIndex = 0;
-        gameStartTime = 0;
-        totalTime = 0;
         puzzleTimes = [];
         currentPuzzleData = null;
         hintUsed = false;
-
-        // Reset session stats
-        sessionStats = {
-            totalPuzzles: 0,
-            correctPuzzles: 0,
-            categoryStats: {},
-            failedPuzzles: []
-        };
+        sessionStats.reset();
+        timerManager.reset();
 
         // Reset UI elements
         document.getElementById("puzzleHistory").innerHTML = '';
-        document.getElementById("totalTime").textContent = '00:00.000';
         document.getElementById("turnIndicator").textContent = '';
         document.getElementById("puzzleTitle").textContent = '';
         puzzleHint.style.display = 'none';
@@ -401,7 +372,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     function logPuzzleCompletion(success) {
         const elapsedTime = Date.now() - puzzleStartTime;
-        const formattedTime = formatElapsedTime(elapsedTime);
+        const formattedTime = timerManager.formatElapsedTime(elapsedTime);
 
         const puzzleMetadata = dbPuzzles[currentPuzzleIndex];
         const category = puzzleMetadata ? puzzleMetadata.category : "Unknown";
@@ -443,20 +414,10 @@ document.addEventListener("DOMContentLoaded", async function () {
         }
     }
 
-    function ensureCategoryStats(category) {
-        if (!sessionStats.categoryStats[category]) {
-            sessionStats.categoryStats[category] = {
-                total: 0,
-                correct: 0
-            };
-        }
-    }
-
     function onPuzzleComplete() {
         soundManager.playResultSound(true);
         const puzzleMetadata = dbPuzzles[currentPuzzleIndex];
-        sessionStats.correctPuzzles++;        
-        sessionStats.categoryStats[puzzleMetadata.category].correct++;
+        sessionStats.recordPuzzleAttempt(puzzleMetadata, true);
 
         logPuzzleCompletion(true);
         updateTurnDisplay(true);
@@ -465,11 +426,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     function onPuzzleFailure() {
         const puzzleMetadata = dbPuzzles[currentPuzzleIndex];
-        sessionStats.failedPuzzles.push({
-            id: puzzleMetadata.puzzle_id,
-            category: puzzleMetadata.category,
-            url: puzzleMetadata.url
-        });
+        sessionStats.recordPuzzleAttempt(puzzleMetadata, false);
 
         hintButton.style.display = 'none';
         logPuzzleCompletion(false);

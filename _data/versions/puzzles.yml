@@ -1,3 +1,8 @@
+- number: "1.4.0"
+  date: "February 16, 2025"
+  changes:
+    - "Added Export to CSV functionality."
+
 - number: "1.3.0"
   date: "February 15, 2025"
   changes:
