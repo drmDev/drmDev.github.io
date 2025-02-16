@@ -17,8 +17,8 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     
-		<!-- Chessground CSS -->
-	  <link rel="stylesheet" href="/assets/css/chessground.base.css">  
+	<!-- Chessground CSS -->
+	<link rel="stylesheet" href="/assets/css/chessground.base.css">  
     <link rel="stylesheet" href="/assets/css/chessground.brown.css">
 		
     <!-- Custom Styles -->
@@ -57,12 +57,7 @@
 </nav>
 
     <main class="container my-5">
-        <div class="alert alert-warning" role="alert">
-    <p><strong>Note:</strong> This app is still in early development, and many improvements are being worked on. Currently your session is only preserved for as long as you remain on this page.</p>
-
-</div>
-
-<h1><i class="fa-solid fa-crow"></i> Chess Woodpecker App</h1>
+        <h1><i class="fa-solid fa-crow"></i> Chess Woodpecker App</h1>
 
 <p>This tool helps you improve your pattern recognition using the <strong>Woodpecker Method</strong> - named after how woodpeckers repeatedly strike the same spot, just as you’ll repeatedly solve the same tactical puzzles to reinforce pattern recognition. The <strong>100-puzzle</strong> collection features five essential chess themes, with 20 puzzles each:</p>
 
@@ -87,14 +82,24 @@
 
 <p>Regular practice with these puzzles will help you spot these patterns more quickly in your own games!</p>
 
-<div id="puzzle-container" class="text-center container-fluid">
-   <!-- Control buttons row -->
+<div id="authContainer" class="row mb-3">
+    <div class="col-12">
+        <!-- Auth status will be dynamically inserted here with matching Bootstrap styles -->
+    </div>
+</div>
+
+<div id="puzzle-container" class="text-center container-fluid" style="display: none;">
+    <!-- Control buttons row -->
     <div class="row mb-3">
         <div class="col-12 d-flex justify-content-center">
             <div class="control-group">
-                <button id="startPuzzle" class="btn btn-primary puzzle-btn">
-                    Start Session
-                </button>
+                <div id="startSessionContainer">
+                    <button id="startPuzzle" class="btn btn-primary puzzle-btn">
+                        Start Session
+                    </button>
+                </div>
+
+                <!-- EXISTING: Unchanged buttons -->
                 <button id="stopPuzzle" class="btn btn-warning puzzle-btn ms-2" style="display: none;">
                     <i class="fas fa-stop-circle"></i> Stop Session
                 </button>
@@ -246,6 +251,12 @@
         <div class="card-body">
             <div class="version-list">
                 <div class="version-item">
+                    <h5 class="text-info">v1.3.0 - February 15, 2025</h5>
+                    <ul class="list-unstyled">
+                        <li><i class="fas fa-plus-circle text-success"></i> Added Google OAuth Sign In. (NOTE: still work to be done to persist sessions in the account)
+                    &lt;/ul&gt;
+                &lt;/div&gt;
+                <div class="version-item">
                     <h5 class="text-info">v1.2.0 - February 12, 2025</h5>
                     <ul class="list-unstyled">
                         <li><i class="fas fa-plus-circle text-success"></i> Added Hint #1 (displays the Category of the puzzle).</li>
@@ -267,20 +278,21 @@
                         <li><i class="fas fa-check-circle text-success"></i> Session timing</li>
                     </ul>
                 </div>
-            </div>
-        </div>
-    </div>
-</div>
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
 
 <script type="module">
     import { Chessground } from "https://cdnjs.cloudflare.com/ajax/libs/chessground/9.1.1/chessground.min.js";
     import { Chess } from "https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.13.4/chess.min.js";
 </script>
 
+<script src="https://unpkg.com/@supabase/supabase-js@2.39.3"></script>
 <script src="https://cdn.jsdelivr.net/npm/dayjs@1.10.7/dayjs.min.js"></script>
-
+<script src="/assets/js/auth.js"></script>
 <script type="module" src="/assets/js/puzzles.js"></script>
-
+</li></ul></div></div></div></div></div>
 
     </main>
     <footer class="bg-dark text-light text-center py-4 mt-4">

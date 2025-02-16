@@ -2,11 +2,8 @@ import { Chessground } from "https://cdnjs.cloudflare.com/ajax/libs/chessground/
 import { Chess } from "https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.13.4/chess.min.js";
 
 document.addEventListener("DOMContentLoaded", async function () {
-    const baseUrl = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
-     ? 'http://localhost:8081'
-     : 'https://chesswoodpecker-production.up.railway.app';
-    const apiUrl = `${baseUrl}/api/puzzles`;
 
+    // declare vars
     let currentPuzzleIndex = 0;
     let gameStartTime = 0;
     let totalTime = 0;
@@ -29,13 +26,37 @@ document.addEventListener("DOMContentLoaded", async function () {
         failedPuzzles: []
     };
 
+    const baseUrl = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+        ? 'http://localhost:8081'
+        : 'https://chesswoodpecker-production.up.railway.app';
+    const apiUrl = `${baseUrl}/api/puzzles`;
+
+    const { supabaseClient } = window.auth;
+
+    console.log('DOMContentLoaded event fired');
+
+    // MODIFIED: Enhanced auth state handling
+    const { data: { session } } = await supabaseClient.auth.getSession();
+    updateAuthUI(session);
+
+    // MODIFIED: Enhanced auth state change listener
+    supabaseClient.auth.onAuthStateChange(async (event, session) => {
+        console.log('Auth state changed:', event);
+        updateAuthUI(session);
+
+        if (session && event === 'SIGNED_IN') {
+            console.log('User signed in, initializing puzzles');
+            await initializePuzzles(); // CHANGED: Call new initializePuzzles function
+        }
+    });
+
     const moveSound = document.getElementById('moveSound');
     const captureSound = document.getElementById('captureSound');
     const checkSound = document.getElementById('checkSound');
     const toggleSoundBtn = document.getElementById('toggleSound');
     const hintButton = document.getElementById('hintButton');
     const puzzleHint = document.getElementById('puzzleHint');
-    const puzzleCategory = document.getElementById('puzzleCategory');
+    const puzzleCategory = document.getElementById('puzzleCategory');    
 
     const SQUARES = [
         'a8', 'b8', 'c8', 'd8', 'e8', 'f8', 'g8', 'h8',
@@ -52,18 +73,36 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     const MOVE_DELAY = 2000;
 
-    // Event Listeners
-    document.getElementById("startPuzzle").addEventListener("click", function () {
-        startStopwatch();
-        loadPuzzle();
-        toggleSessionButtons(true);
+    // MODIFIED: Start puzzle listener with error handling
+    document.getElementById("startPuzzle").addEventListener("click", async function () {
+        try {
+            const { data: { session } } = await supabaseClient.auth.getSession();
+            if (!session) {
+                alert('Please sign in to start a session');
+                return;
+            }
+
+            if (!dbPuzzles || dbPuzzles.length === 0) {
+                console.log('No puzzles loaded, fetching...');
+                await fetchPuzzles();
+            }
+
+            startStopwatch();
+            await loadPuzzle();
+            toggleSessionButtons(true);
+        } catch (error) {
+            console.error('Error starting puzzle session:', error);
+            alert('Failed to start puzzle session. Please try again.');
+        }
     });
+
     document.getElementById("stopPuzzle").addEventListener("click", function () {
         stopStopwatch();
         toggleSessionButtons(false);
         hintButton.style.display = 'none';
         showSessionSummary();
     });
+
     hintButton.addEventListener('click', function () {
         if (!currentPuzzleData || hintUsed) return;
 
@@ -117,7 +156,50 @@ document.addEventListener("DOMContentLoaded", async function () {
         }
     }
 
+    async function initializePuzzles() {
+        try {
+            await fetchPuzzles();
+            if (dbPuzzles && dbPuzzles.length > 0) {
+                console.log('Puzzles initialized:', dbPuzzles.length);
+                document.getElementById("startPuzzle").style.display = 'inline';
+            } else {
+                console.error('No puzzles available');
+                // You might want to show a message to the user here
+            }
+        } catch (error) {
+            console.error('Error initializing puzzles:', error);
+            // Handle error appropriately
+        }
+    }
+
     // Update states
+    function updateAuthUI(session) {
+        const authContainer = document.getElementById('authContainer');
+        const puzzleContainer = document.getElementById('puzzle-container');
+
+        if (session) {
+            // Authenticated state
+            authContainer.innerHTML = `
+            <div class="alert alert-success">
+                Signed in as: ${session.user.email}
+                <button onclick="window.auth.signOut()" class="btn btn-outline-danger btn-sm ms-3">
+                    Sign Out
+                </button>
+            </div>`;
+            puzzleContainer.style.display = 'block';
+        } else {
+            // Not authenticated
+            authContainer.innerHTML = `
+            <div class="alert alert-warning">
+                Please sign in to access puzzles
+                <button onclick="window.auth.signInWithGoogle()" class="btn btn-primary ms-3">
+                    Sign in with Google
+                </button>
+            </div>`;
+            puzzleContainer.style.display = 'none';
+        }
+    }
+
     function toggleSessionButtons(isStarting) {
         document.getElementById("startPuzzle").style.display = isStarting ? 'none' : 'inline';
         document.getElementById("stopPuzzle").style.display = isStarting ? 'inline' : 'none';
@@ -203,14 +285,23 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     async function fetchPuzzles() {
         try {
+            console.log('Fetching puzzles from:', apiUrl);
             const response = await fetch(apiUrl);
-            dbPuzzles = await response.json();
-            if (dbPuzzles.length === 0) {
-                return;
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
             }
-            document.getElementById("startPuzzle").style.display = 'inline';
+            dbPuzzles = await response.json();
+            console.log('Fetched puzzles:', dbPuzzles.length);
+
+            if (dbPuzzles.length === 0) {
+                console.warn('No puzzles available in response');
+                return false;
+            }
+            return true;
         } catch (error) {
             console.error("Error fetching puzzles from our database:", error);
+            // You might want to show an error message to the user here
+            return false;
         }
     }
 
@@ -286,9 +377,14 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     // Load each puzzle
     async function loadPuzzle() {
+        if (!dbPuzzles || dbPuzzles.length === 0) {
+            console.error('No puzzles loaded');
+            alert('No puzzles available. Please try again later.');
+            return;
+        }
+
         if (currentPuzzleIndex >= dbPuzzles.length) {
             currentPuzzleIndex = 0;
-            return;
         }
 
         // Reset hint state
@@ -301,6 +397,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
         const puzzleMetadata = dbPuzzles[currentPuzzleIndex];
         sessionStats.totalPuzzles++;
+
         // Initialize category stats if needed
         if (!sessionStats.categoryStats[puzzleMetadata.category]) {
             sessionStats.categoryStats[puzzleMetadata.category] = {
@@ -323,8 +420,9 @@ document.addEventListener("DOMContentLoaded", async function () {
                 fen: game.fen()
             });
         } catch (error) {
+            console.error('Error loading puzzle:', error);
             currentPuzzleIndex++;
-            loadPuzzle();
+            await loadPuzzle();
         }
     }
 
@@ -539,6 +637,4 @@ document.addEventListener("DOMContentLoaded", async function () {
             autoSolveTimeout = null;
         }
     }
-
-    await fetchPuzzles();
 });
