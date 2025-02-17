@@ -170,7 +170,6 @@ document.addEventListener("DOMContentLoaded", async function () {
         hintUsed = false;
         uiManager.setPuzzleTitle(currentPuzzleIndex + 1);
         const puzzleMetadata = dbPuzzles[currentPuzzleIndex];
-        sessionStats.recordPuzzleAttempt(puzzleMetadata, false);
 
         try {
             currentPuzzleData = await fetchPuzzleData(puzzleMetadata.lichess_id);
