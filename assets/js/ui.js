@@ -110,10 +110,10 @@ export class UIManager {
         const successRate = (stats.correctPuzzles / stats.totalPuzzles * 100).toFixed(1);
 
         const overallStatsHtml = `
-        <div class="alert alert-info">
-            <strong>Puzzles Completed:</strong> ${stats.correctPuzzles}/${stats.totalPuzzles} (${successRate}%)
-        </div>
-    `;
+            <div class="alert alert-info">
+                <strong>Puzzles Completed:</strong> ${stats.correctPuzzles}/${stats.totalPuzzles} (${successRate}%)
+            </div>
+        `;
 
         let categoryStatsHtml = '';
         for (const category in stats.categoryStats) {
@@ -130,10 +130,10 @@ export class UIManager {
         let failedPuzzlesHtml = '';
         if (stats.failedPuzzles.length > 0) {
             failedPuzzlesHtml = stats.failedPuzzles.map(puzzle => `
-            <a href="${puzzle.url}" class="failed-puzzle-link" target="_blank">
-                <i class="fas fa-external-link-alt"></i> ${puzzle.category} Puzzle #${puzzle.id}
-            </a>
-        `).join('');
+                <a href="${puzzle.url}" class="failed-puzzle-link" target="_blank">
+                    <i class="fas fa-external-link-alt"></i> ${puzzle.category} Puzzle #${puzzle.id}
+                </a>
+            `).join('');
         } else {
             failedPuzzlesHtml = '<p class="text-success">No failed puzzles! Great job!</p>';
         }
