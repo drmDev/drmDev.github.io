@@ -1,14 +1,97 @@
 class SoundManager {
     constructor() {
-        this.moveSound = document.getElementById('moveSound');
-        this.captureSound = document.getElementById('captureSound');
-        this.checkSound = document.getElementById('checkSound');
-        this.illegalSound = document.getElementById('illegalSound');
-        this.successSound = document.getElementById('successSound');
+        this.audioContext = null;
+        this.sounds = {
+            move: null,
+            capture: null,
+            check: null,
+            illegal: null,
+            success: null
+        };
+
         this.toggleSoundBtn = document.getElementById('toggleSound');
         this.isSoundEnabled = true;
 
+        this.initializeAudio();
         this.initializeSoundControls();
+    }
+
+    async initializeAudio() {
+        try {
+            // Create audio context on user interaction to comply with autoplay policies
+            const AudioContext = window.AudioContext || window.webkitAudioContext;
+            this.audioContext = new AudioContext();
+
+            // Load all sound files
+            const soundFiles = {
+                move: '/assets/sounds/move.mp3',
+                capture: '/assets/sounds/capture.mp3',
+                check: '/assets/sounds/check.mp3',
+                illegal: '/assets/sounds/illegal.mp3',
+                success: '/assets/sounds/success.mp3'
+            };
+
+            // Load all sounds in parallel
+            const loadPromises = Object.entries(soundFiles).map(async ([name, url]) => {
+                try {
+                    const response = await fetch(url);
+                    const arrayBuffer = await response.arrayBuffer();
+                    const audioBuffer = await this.audioContext.decodeAudioData(arrayBuffer);
+                    this.sounds[name] = audioBuffer;
+                } catch (error) {
+                    console.error(`Failed to load sound: ${name}`, error);
+                }
+            });
+
+            await Promise.all(loadPromises);
+        } catch (error) {
+            console.error('Failed to initialize audio:', error);
+        }
+    }
+
+    async playSound(soundBuffer) {
+        if (!this.isSoundEnabled || !this.audioContext || !soundBuffer) return;
+
+        try {
+            // Resume context if suspended (mobile browsers often require this)
+            if (this.audioContext.state === 'suspended') {
+                await this.audioContext.resume();
+            }
+
+            const source = this.audioContext.createBufferSource();
+            source.buffer = soundBuffer;
+            source.connect(this.audioContext.destination);
+            source.start(0);
+        } catch (error) {
+            console.error('Error playing sound:', error);
+        }
+    }
+
+    async playChessSound(move, position) {
+        if (!this.isSoundEnabled || !this.audioContext) return;
+
+        try {
+            if (position.in_check()) {
+                await this.playSound(this.sounds.check);
+            } else if (move.captured) {
+                await this.playSound(this.sounds.capture);
+            } else {
+                await this.playSound(this.sounds.move);
+            }
+        } catch (error) {
+            console.error('Error playing chess sound:', error);
+        }
+    }
+
+    async playResultSound(success) {
+        if (!this.isSoundEnabled || !this.audioContext) return;
+
+        try {
+            const soundBuffer = success ? this.sounds.success : this.sounds.illegal;
+            await this.playSound(soundBuffer);
+        } catch (error) {
+            console.error('Error playing result sound:', error);
+        }
     }
 
     initializeSoundControls() {
@@ -33,31 +116,6 @@ class SoundManager {
 
         this.toggleSoundBtn.innerHTML = `<i class="fas ${iconClass}"></i> ${buttonText}`;
         this.toggleSoundBtn.className = `btn puzzle-btn ms-2 ${buttonClass}`;
-    }
-
-    playChessSound(move, position) {
-        if (!this.isSoundEnabled || !this.moveSound || !this.captureSound || !this.checkSound) return;
-
-        if (position.in_check()) {
-            this.checkSound.currentTime = 0;
-            this.checkSound.play();
-        } else if (move.captured) {
-            this.captureSound.currentTime = 0;
-            this.captureSound.play();
-        } else {
-            this.moveSound.currentTime = 0;
-            this.moveSound.play();
-        }
-    }
-
-    playResultSound(success) {
-        if (!this.isSoundEnabled) return;
-
-        const sound = success ? this.successSound : this.illegalSound;
-        if (sound) {
-            sound.currentTime = 0;
-            sound.play();
-        }
     }
 }
 

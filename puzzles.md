@@ -105,17 +105,6 @@ Regular practice with these puzzles will help you spot these patterns more quick
 
     <div class="row">
         <div class="col-12">
-            <!-- Hidden audio elements -->
-            <div id="chess-audio-container" style="display: none;">
-                {% assign sounds = "move,capture,check,illegal,success" | split: "," %}
-                {% for sound in sounds %}
-                <audio id="{{ sound }}Sound" preload="auto">
-                    <source src="../assets/sounds/{{ sound }}.mp3" type="audio/mpeg">
-                </audio>
-                {% endfor %}
-            </div>
-
-            <!-- Turn indicator and chessboard -->
             <div id="turnIndicator" class="turn-display"></div>
             <div id="chessboard" class="responsive-board"></div>
         </div>
