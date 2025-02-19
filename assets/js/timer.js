@@ -37,7 +37,6 @@ export class TimerManager {
     }
 
     updateDisplay() {
-        document.getElementById("totalTime").textContent =
-            this.formatElapsedTime(this.totalTime);
+        document.getElementById("totalTime").textContent = this.formatElapsedTime(this.totalTime);
     }
 }
