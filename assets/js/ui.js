@@ -120,8 +120,7 @@ export class UIManager {
         const formattedTime = timerManager.formatElapsedTime(elapsedTime);
 
         const category = puzzleMetadata ? puzzleMetadata.category : "Unknown";
-        const puzzleLink = puzzleMetadata ?
-            `https://lichess.org/training/${puzzleMetadata.lichess_id}` : "#";
+        const puzzleLink = puzzleMetadata ? `https://lichess.org/training/${puzzleMetadata.lichess_id}` : "#";
 
         const puzzleNumber = currentPuzzleIndex + 1;
         const statusElement = success ?

@@ -22,7 +22,6 @@ class SoundManager {
             const AudioContext = window.AudioContext || window.webkitAudioContext;
             this.audioContext = new AudioContext();
 
-            // Load all sound files
             const soundFiles = {
                 move: '/assets/sounds/move.mp3',
                 capture: '/assets/sounds/capture.mp3',

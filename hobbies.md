@@ -90,8 +90,7 @@ permalink: /hobbies/
                 <h5 class="card-title"><i class="fas fa-stopwatch"></i> Speedrunning</h5>
                 {{ "Speedrunning is one of my favorite ways to combine gaming with goal-setting. I focus on retro classics like NES and SNES games as well as modern retro-style games like *Prison City* and *Iron Meat*." | markdownify }}
 
-                <p>Check out my runs on 
-								<a href="https://www.speedrun.com/users/nescapeplan" target="_blank" rel="noopener noreferrer">Speedrun.com!</a></p>
+                <p>Check out my runs on <a href="https://www.speedrun.com/users/nescapeplan" target="_blank" rel="noopener noreferrer">Speedrun.com!</a></p>
             </div>
         </div>
     </div>

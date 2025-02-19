@@ -18,7 +18,6 @@ export class SessionStats {
     }
 
     recordPuzzleAttempt(puzzleMetadata, isSuccess) {
-        // Check if this is just starting a puzzle
         const isStarting = !isSuccess && this.stats.totalPuzzles === this.stats.categoryStats[puzzleMetadata.category]?.total;
 
         // Only increment totals if this isn't just starting a puzzle

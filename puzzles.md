@@ -58,7 +58,7 @@ Regular practice with these puzzles will help you spot these patterns more quick
             <h2 class="text-warning puzzle-title">
                 <i class="fas fa-chess-knight"></i> 
                 <span class="puzzle-title-text">Now Solving: </span>
-                <span id="puzzleTitle" class="ms-1">Puzzle 1</span> 
+                <span id="puzzleTitle" class="ms-1">Puzzle 1</span>
                 <span id="puzzleHint" class="text-info ms-2" style="display: none;">
                     (<i class="fas fa-tag"></i> <span id="puzzleCategory"></span>)
                 </span>
@@ -67,7 +67,7 @@ Regular practice with these puzzles will help you spot these patterns more quick
         </div>
     </div>
 
-    <!-- Enhanced failure message -->
+    <!-- Message on failure -->
     <div id="failMessage" class="row mb-3" style="display: none;">
         <div class="col-12">
             <div class="failure-alert">
@@ -95,7 +95,6 @@ Regular practice with these puzzles will help you spot these patterns more quick
                 </h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <!-- Added id while preserving original structure -->
             <div id="sessionSummaryContent">
                 <div class="modal-body">
                     <!-- Overall Stats -->
