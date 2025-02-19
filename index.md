@@ -54,7 +54,6 @@ Explore my professional background and experiences:
                 {{ "
 - **Go**: Powers a fast and reliable REST API that queries the PostgreSQL database and serves data for board game filtering and other dynamic features.
 - **PostgreSQL**: Stores all board game data, including players, game type, and playtime, with support for complex queries.
-- **Supabase**: Provides secure user authentication through Google OAuth, allowing users to save their puzzle progress.
 - **Docker**: Simplifies deployment by bundling all dependencies into isolated containers, making the entire system portable across environments.
 - **Railway**: Manages backend hosting and the PostgreSQL database with automatic deployments and scaling.
 " | markdownify }}

@@ -29,16 +29,14 @@ permalink: /puzzles/
 
 Regular practice with these puzzles will help you spot these patterns more quickly in your own games!" | markdownify }}
 
-<div id="puzzle-container" class="text-center container-fluid" style="display: none;">
-    <!-- Control buttons row -->
+<div id="puzzle-container" class="text-center container-fluid">
+    <!-- Controls Row -->
     <div class="row mb-3">
         <div class="col-12 d-flex justify-content-center">
             <div class="control-group">
-                <div id="startSessionContainer">
-                    <button id="startPuzzle" class="btn btn-primary puzzle-btn">
-                        Start Session
-                    </button>
-                </div>
+                <button id="startPuzzle" class="btn btn-primary puzzle-btn">
+                    Start Session
+                </button>
                 <button id="stopPuzzle" class="btn btn-warning puzzle-btn ms-2" 
                         style="display: none;">
                     <i class="fas fa-stop-circle"></i> Stop Session

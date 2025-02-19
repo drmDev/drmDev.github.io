@@ -1,3 +1,8 @@
+- number: "1.5.0"
+  date: "February 19, 2025"
+  changes:
+    - "Various bug fixes and better mobile experience."
+
 - number: "1.4.0"
   date: "February 16, 2025"
   changes:
