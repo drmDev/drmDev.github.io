@@ -29,30 +29,6 @@ permalink: /puzzles/
 
 Regular practice with these puzzles will help you spot these patterns more quickly in your own games!" | markdownify }}
 
-<div id="googleSignInInfo" class="alert alert-info mb-3">
-    <h4>About Google Sign-In</h4>
-    <p>
-        When you click "Sign in with Google", you'll see an authorization request from:
-        <code>https://acrhtrgvkhjxbejrdgjn.supabase.co</code>
-    </p>
-    <p>
-        This is our secure authentication provider hosted by Supabase. We only request access to:
-        <ul>
-            <li>Your Google account ID (to create a unique identifier)</li>
-            <li>Your email address (for authentication only)</li>
-        </ul>
-    </p>
-    <p>
-        We do not store or share your personal information. Your puzzle progress will be securely tied to your account. (At a later point when I buy my own domain, the Google OAuth consent screen will display showing my app name instead.)
-    </p>
-</div>
-
-<div id="authContainer" class="row mb-3">
-    <div class="col-12">
-        <!-- Auth status will be dynamically inserted here with matching Bootstrap styles -->
-    </div>
-</div>
-
 <div id="puzzle-container" class="text-center container-fluid" style="display: none;">
     <!-- Control buttons row -->
     <div class="row mb-3">
@@ -205,10 +181,8 @@ Regular practice with these puzzles will help you spot these patterns more quick
 {% include version_history.html versions=version_history %}
 
 <!-- Third-party libraries (global scope) -->
-<script src="https://unpkg.com/@supabase/supabase-js@2.39.3"></script>
 <script src="https://cdn.jsdelivr.net/npm/dayjs@1.10.7/dayjs.min.js"></script>
 
 <!-- Application scripts -->
-<script src="{{ '/assets/js/auth.js' | relative_url }}"></script>
 <script type="module" src="{{ '/assets/js/sounds.js' | relative_url }}"></script>
 <script type="module" src="{{ '/assets/js/puzzles.js' | relative_url }}"></script>
