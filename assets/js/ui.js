@@ -1,6 +1,5 @@
 export class UIManager {
     constructor() {
-        this.isSessionActive = false;
         this.elements = {
             hintButton: document.getElementById('hintButton'),
             puzzleHint: document.getElementById('puzzleHint'),
@@ -10,8 +9,6 @@ export class UIManager {
             turnIndicator: document.getElementById('turnIndicator'),
             startPuzzle: document.getElementById("startPuzzle"),
             stopPuzzle: document.getElementById("stopPuzzle"),
-            authContainer: document.getElementById('authContainer'),
-            googleSignInInfo: document.getElementById('googleSignInInfo'),
             puzzleContainer: document.getElementById('puzzle-container'),
             overallStats: document.getElementById('overallStats'),
             categoryStats: document.getElementById('categoryStats'),
@@ -20,21 +17,12 @@ export class UIManager {
             startNewSession: document.getElementById('startNewSession'),
             chessboard: document.getElementById("chessboard")
         };
-    }
 
-    isInActiveSession() {
-        // console.log(`Checking session state: ${this.isSessionActive}`);
-        return this.isSessionActive;
-    }
-
-    setSessionState(isActive) {
-        // console.log(`Setting session state to: ${isActive ? 'ACTIVE' : 'INACTIVE'}`);
-        this.isSessionActive = isActive;
+        this.elements.puzzleContainer.style.display = 'block';
     }
 
     showHint(category) {
         if (!category) return;
-
         this.elements.puzzleCategory.textContent = category;
         this.elements.puzzleHint.style.display = 'inline';
         this.elements.hintButton.disabled = true;
@@ -54,55 +42,9 @@ export class UIManager {
         this.elements.puzzleTitle.textContent = `Puzzle ${number}`;
     }
 
-    updateAuthUI(session) {
-        if (session) {
-            this.elements.googleSignInInfo.style.display = 'none';
-            this.elements.authContainer.innerHTML = `
-                <div class="alert alert-success">
-                    Signed in as: ${session.user.email}
-                    <button onclick="window.auth.signOut()" class="btn btn-outline-danger btn-sm ms-3">
-                        Sign Out
-                    </button>
-                </div>`;
-            this.elements.puzzleContainer.style.display = 'block';
-        } else {
-            this.elements.googleSignInInfo.style.display = 'block';
-            this.elements.authContainer.innerHTML = `
-                <div class="alert alert-warning">
-                    Please sign in to access puzzles
-                    <button onclick="window.auth.signInWithGoogle()" class="btn btn-primary ms-3">
-                        Sign in with Google
-                    </button>
-                </div>`;
-            this.elements.puzzleContainer.style.display = 'none';
-        }
-    }
-
     toggleSessionButtons(isStarting) {
-        //console.log(`Toggle Session called. Is Starting? ${isStarting}. Current session state: ${this.isSessionActive}`);
-
-        // Prevent redundant state changes
-        if (isStarting === this.isSessionActive) {
-            // console.log('Skipping toggle - state already matches requested state');
-            return;
-        }
-
-        // Only allow state changes in specific conditions
-        if (this.isSessionActive && !isStarting) {
-            //console.log('Stopping active session');
-            this.setSessionState(false);
-        } else if (!this.isSessionActive && isStarting) {
-            //console.log('Starting new session');
-            this.setSessionState(true);
-        } else {
-            // console.log('Invalid state transition attempted - maintaining current state');
-            return;
-        }
-
-        this.elements.startPuzzle.style.display = this.isSessionActive ? 'none' : 'inline';
-        this.elements.stopPuzzle.style.display = this.isSessionActive ? 'inline' : 'none';
-
-        // console.log(`Button visibility updated - Start: ${this.elements.startPuzzle.style.display}, Stop: ${this.elements.stopPuzzle.style.display}`);
+        this.elements.startPuzzle.style.display = isStarting ? 'none' : 'inline';
+        this.elements.stopPuzzle.style.display = isStarting ? 'inline' : 'none';
     }
 
     showSessionSummary(sessionStats, callbacks) {
@@ -196,32 +138,14 @@ export class UIManager {
             </li>`;
 
         this.elements.puzzleHistory.innerHTML += historyEntry;
-
-        const addedLink = this.elements.puzzleHistory.querySelector('li:last-child .puzzle-link');
-        if (addedLink) {
-            addedLink.addEventListener('click', (e) => {
-                // console.log('Opening puzzle in new tab, maintaining current session state');
-            });
-        }
-
-        return {
-            number: puzzleNumber,
-            time: formattedTime,
-            success,
-            category
-        };
+        return { number: puzzleNumber, time: formattedTime, success, category };
     }
 
     resetUI() {
-        // console.log('Resetting UI - Maintaining current session state');
         this.elements.puzzleHistory.innerHTML = '';
         this.elements.turnIndicator.textContent = '';
         this.elements.puzzleTitle.textContent = '';
         this.elements.puzzleHint.style.display = 'none';
         this.elements.hintButton.style.display = 'none';
-
-        // Ensure buttons reflect current session state
-        this.elements.startPuzzle.style.display = this.isSessionActive ? 'none' : 'inline';
-        this.elements.stopPuzzle.style.display = this.isSessionActive ? 'inline' : 'none';
     }
 }

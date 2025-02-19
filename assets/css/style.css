@@ -808,23 +808,3 @@ h6 {
     transform: translateY(-1px);
     transition: transform 0.2s;
 }
-
-/* Auth Mode styling */
-.auth-info {
-    background-color: #f8f9fa;
-    border: 1px solid #e9ecef;
-    border-radius: 4px;
-    padding: 20px;
-    margin-bottom: 20px;
-}
-
-.auth-info h4 {
-    color: #2c3e50;
-    margin-bottom: 15px;
-}
-
-.auth-info code {
-    background-color: #e9ecef;
-    padding: 2px 4px;
-    border-radius: 3px;
-}
