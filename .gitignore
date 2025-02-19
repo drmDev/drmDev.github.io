@@ -2,8 +2,9 @@
 bin/
 obj/
 
-# Visual Studio
+# Visual Studio / Code specific
 .vs/
+.vscode/
 
 # User-specific files
 *.user
@@ -58,4 +59,25 @@ _site
 .jekyll-cache
 .jekyll-metadata
 vendor
+
+# Node.js specific
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.npm
+.yarn-integrity
+
+# Jest coverage output
+.nyc_output/
+
+# Environment files
 .env
+.env.test
+.env.production
+.env.local
+.env.development
+
+# Test artifacts
+__snapshots__/
+*.snap
