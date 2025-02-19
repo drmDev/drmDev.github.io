@@ -26,27 +26,24 @@ document.addEventListener("DOMContentLoaded", async function () {
         : 'https://chesswoodpecker-production.up.railway.app';
     const apiUrl = `${baseUrl}/api/puzzles`;
 
-    const { supabaseClient } = window.auth;
     const BOARD_ELEMENT = document.getElementById("chessboard");
-    const { data: { session } } = await supabaseClient.auth.getSession();
-    uiManager.updateAuthUI(session);
 
-    supabaseClient.auth.onAuthStateChange(async (event, session) => {
-        uiManager.updateAuthUI(session);
+    document.getElementById('puzzle-container').style.display = 'block';
+    uiManager.toggleSessionButtons(false);
 
-        if (session && event === 'SIGNED_IN') {
-            await initializePuzzles();
+    try {
+        await fetchPuzzles();
+        if (dbPuzzles && dbPuzzles.length > 0) {
+            console.log('Puzzles loaded successfully');
+        } else {
+            console.error('No puzzles available');
         }
-    });
+    } catch (error) {
+        console.error('Error loading initial puzzles:', error);
+    }
 
     document.getElementById("startPuzzle").addEventListener("click", async function () {
         try {
-            const { data: { session } } = await supabaseClient.auth.getSession();
-            if (!session) {
-                alert('Please sign in to start a session');
-                return;
-            }
-
             if (!dbPuzzles || dbPuzzles.length === 0) {
                 await fetchPuzzles();
             }
@@ -84,24 +81,6 @@ document.addEventListener("DOMContentLoaded", async function () {
         uiManager.showHint(category);
         hintUsed = true;
     });
-
-    async function initializePuzzles() {
-        try {
-            await fetchPuzzles();
-            if (dbPuzzles && dbPuzzles.length > 0) {
-                if (!uiManager.isSessionActive) {
-                    // console.log('Initial load - setting up start button');
-                    uiManager.toggleSessionButtons(false);
-                } else {
-                    // console.log('Session already active - maintaining current state');
-                }
-            } else {
-                console.error('No puzzles available');
-            }
-        } catch (error) {
-            console.error('Error initializing puzzles:', error);
-        }
-    }
 
     async function fetchPuzzles() {
         try {
