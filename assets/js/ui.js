@@ -50,10 +50,22 @@ export class UIManager {
     showSessionSummary(sessionStats, callbacks) {
         const stats = sessionStats.getStats();
         const successRate = (stats.correctPuzzles / stats.totalPuzzles * 100).toFixed(1);
+        const minutes = Math.floor(stats.totalTimeMs / 60000);
+        const seconds = ((stats.totalTimeMs % 60000) / 1000).toFixed(0);
+        const totalTimeFormatted = `${minutes}:${seconds.padStart(2, '0')}`;
 
         const overallStatsHtml = `
             <div class="alert alert-info">
-                <strong>Puzzles Completed:</strong> ${stats.correctPuzzles}/${stats.totalPuzzles} (${successRate}%)
+                <div class="stats-row">
+                    <strong>Puzzles Completed:</strong> 
+                    <span class="completion-stats">
+                        ${stats.correctPuzzles}/${stats.totalPuzzles} (${successRate}%)
+                    </span>
+                </div>
+                <div class="stats-row time-stats">
+                    <strong>Total Time:</strong> 
+                    <span class="time-display">${totalTimeFormatted}</span>
+                </div>
             </div>
         `;
 

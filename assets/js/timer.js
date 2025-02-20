@@ -10,11 +10,12 @@ export class TimerManager {
             this.stop();
         }
 
+        // if the timer is paused (Stop Session then Start Session later), this resumes from the original time
         this.gameStartTime = Date.now() - this.totalTime;
         this.interval = setInterval(() => {
             this.totalTime = Date.now() - this.gameStartTime;
             this.updateDisplay();
-        }, 10);
+        }, 10); // 10ms delay on updating total time
     }
 
     stop() {
