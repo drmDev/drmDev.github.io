@@ -63,6 +63,8 @@ document.addEventListener("DOMContentLoaded", async function () {
         timerManager.stop();
         uiManager.toggleSessionButtons(false);
         uiManager.hideHintButton();
+        sessionStats.setTotalTime(timerManager.totalTime);
+
         uiManager.showSessionSummary(sessionStats, {
             onNewSession: async () => {
                 // console.log('Starting new session from summary');
@@ -135,6 +137,8 @@ document.addEventListener("DOMContentLoaded", async function () {
         if (currentPuzzleIndex >= dbPuzzles.length) {
             timerManager.stop();
             uiManager.hideHintButton();
+            sessionStats.setTotalTime(timerManager.totalTime);
+
             uiManager.showSessionSummary(sessionStats, {
                 onNewSession: async () => {
                     resetSession();

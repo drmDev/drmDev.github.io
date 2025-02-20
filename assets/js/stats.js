@@ -4,7 +4,8 @@ export class SessionStats {
             totalPuzzles: 0,
             correctPuzzles: 0,
             categoryStats: {},
-            failedPuzzles: []
+            failedPuzzles: [],
+            totalTimeMs: 0
         };
     }
 
@@ -56,9 +57,16 @@ export class SessionStats {
         return this.stats;
     }
 
+    setTotalTime(timeMs) {
+        this.stats.totalTimeMs = timeMs;
+    }
+
     exportToCSV() {
         const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
         const successRate = (this.stats.correctPuzzles / this.stats.totalPuzzles * 100).toFixed(1);
+        const minutes = Math.floor(this.stats.totalTimeMs / 60000);
+        const seconds = ((this.stats.totalTimeMs % 60000) / 1000).toFixed(0);
+        const totalTimeFormatted = `${minutes}:${seconds.padStart(2, '0')}`;
 
         let csvContent = [];
 
@@ -68,11 +76,12 @@ export class SessionStats {
 
         // Overall Stats
         csvContent.push(['OVERALL PERFORMANCE']);
-        csvContent.push(['Total Puzzles', 'Completed', 'Success Rate']);
+        csvContent.push(['Total Puzzles', 'Completed', 'Success Rate', 'Total Time']);
         csvContent.push([
             this.stats.totalPuzzles,
             this.stats.correctPuzzles,
-            `${successRate}%`
+            `${successRate}%`,
+            totalTimeFormatted
         ]);
         csvContent.push([]); // Empty row for spacing
 
