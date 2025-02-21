@@ -1,22 +1,28 @@
+// File: tests/setup.js
 import '@testing-library/jest-dom';
 
-// Mock the window object
-global.window = {
-    location: {
-        hostname: 'localhost'
-    }
+// Export the setup configuration
+export const setupTestEnvironment = () => {
+    global.window = {
+        location: {
+            hostname: 'localhost'
+        }
+    };
+
+    global.bootstrap = {
+        Modal: class {
+            constructor() {
+                this.show = jest.fn();
+                this.hide = jest.fn();
+            }
+
+            static getInstance(element) {
+                const modalInstance = new this();
+                return modalInstance;
+            }
+        }
+    };
 };
 
-// Mock the bootstrap Modal
-global.bootstrap = {
-    Modal: class {
-        constructor() { }
-        show() { }
-        hide() { }
-        static getInstance() {
-            return {
-                hide: () => { }
-            };
-        }
-    }
-};
+// Execute the setup
+setupTestEnvironment();

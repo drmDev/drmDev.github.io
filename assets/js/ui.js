@@ -18,6 +18,8 @@ export class UIManager {
             chessboard: document.getElementById("chessboard")
         };
 
+        this.isSessionPaused = false;
+
         this.elements.puzzleContainer.style.display = 'block';
     }
 
@@ -42,9 +44,38 @@ export class UIManager {
         this.elements.puzzleTitle.textContent = `Puzzle ${number}`;
     }
 
+    setSessionPaused(isPaused) {
+        this.isSessionPaused = isPaused;
+        this.toggleSessionButtons(false);
+    }
+
     toggleSessionButtons(isStarting) {
-        this.elements.startPuzzle.style.display = isStarting ? 'none' : 'inline';
-        this.elements.stopPuzzle.style.display = isStarting ? 'inline' : 'none';
+        if (isStarting) {
+            this.elements.startPuzzle.style.display = 'none';
+            this.elements.stopPuzzle.style.display = 'inline';
+        } else {
+            this.elements.startPuzzle.style.display = 'inline';
+            this.elements.stopPuzzle.style.display = 'none';
+
+            if (this.isSessionPaused) {
+                this.elements.startPuzzle.innerHTML = '<i class="fas fa-play"></i> Resume Session';
+                this.elements.startPuzzle.classList.add('btn-warning');
+                this.elements.startPuzzle.classList.remove('btn-primary');
+            } else {
+                this.elements.startPuzzle.innerHTML = '<i class="fas fa-chess-pawn"></i> Start Session';
+                this.elements.startPuzzle.classList.add('btn-primary');
+                this.elements.startPuzzle.classList.remove('btn-warning');
+            }
+        }
+    }
+
+    handleNewSession(callbacks) {
+        const modal = bootstrap.Modal.getInstance(document.getElementById('sessionSummaryModal'));
+        modal.hide();
+        this.isSessionPaused = false;
+        if (callbacks?.onNewSession) {
+            return callbacks.onNewSession();
+        }
     }
 
     showSessionSummary(sessionStats, callbacks) {
@@ -53,7 +84,7 @@ export class UIManager {
         const minutes = Math.floor(stats.totalTimeMs / 60000);
         const seconds = ((stats.totalTimeMs % 60000) / 1000).toFixed(0);
         const totalTimeFormatted = `${minutes}:${seconds.padStart(2, '0')}`;
-
+        
         const overallStatsHtml = `
             <div class="alert alert-info">
                 <div class="stats-row">
@@ -103,12 +134,8 @@ export class UIManager {
         }
 
         if (this.elements.startNewSession) {
-            this.elements.startNewSession.addEventListener('click', async () => {
-                const modal = bootstrap.Modal.getInstance(document.getElementById('sessionSummaryModal'));
-                modal.hide();
-                if (callbacks && callbacks.onNewSession) {
-                    await callbacks.onNewSession();
-                }
+            this.elements.startNewSession.addEventListener('click', () => {
+                this.handleNewSession(callbacks);
             });
         }
 
@@ -158,5 +185,6 @@ export class UIManager {
         this.elements.puzzleTitle.textContent = '';
         this.elements.puzzleHint.style.display = 'none';
         this.elements.hintButton.style.display = 'none';
+        this.isSessionPaused = false;
     }
 }
