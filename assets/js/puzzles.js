@@ -61,6 +61,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     document.getElementById("stopPuzzle").addEventListener("click", function () {
         // console.log('Stopping puzzle session');
         timerManager.stop();
+        uiManager.setSessionPaused(true);
         uiManager.toggleSessionButtons(false);
         uiManager.hideHintButton();
         sessionStats.setTotalTime(timerManager.totalTime);

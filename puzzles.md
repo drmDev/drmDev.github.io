@@ -32,22 +32,44 @@ Regular practice with these puzzles will help you spot these patterns more quick
 <div id="puzzle-container" class="text-center container-fluid">
     <!-- Controls Row -->
     <div class="row mb-3">
-        <div class="col-12 d-flex justify-content-center">
-            <div class="control-group">
-                <button id="startPuzzle" class="btn btn-primary puzzle-btn">
-                    Start Session
-                </button>
-                <button id="stopPuzzle" class="btn btn-warning puzzle-btn ms-2" 
-                        style="display: none;">
-                    <i class="fas fa-stop-circle"></i> Stop Session
-                </button>
-                <button id="toggleSound" class="btn puzzle-btn ms-2">
-                    <i class="fas fa-volume-up"></i> Sound On
-                </button>
-                <button id="hintButton" class="btn btn-info puzzle-btn ms-2" 
-                        style="display: none;">
-                    <i class="fas fa-lightbulb"></i> Show Category
-                </button>
+        <div class="col-12">
+            <!-- MODIFIED: Restructured control group and how-to-use container -->
+            <div class="controls-container">
+                <!-- Main Controls Group -->
+                <div class="control-group mb-2">
+                    <button id="startPuzzle" class="btn btn-primary puzzle-btn">
+                        Start Session
+                    </button>
+                    <button id="stopPuzzle" class="btn btn-warning puzzle-btn ms-2" 
+                            style="display: none;">
+                        <i class="fas fa-stop-circle"></i> Stop Session
+                    </button>
+                    <button id="toggleSound" class="btn puzzle-btn ms-2">
+                        <i class="fas fa-volume-up"></i> Sound On
+                    </button>
+                    <button id="hintButton" class="btn btn-info puzzle-btn ms-2" 
+                            style="display: none;">
+                        <i class="fas fa-lightbulb"></i> Show Category
+                    </button>
+                    <button class="btn btn-outline-info puzzle-btn ms-2" type="button" 
+                            data-bs-toggle="collapse" data-bs-target="#howToUse" 
+                            aria-expanded="false" aria-controls="howToUse">
+                        <i class="fas fa-info-circle"></i> How to Use
+                    </button>
+                </div>
+                
+                <!-- How to Use Panel (Now centered below controls) -->
+                <div class="collapse how-to-use-panel" id="howToUse">
+                    <div class="card card-body mx-auto">
+                        <h6 class="text-info mb-2">Session Management:</h6>
+                        <ul class="mb-0 text-start">
+                            <li><strong>New Session:</strong> Get 100 random puzzles and start the timer</li>
+                            <li><strong>Stop Session:</strong> Pause your progress and view your summary</li>
+                            <li><strong>Resume Session:</strong> Continue from where you left off</li>
+                            <li><strong>Browser Refresh:</strong> Starts a new session automatically</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

@@ -8,8 +8,9 @@
   "version": "1.0.0",
   "description": "A portfolio showcasing my technical skills, including backend development, frontend design, and automation using various technologies.",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --verbose --reporters=default",
     "test:watch": "node --experimental-vm-modules node_modules/jest/bin/jest.js --watch",
     "test:coverage": "node --experimental-vm-modules node_modules/jest/bin/jest.js --coverage"
   },
@@ -26,6 +27,7 @@
   "homepage": "https://github.com/drmDev/drmDev.github.io#readme",
   "devDependencies": {
     "@babel/preset-env": "^7.26.9",
+    "@jest/globals": "^29.7.0",
     "@testing-library/jest-dom": "^6.6.3",
     "babel-jest": "^29.7.0",
     "jest": "^29.7.0",

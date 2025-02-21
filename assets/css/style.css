@@ -154,12 +154,6 @@ h6 {
 }
 
 /* Sound control styles */
-.control-group {
-    display: flex;
-    gap: 0.5rem;
-    align-items: center;
-}
-
 .puzzle-btn {
     min-width: 120px;
     display: flex;
@@ -554,6 +548,56 @@ h6 {
         transform: scale(1);
         box-shadow: 0 0 10px rgba(255, 26, 26, 0.5);
     }
+}
+
+/* How to use container */
+.controls-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.control-group {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.how-to-use-panel {
+    width: 100%;
+    max-width: 600px;
+    margin: 1rem auto;
+}
+
+.how-to-use-panel .card {
+    background-color: #1a1e21;
+    border: 1px solid #2a2e32;
+    border-left: 4px solid #17a2b8;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.how-to-use-panel .card-body {
+    padding: 1rem;
+}
+
+.how-to-use-panel ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.how-to-use-panel li {
+    margin-bottom: 0.5rem;
+    color: #e9ecef;
+}
+
+.how-to-use-panel li:last-child {
+    margin-bottom: 0;
+}
+
+.how-to-use-panel li strong {
+    color: #17a2b8;
 }
 
 /* Session Summary Styling */
