@@ -46,12 +46,17 @@ Make your code easier to work with by:
 * Reducing dependencies between components
 
 This approach not only makes your code more maintainable but also makes it easier for AI to assist with specific parts without needing to understand the entire system.
+{: .text-justify}
 
 ### <i class="fas fa-pencil-alt"></i> Use AI as a Starting Point
+{: .section-heading}
+
 Think of AI suggestions as a first draft:
+
 * Review generated code carefully
 * Verify crucial logic independently
 * Understand the code before implementing it
+{: .bullet-list}
 
 <div class="text-center my-4">
     <i class="fas fa-robot fa-3x text-info"></i>
@@ -60,3 +65,4 @@ Think of AI suggestions as a first draft:
 </div>
 
 Remember, AI is a powerful assistant, but it's not a replacement for developer expertise. The goal is to enhance our productivity while maintaining code quality!
+{: .text-justify}
