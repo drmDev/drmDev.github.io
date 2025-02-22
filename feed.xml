@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="https://drmdev.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://drmdev.github.io/" rel="alternate" type="text/html" /><updated>2025-02-22T20:56:01+00:00</updated><id>https://drmdev.github.io/feed.xml</id><title type="html">My Portfolio</title><subtitle>A showcase of my work</subtitle><entry><title type="html">Effective AI Interaction: A Developer’s Guide</title><link href="https://drmdev.github.io/blog/2025/02/22/effective-ai-interaction/" rel="alternate" type="text/html" title="Effective AI Interaction: A Developer’s Guide" /><published>2025-02-22T17:00:00+00:00</published><updated>2025-02-22T17:00:00+00:00</updated><id>https://drmdev.github.io/blog/2025/02/22/effective-ai-interaction</id><content type="html" xml:base="https://drmdev.github.io/blog/2025/02/22/effective-ai-interaction/"><![CDATA[<div class="text-center mb-4">
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="https://drmdev.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://drmdev.github.io/" rel="alternate" type="text/html" /><updated>2025-02-22T21:02:33+00:00</updated><id>https://drmdev.github.io/feed.xml</id><title type="html">My Portfolio</title><subtitle>A showcase of my work</subtitle><entry><title type="html">Effective AI Interaction: A Developer’s Guide</title><link href="https://drmdev.github.io/blog/2025/02/22/effective-ai-interaction/" rel="alternate" type="text/html" title="Effective AI Interaction: A Developer’s Guide" /><published>2025-02-22T17:00:00+00:00</published><updated>2025-02-22T17:00:00+00:00</updated><id>https://drmdev.github.io/blog/2025/02/22/effective-ai-interaction</id><content type="html" xml:base="https://drmdev.github.io/blog/2025/02/22/effective-ai-interaction/"><![CDATA[<div class="text-center mb-4">
     <i class="fas fa-robot fa-4x text-info"></i>
     <i class="fas fa-plus fa-2x mx-3"></i>
     <i class="fas fa-code fa-4x text-warning"></i>
@@ -108,6 +108,14 @@
             <div class="card-body">
                 <h5 class="card-title"><i class="fas fa-clipboard-check"></i> Acceptance Criteria</h5>
                 <p class="card-text">Understanding expected behavior and success metrics to guide implementation and validation</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mt-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title"><i class="fas fa-puzzle-piece"></i> Critical Problem Solving</h5>
+                <p class="card-text">Identifying root causes, asking the right questions, and resourcefully finding solutions through various tools and approaches</p>
             </div>
         </div>
     </div>
