@@ -1,0 +1,88 @@
+/* Blog Styling */
+.blog-post {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.blog-post-header {
+    text-align: center;
+    border-bottom: 3px solid #ff4500;
+    padding-bottom: 1rem;
+}
+
+.blog-post-header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+/* MODIFIED: Changed post-meta text color to be more visible against dark background */
+.post-meta {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    color: #d3d3d3;
+    /* Changed from text-muted to light gray */
+}
+
+/* MODIFIED: Adjusted badge styling for better readability */
+.post-meta .badge {
+    font-size: 0.8rem;
+    /* Reduced from 0.9rem */
+    padding: 0.3em 0.6em;
+    margin: 0 0.2rem;
+    background-color: #2a4494;
+    /* Darker blue background */
+    color: #ffffff;
+    /* Ensuring white text */
+}
+
+/* MODIFIED: Blog preview card styling including Read More button */
+.blog-preview-card {
+    transition: transform 0.2s ease-in-out;
+}
+
+.blog-preview-card .btn-primary {
+    background-color: #2a4494;
+    /* Darker blue background */
+    border-color: #2a4494;
+    color: #ffffff;
+    /* White text */
+}
+
+.blog-preview-card .btn-primary:hover {
+    background-color: #1a2a5e;
+    /* Even darker blue on hover */
+    border-color: #1a2a5e;
+    color: #ffffff;
+}
+
+/* Rest of the existing styles remain unchanged */
+.blog-preview-card:hover {
+    transform: translateY(-5px);
+}
+
+.blog-preview-card .card-body {
+    padding: 1.5rem;
+}
+
+.blog-navigation .btn {
+    padding: 1rem;
+    text-align: left;
+    transition: all 0.2s ease-in-out;
+}
+
+.blog-navigation .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .blog-post {
+        padding: 10px;
+    }
+
+    .blog-post-header h1 {
+        font-size: 2rem;
+    }
+}
