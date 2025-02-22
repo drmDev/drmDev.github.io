@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Beyond the AI Hype: The Reality of AI in Software Development"
-date: 2024-02-22 12:00:00 -0500
+date: 2025-02-22 12:00:00 -0500
 categories: development ai analysis
 ---
 
