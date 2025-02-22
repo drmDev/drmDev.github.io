@@ -210,17 +210,29 @@
     </div>
 </div>
 
+<!-- Puzzle History card -->
 <div id="puzzleHistoryCard" class="card bg-dark text-light mt-4">
-    <div class="card-header text-warning">
-        <i class="fas fa-stopwatch"></i> Puzzle History
+    <div class="card-header text-warning" role="button" data-bs-toggle="collapse" data-bs-target="#puzzleHistoryContent" aria-expanded="true" aria-controls="puzzleHistoryContent" style="cursor: pointer;">
+        <div class="d-flex justify-content-between align-items-center">
+            <span><i class="fas fa-stopwatch"></i> Puzzle History</span>
+            <i class="fas fa-chevron-up history-toggle"></i>
+        </div>
     </div>
-    <div class="card-body text-center">
-        <ul id="puzzleHistory" class="list-unstyled">
-            <!-- Puzzle times will be dynamically added here -->
-        </ul>
-        <h3 class="text-info">
+    
+    <!-- Total time display outside collapse -->
+    <div class="text-center py-2">
+        <h3 class="text-info mb-0">
             <span id="totalTime" class="display-6">00:00.000</span>
         </h3>
+    </div>
+
+    <!-- History list collapsible -->
+    <div class="collapse show" id="puzzleHistoryContent">
+        <div class="card-body text-center pt-0">
+            <ul id="puzzleHistory" class="list-unstyled mb-0">
+                <!-- Puzzle times will be dynamically added here -->
+            </ul>
+        </div>
     </div>
 </div>
 
