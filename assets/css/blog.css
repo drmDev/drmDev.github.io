@@ -76,6 +76,90 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
+/* Gist styling */
+.gist {
+    margin: 1.5rem 0;
+}
+
+/* Hide line numbers in Gist */
+.gist .blob-num {
+    display: none;
+}
+
+/* Adjust the code content to take full width */
+.gist .blob-code {
+    padding-left: 16px !important;
+}
+
+/* Gist file container */
+.gist .gist-file {
+    border: none;
+    border-radius: 6px;
+}
+
+/* Background colors */
+.gist .gist-data {
+    border-radius: 6px;
+    background-color: #1e1e1e !important;
+    color: #d4d4d4 !important;
+}
+
+.gist .highlight {
+    background-color: #1e1e1e !important;
+}
+
+.gist .highlight td {
+    background-color: #1e1e1e !important;
+}
+
+/* Blob code styling to catch unwrapped characters */
+.gist .blob-code-inner {
+    color: #d4d4d4 !important;
+}
+
+/* Syntax element visibility */
+.gist .pl-kos {
+    /* Braces, parentheses */
+    color: #d4d4d4 !important;
+}
+
+.gist .pl-s1 {
+    /* Parameters and variables */
+    color: #9cdcfe !important;
+}
+
+.gist .pl-k {
+    /* Keywords like function, const, etc */
+    color: #569cd6 !important;
+}
+
+.gist .pl-en {
+    /* Function names */
+    color: #dcdcaa !important;
+}
+
+.gist .pl-v {
+    /* Type names */
+    color: #4ec9b0 !important;
+}
+
+/* Meta information styling */
+.gist .gist-meta {
+    background-color: #2d2d2d !important;
+    color: #a0a0a0 !important;
+}
+
+.gist .gist-meta a {
+    color: #6ea3ff !important;
+}
+
+/* Dark mode support if needed */
+@media (prefers-color-scheme: dark) {
+    .gist .gist-data {
+        background-color: #1a1a1a;
+    }
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
     .blog-post {
