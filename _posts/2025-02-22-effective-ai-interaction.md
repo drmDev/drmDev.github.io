@@ -58,7 +58,6 @@ categories: development ai
 <p>Think of AI suggestions as a first draft:</p>
 <ul class="bullet-list">
     <li>Review generated code carefully</li>
-    <li>Verify crucial logic independently</li>
     <li>Understand the code before implementing it</li>
 </ul>
 
