@@ -1,68 +1,100 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="https://drmdev.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://drmdev.github.io/" rel="alternate" type="text/html" /><updated>2025-02-22T20:52:51+00:00</updated><id>https://drmdev.github.io/feed.xml</id><title type="html">My Portfolio</title><subtitle>A showcase of my work</subtitle><entry><title type="html">Effective AI Interaction: A Developer’s Guide</title><link href="https://drmdev.github.io/blog/2025/02/22/effective-ai-interaction/" rel="alternate" type="text/html" title="Effective AI Interaction: A Developer’s Guide" /><published>2025-02-22T17:00:00+00:00</published><updated>2025-02-22T17:00:00+00:00</updated><id>https://drmdev.github.io/blog/2025/02/22/effective-ai-interaction</id><content type="html" xml:base="https://drmdev.github.io/blog/2025/02/22/effective-ai-interaction/"><![CDATA[<div class="text-center mb-4">
-    <i class="fas fa-robot fa-4x text-info"></i>
-    <i class="fas fa-plus fa-2x mx-3"></i>
-    <i class="fas fa-code fa-4x text-warning"></i>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beyond the AI Hype: The Reality of AI in Software Development | My Portfolio</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&display=swap" rel="stylesheet">
+    
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+		    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+	<!-- Chessground CSS -->
+	<link rel="stylesheet" href="/assets/css/chessground.base.css">  
+    <link rel="stylesheet" href="/assets/css/chessground.brown.css">
+		
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="/assets/css/style.css">
+    
+    <link rel="icon" href="/assets/favicon/favicon.ico" type="image/x-icon">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand fs-4 fw-bold" href="/">
+            <i class="fas fa-user"></i> Derek Monturo
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span> <strong>Menu</strong>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="/" id="nav-home">
+                        <i class="fas fa-home"></i> Home
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/hobbies" id="nav-hobbies">
+                        <i class="fas fa-dice"></i> Hobbies
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/puzzles" id="nav-puzzles">
+                        <i class="fas fa-crow"></i> Chess Woodpecker
+                    </a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link" href="/blog" id="nav-blog">
+                    <i class="fas fa-pen-fancy"></i> Blog
+                </a>
+            </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+    <main class="container my-5">
+        <link rel="stylesheet" href="/assets/css/blog.css">
+
+<div class="blog-navigation mb-4">
+    <a href="/blog" class="btn btn-outline-info">
+        <i class="fas fa-arrow-left"></i> Back to All Posts
+    </a>
 </div>
 
-<p class="lead">
-    As software developers, we're witnessing a significant shift in how we work with the emergence of AI-powered development tools. Whether it's ChatGPT helping us debug code or GitHub Copilot suggesting implementations, AI has become another valuable tool in our development toolkit. However, like any tool, its effectiveness depends on how we use it. Let's explore some strategies to maximize the benefits while avoiding common pitfalls.
-</p>
+<article class="blog-post">
+    <header class="blog-post-header mb-4">
+        <h1 class="display-4">
+            <i class="fas fa-pen-fancy"></i> Beyond the AI Hype: The Reality of AI in Software Development
+        </h1>
+        <div class="post-meta">
+            <i class="fas fa-calendar-alt"></i> February 22, 2024
+            
+            <span class="ms-3">
+                <i class="fas fa-tags"></i>
+                
+                <span class="badge bg-info">development</span>
+                
+                <span class="badge bg-info">ai</span>
+                
+                <span class="badge bg-info">analysis</span>
+                
+            </span>
+            
+        </div>
+    </header>
 
-<!--more-->
-
-<h2><i class="fas fa-lightbulb"></i> Crafting Better Prompts for Better Results</h2>
-
-<p>The quality of AI assistance largely depends on how we communicate our needs. Here are some proven strategies:</p>
-
-<h3><i class="fas fa-code-branch"></i> Provide Context Through Examples</h3>
-<p>When asking AI to help with code, include examples of your existing implementation. This helps the AI understand your coding style and patterns, leading to more consistent and useful suggestions. For instance, when working on unit tests, share your existing test structure so the AI can follow the same patterns and conventions.</p>
-
-<h3><i class="fas fa-book"></i> Reference Current Documentation</h3>
-<p>To ensure accurate and up-to-date responses:</p>
-<ul class="bullet-list">
-    <li>Include links to current API documentation</li>
-    <li>Specify versions of libraries you're using</li>
-</ul>
-
-<p>This prevents the AI from using outdated information and ensures suggestions align with your project's actual dependencies.</p>
-
-<h2><i class="fas fa-exclamation-triangle"></i> Managing AI Limitations</h2>
-
-<h3><i class="fas fa-random"></i> Understanding and Handling Hallucinations</h3>
-<p>AI can sometimes generate confident-sounding but incorrect information. This is known as hallucinations, and it's crucial to have strategies to handle it:</p>
-
-<h3><i class="fas fa-vial"></i> Write More Testable Code</h3>
-<p>This suggestion may seem odd, but bare with me, it will make sense.</p>
-
-<script src="https://gist.github.com/drmDev/08a2df9f8ee065c74447295c2d3b4a76.js"></script>
-
-<p>Make your code easier to work with by:</p>
-<ul class="bullet-list">
-    <li>Breaking down complex functions into smaller, focused units</li>
-    <li>Reducing dependencies between components</li>
-</ul>
-
-<p class="text-justify">
-    This approach not only makes your code more maintainable but also makes it easier for AI to assist with specific parts without needing to understand the entire system.
-</p>
-
-<h3 class="section-heading"><i class="fas fa-pencil-alt"></i> Use AI as a Starting Point</h3>
-
-<p>Think of AI suggestions as a first draft:</p>
-<ul class="bullet-list">
-    <li>Review generated code carefully</li>
-    <li>Understand the code before implementing it</li>
-</ul>
-
-<div class="text-center my-4">
-    <i class="fas fa-robot fa-3x text-info"></i>
-    <i class="fas fa-arrow-right fa-2x mx-3"></i>
-    <i class="fas fa-check-circle fa-3x text-success"></i>
-</div>
-
-<p class="text-justify">
-    Remember, AI is a powerful assistant, but it's not a replacement for developer expertise. The goal is to enhance our productivity while maintaining code quality!
-</p>]]></content><author><name></name></author><category term="development" /><category term="ai" /><summary type="html"><![CDATA[As software developers, we're witnessing a significant shift in how we work with the emergence of AI-powered development tools. Whether it's ChatGPT helping us debug code or GitHub Copilot suggesting implementations, AI has become another valuable tool in our development toolkit. However, like any tool, its effectiveness depends on how we use it. Let's explore some strategies to maximize the benefits while avoiding common pitfalls.]]></summary></entry><entry><title type="html">Beyond the AI Hype: The Reality of AI in Software Development</title><link href="https://drmdev.github.io/blog/2024/02/22/reality-ai-software-dev/" rel="alternate" type="text/html" title="Beyond the AI Hype: The Reality of AI in Software Development" /><published>2024-02-22T17:00:00+00:00</published><updated>2024-02-22T17:00:00+00:00</updated><id>https://drmdev.github.io/blog/2024/02/22/reality-ai-software-dev</id><content type="html" xml:base="https://drmdev.github.io/blog/2024/02/22/reality-ai-software-dev/"><![CDATA[<div class="text-center mb-4">
+    <div class="blog-post-content">
+        <div class="text-center mb-4">
     <i class="fas fa-robot fa-4x text-info"></i>
     <i class="fas fa-not-equal fa-2x mx-3"></i>
     <i class="fas fa-user-tie fa-4x text-warning"></i>
@@ -254,4 +286,47 @@
     <i class="fas fa-user-tie fa-3x text-success"></i>
     <i class="fas fa-equals fa-2x mx-3"></i>
     <i class="fas fa-star fa-3x text-warning"></i>
-</div>]]></content><author><name></name></author><category term="development" /><category term="ai" /><category term="analysis" /><summary type="html"><![CDATA[With AI tools like GitHub Copilot and ChatGPT generating increasingly sophisticated code, many are questioning the future role of software developers. While these tools are impressive, understanding their true capabilities and limitations is crucial for both developers and organizations.]]></summary></entry></feed>
+</div>
+
+    </div>
+</article>
+
+<div class="blog-navigation mt-5">
+    <div class="row">
+        
+
+        
+        <div class="col-md-6">
+            <a href="/blog/2025/02/22/effective-ai-interaction/" class="btn btn-outline-info d-block mb-2">
+                Next Post <i class="fas fa-arrow-right"></i>
+                <div class="small">Effective AI Interaction: A Developer's Guide</div>
+            </a>
+        </div>
+        
+    </div>
+</div>
+    </main>
+    <footer class="bg-dark text-light text-center py-4 mt-4">
+    <div class="container">
+        <!-- Social and Contact Info -->
+        <p class="mb-2">
+            <a href="https://www.linkedin.com/in/derek-monturo-6a3585b/" class="text-warning mx-3" target="_blank"
+                rel="noopener noreferrer">
+                <i class="fab fa-linkedin fa-lg"></i> <span class="ms-1">LinkedIn</span>
+            </a>
+
+            <a href="https://github.com/drmDev" class="text-warning mx-3" target="_blank" rel="noopener noreferrer">
+                <i class="fab fa-github fa-lg"></i> <span class="ms-1">Github</span>
+            </a>
+            <a href="mailto:dmontur1@gmail.com" class="text-warning mx-3">
+                <i class="fas fa-envelope fa-lg"></i> <span class="ms-1">dmontur1@gmail.com</span>
+            </a>
+            <span class="text-warning mx-3" class="text-warning mx-3">
+                <i class="fab fa-discord fa-lg"></i> <span class="ms-1">NescapePlan</span>
+            </span>
+        </p>
+    </div>
+</footer>
+
+</body>
+</html>

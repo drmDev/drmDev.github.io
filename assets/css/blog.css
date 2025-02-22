@@ -76,6 +76,22 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
+/* Enhanced card styling */
+.card {
+    transition: transform 0.2s ease-in-out;
+    border-left: 4px solid #007bff;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-title i {
+    margin-right: 8px;
+    color: #007bff;
+}
+
 /* Gist styling */
 .gist {
     margin: 1.5rem 0;
