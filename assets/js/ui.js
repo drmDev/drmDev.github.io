@@ -19,7 +19,8 @@ export class UIManager {
         };
 
         this.isSessionPaused = false;
-
+        this.exportClickHandler = null;
+        this.newSessionClickHandler = null;
         this.elements.puzzleContainer.style.display = 'block';
     }
 
@@ -128,15 +129,19 @@ export class UIManager {
         this.elements.failedPuzzles.innerHTML = failedPuzzlesHtml;
 
         if (this.elements.exportSummary) {
-            this.elements.exportSummary.addEventListener('click', () => {
-                sessionStats.exportToCSV();
-            });
+            if (this.exportClickHandler) {
+                this.elements.exportSummary.removeEventListener('click', this.exportClickHandler);
+            }
+            this.exportClickHandler = () => sessionStats.exportToCSV();
+            this.elements.exportSummary.addEventListener('click', this.exportClickHandler);
         }
 
         if (this.elements.startNewSession) {
-            this.elements.startNewSession.addEventListener('click', () => {
-                this.handleNewSession(callbacks);
-            });
+            if (this.newSessionClickHandler) {
+                this.elements.startNewSession.removeEventListener('click', this.newSessionClickHandler);
+            }
+            this.newSessionClickHandler = () => this.handleNewSession(callbacks);
+            this.elements.startNewSession.addEventListener('click', this.newSessionClickHandler);
         }
 
         const modal = new bootstrap.Modal(document.getElementById('sessionSummaryModal'));
@@ -186,5 +191,15 @@ export class UIManager {
         this.elements.puzzleHint.style.display = 'none';
         this.elements.hintButton.style.display = 'none';
         this.isSessionPaused = false;
+
+        // clean up event listeners to prevent duplicate export records
+        if (this.elements.exportSummary && this.exportClickHandler) {
+            this.elements.exportSummary.removeEventListener('click', this.exportClickHandler);
+            this.exportClickHandler = null;
+        }
+        if (this.elements.startNewSession && this.newSessionClickHandler) {
+            this.elements.startNewSession.removeEventListener('click', this.newSessionClickHandler);
+            this.newSessionClickHandler = null;
+        }
     }
 }
