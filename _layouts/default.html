@@ -23,6 +23,9 @@
 		
     <!-- Custom Styles -->
     <link rel="stylesheet" href="/assets/css/style.css">
+    {% if page.custom_css %}
+        <link rel="stylesheet" href="/assets/css/{{ page.custom_css }}">
+    {% endif %}
     <link rel="icon" href="/assets/favicon/favicon.ico" type="image/x-icon">
 </head>
 <body>

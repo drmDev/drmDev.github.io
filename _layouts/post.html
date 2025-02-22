@@ -1,0 +1,55 @@
+---
+layout: default
+---
+<link rel="stylesheet" href="{{ '/assets/css/blog.css' | relative_url }}">
+
+<div class="blog-navigation mb-4">
+    <a href="{{ '/blog' | relative_url }}" class="btn btn-outline-info">
+        <i class="fas fa-arrow-left"></i> Back to All Posts
+    </a>
+</div>
+
+<article class="blog-post">
+    <header class="blog-post-header mb-4">
+        <h1 class="display-4">
+            <i class="fas fa-pen-fancy"></i> {{ page.title }}
+        </h1>
+        <div class="post-meta">
+            <i class="fas fa-calendar-alt"></i> {{ page.date | date: "%B %d, %Y" }}
+            {% if page.categories.size > 0 %}
+            <span class="ms-3">
+                <i class="fas fa-tags"></i>
+                {% for category in page.categories %}
+                <span class="badge bg-info">{{ category }}</span>
+                {% endfor %}
+            </span>
+            {% endif %}
+        </div>
+    </header>
+
+    <div class="blog-post-content">
+        {{ content }}
+    </div>
+</article>
+
+<div class="blog-navigation mt-5">
+    <div class="row">
+        {% if page.previous %}
+        <div class="col-md-6">
+            <a href="{{ page.previous.url }}" class="btn btn-outline-info d-block mb-2">
+                <i class="fas fa-arrow-left"></i> Previous Post
+                <div class="small">{{ page.previous.title }}</div>
+            </a>
+        </div>
+        {% endif %}
+
+        {% if page.next %}
+        <div class="col-md-6">
+            <a href="{{ page.next.url }}" class="btn btn-outline-info d-block mb-2">
+                Next Post <i class="fas fa-arrow-right"></i>
+                <div class="small">{{ page.next.title }}</div>
+            </a>
+        </div>
+        {% endif %}
+    </div>
+</div>

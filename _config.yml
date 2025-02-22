@@ -24,6 +24,23 @@ email: dmontur1@gmail.com
 baseurl: ""
 url: "https://drmDev.github.io"
 github_username:  drmDev
+excerpt_separator: <!--more-->  # This defines where post previews cut off
+permalink: /blog/:year/:month/:day/:title/  # This defines the URL structure for posts
+markdown: kramdown
+future: true
+
+# Kramdown and syntax highlighting settings
+kramdown:
+  input: kramdown
+  hard_wrap: true
+  syntax_highlighter: rouge
+  syntax_highlighter_opts:
+    block:
+      line_numbers: false
+      start_line: 1
+      wrap: true
+
+highlighter: rouge
 
 # Build settings
 theme: minima
