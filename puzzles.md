@@ -6,7 +6,7 @@ permalink: /puzzles/
 
 <h1><i class="fa-solid fa-crow"></i> Chess Woodpecker App</h1>
 
-{{ "This tool helps you improve your pattern recognition using the **Woodpecker Method** - named after how woodpeckers repeatedly strike the same spot, just as you'll repeatedly solve the same tactical puzzles to reinforce pattern recognition. The **100-puzzle** collection features five essential chess themes, with 20 puzzles each:
+{{ "This tool helps you improve your pattern recognition using the **Woodpecker Method** - named after how woodpeckers repeatedly strike the same spot, just as you'll repeatedly solve the same tactical puzzles to reinforce pattern recognition. The **200-puzzle** collection features ten essential chess themes, with 20 puzzles each:
 
 <div class='puzzle-categories'>
     <div class='category-group'>
@@ -23,6 +23,23 @@ permalink: /puzzles/
         <h3>Endgame Practice</h3>
         <div class='category-items'>
             <span>Rook and Pawn Endgames</span>
+        </div>
+    </div>
+
+    <div class='category-group'>
+        <h3>Attack Patterns</h3>
+        <div class='category-items'>
+            <span>Kingside Attack</span>
+            <span>Queenside Attack</span>
+            <span>Crushing (capitalize on a blunder)</span>
+        </div>
+    </div>
+
+    <div class='category-group'>
+        <h3>Defense and Control</h3>
+        <div class='category-items'>
+            <span>Capture the Defender</span>
+            <span>Defensive Move</span>
         </div>
     </div>
 </div>
@@ -63,7 +80,7 @@ Regular practice with these puzzles will help you spot these patterns more quick
                     <div class="card card-body mx-auto">
                         <h6 class="text-info mb-2">Session Management:</h6>
                         <ul class="mb-0 text-start">
-                            <li><strong>New Session:</strong> Get 100 random puzzles and start the timer</li>
+                            <li><strong>New Session:</strong> Get 200 random puzzles and start the timer</li>
                             <li><strong>Stop Session:</strong> Pause your progress and view your summary</li>
                             <li><strong>Resume Session:</strong> Continue from where you left off</li>
                             <li><strong>Browser Refresh:</strong> Starts a new session automatically</li>

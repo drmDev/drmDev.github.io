@@ -134,7 +134,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             return;
         }
 
-        // auto stop the session when all 100 puzzles are done
+        // auto stop the session when all puzzles are done
         if (currentPuzzleIndex >= dbPuzzles.length) {
             timerManager.stop();
             uiManager.hideHintButton();
