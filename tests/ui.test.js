@@ -109,8 +109,8 @@ describe('UIManager', () => {
 
         const mockStats = {
             getStats: () => ({
-                totalPuzzles: 100,
-                correctPuzzles: 95,
+                totalPuzzles: 200,
+                correctPuzzles: 195,
                 totalTimeMs: 2460000,
                 categoryStats: {},
                 failedPuzzles: []
@@ -120,7 +120,7 @@ describe('UIManager', () => {
         uiManager.showSessionSummary(mockStats, {});
 
         expect(document.getElementById('overallStats').innerHTML).toContain('41:00');
-        expect(document.getElementById('overallStats').innerHTML).toContain('95/100');
+        expect(document.getElementById('overallStats').innerHTML).toContain('195/200');
     });
     
     test('handleNewSession should properly reset session state', async () => {
@@ -152,8 +152,8 @@ describe('UIManager', () => {
             const mockExportFn = jest.fn();
             const mockStats = {
                 getStats: () => ({
-                    totalPuzzles: 100,
-                    correctPuzzles: 95,
+                    totalPuzzles: 200,
+                    correctPuzzles: 195,
                     totalTimeMs: 2460000,
                     categoryStats: {},
                     failedPuzzles: []
@@ -188,7 +188,7 @@ describe('UIManager', () => {
             // Setup
             const mockStats = {
                 getStats: () => ({
-                    totalPuzzles: 100,
+                    totalPuzzles: 200,
                     correctPuzzles: 95,
                     totalTimeMs: 2460000,
                     categoryStats: {},
@@ -221,8 +221,8 @@ describe('UIManager', () => {
             const mockExportFn = jest.fn();
             const mockStats = {
                 getStats: () => ({
-                    totalPuzzles: 100,
-                    correctPuzzles: 95,
+                    totalPuzzles: 200,
+                    correctPuzzles: 195,
                     totalTimeMs: 2460000,
                     categoryStats: {},
                     failedPuzzles: []
