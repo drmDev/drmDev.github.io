@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="https://drmdev.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://drmdev.github.io/" rel="alternate" type="text/html" /><updated>2025-02-24T22:39:03+00:00</updated><id>https://drmdev.github.io/feed.xml</id><title type="html">My Portfolio</title><subtitle>A showcase of my work</subtitle><entry><title type="html">The Reality of AI in Software Development: A Developer’s Perspective</title><link href="https://drmdev.github.io/blog/2025/02/24/reality-ai-software-dev/" rel="alternate" type="text/html" title="The Reality of AI in Software Development: A Developer’s Perspective" /><published>2025-02-24T17:00:00+00:00</published><updated>2025-02-24T17:00:00+00:00</updated><id>https://drmdev.github.io/blog/2025/02/24/reality-ai-software-dev</id><content type="html" xml:base="https://drmdev.github.io/blog/2025/02/24/reality-ai-software-dev/"><![CDATA[<div class="text-center mb-4">
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="https://drmdev.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://drmdev.github.io/" rel="alternate" type="text/html" /><updated>2025-02-24T22:46:52+00:00</updated><id>https://drmdev.github.io/feed.xml</id><title type="html">My Portfolio</title><subtitle>A showcase of my work</subtitle><entry><title type="html">The Reality of AI in Software Development: A Developer’s Perspective</title><link href="https://drmdev.github.io/blog/2025/02/24/reality-ai-software-dev/" rel="alternate" type="text/html" title="The Reality of AI in Software Development: A Developer’s Perspective" /><published>2025-02-24T17:00:00+00:00</published><updated>2025-02-24T17:00:00+00:00</updated><id>https://drmdev.github.io/blog/2025/02/24/reality-ai-software-dev</id><content type="html" xml:base="https://drmdev.github.io/blog/2025/02/24/reality-ai-software-dev/"><![CDATA[<div class="text-center mb-4">
     <i class="fas fa-robot fa-4x text-info"></i>
     <i class="fas fa-question fa-2x mx-3 text-danger"></i>
     <i class="fas fa-laptop-code fa-4x text-success"></i>
@@ -161,6 +161,40 @@
                 <p class="card-text">
                     I've seen it try to call methods that don't exist, which leads to more development churn as we run into compiler or runtime errors and have to troubleshoot those.
                 </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card border-danger mb-4">
+    <div class="card-header bg-danger">
+        <h5 class="mb-0 text-white">
+            <i class="fas fa-times-circle text-white"></i> First-Try Inaccuracies
+        </h5>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-8">
+                <p class="card-text">
+                    While AI can provide quick coding solutions, it often requires multiple iterations to get to a working solution. Even OpenAI's own researchers found that their models frequently produced incorrect code on the first attempt, requiring additional prompts and error corrections to reach a working solution.
+                </p>
+                <p class="card-text">
+                    This means developers need to:
+                </p>
+                <ul>
+                    <li>Verify AI-generated code thoroughly</li>
+                    <li>Be prepared for multiple rounds of refinement</li>
+                    <li>Have enough technical knowledge to identify and correct errors</li>
+                </ul>
+            </div>
+            <div class="col-md-4">
+                <div class="alert alert-secondary">
+                    <i class="fas fa-quote-left"></i>
+                    <small class="text-muted">Source:</small>
+                    <a href="https://futurism.com/openai-researchers-coding-fail" target="_blank" class="alert-link">
+                        OpenAI Researchers Admit Their Coding AI Has Serious Problems
+                    </a>
+                </div>
             </div>
         </div>
     </div>
