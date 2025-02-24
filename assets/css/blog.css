@@ -16,7 +16,7 @@
     margin-bottom: 0.5rem;
 }
 
-/* MODIFIED: Changed post-meta text color to be more visible against dark background */
+/* Changed post-meta text color to be more visible against dark background */
 .post-meta {
     font-size: 1.1rem;
     margin-bottom: 1rem;
@@ -24,7 +24,7 @@
     /* Changed from text-muted to light gray */
 }
 
-/* MODIFIED: Adjusted badge styling for better readability */
+/* Adjusted badge styling for better readability */
 .post-meta .badge {
     font-size: 0.8rem;
     /* Reduced from 0.9rem */
@@ -36,7 +36,7 @@
     /* Ensuring white text */
 }
 
-/* MODIFIED: Blog preview card styling including Read More button */
+/* Blog preview card styling including Read More button */
 .blog-preview-card {
     transition: transform 0.2s ease-in-out;
 }
@@ -90,6 +90,47 @@
 .card-title i {
     margin-right: 8px;
     color: #007bff;
+}
+
+.card .card-header.bg-primary {
+    background-color: #051b5d !important;
+}
+
+.card .border-primary {
+    border-color: #2a4494 !important;
+}
+
+.card .text-primary {
+    color: #9db5ff !important;
+}
+
+.card .text-light {
+    color: #ffffff !important;
+}
+
+.card .text-dark {
+    color: #333333 !important;
+}
+
+.conclusion-card {
+    background-color: #f8f9fa;
+    /* Light gray background */
+    border-left: 4px solid #2a4494;
+}
+
+.conclusion-card .card-title {
+    color: #2a4494;
+}
+
+.conclusion-card .card-text {
+    color: #1a2a5e;
+    /* Darker shade for better contrast */
+    font-weight: 500;
+}
+
+.conclusion-card:hover {
+    background-color: #e9ecef;
+    /* Slightly darker on hover */
 }
 
 /* Gist styling */
