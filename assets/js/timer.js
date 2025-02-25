@@ -1,6 +1,6 @@
 export class TimerManager {
     constructor() {
-        this.gameStartTime = 0;
+        this.gameStartTime = Date.now();
         this.totalTime = 0;
         this.interval = null;
     }
@@ -10,12 +10,12 @@ export class TimerManager {
             this.stop();
         }
 
-        // if the timer is paused (Stop Session then Start Session later), this resumes from the original time
+        // when resuming a session, need this to calculate it correctly
         this.gameStartTime = Date.now() - this.totalTime;
         this.interval = setInterval(() => {
             this.totalTime = Date.now() - this.gameStartTime;
             this.updateDisplay();
-        }, 10); // 10ms delay on updating total time
+        }, 10);
     }
 
     stop() {
@@ -25,7 +25,7 @@ export class TimerManager {
     }
 
     reset() {
-        this.gameStartTime = 0;
+        this.gameStartTime = Date.now();
         this.totalTime = 0;
         if (this.interval) {
             this.stop();
@@ -34,7 +34,12 @@ export class TimerManager {
     }
 
     formatElapsedTime(ms) {
-        return dayjs(ms).format('mm:ss.SSS');
+        try {
+            return dayjs.duration(ms).format('HH:mm:ss.SSS');
+        } catch (error) {
+            console.error('Error formatting time:', error);
+            return '00:00:00.000';
+        }
     }
 
     updateDisplay() {
