@@ -17,6 +17,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     let category;
     let moveHandler;
     let puzzleTimes = [];
+    const EXPECTED_PUZZLE_LENGTH = 200; // keep this updated
     const sessionStats = new SessionStats();
     const timerManager = new TimerManager();
     const uiManager = new UIManager();
@@ -33,10 +34,10 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     try {
         await fetchPuzzles();
-        if (dbPuzzles && dbPuzzles.length > 0) {
-            console.log('Puzzles loaded successfully');
+        if (dbPuzzles && dbPuzzles.length === 200) {
+            console.log('✅ Puzzles loaded successfully');
         } else {
-            console.error('No puzzles available');
+            throw new Error('Incomplete puzzle data');
         }
     } catch (error) {
         console.error('Error loading initial puzzles:', error);
@@ -91,12 +92,15 @@ document.addEventListener("DOMContentLoaded", async function () {
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
-            dbPuzzles = await response.json();
+            const puzzles = await response.json();
 
-            if (dbPuzzles.length === 0) {
-                console.error('No puzzles available in response');
-                return false;
+            // Validate puzzle data
+            const isValid = await validatePuzzleData(puzzles);
+            if (!isValid) {
+                throw new Error('Puzzle validation failed');
             }
+
+            dbPuzzles = puzzles;
             return true;
         } catch (error) {
             console.error("Error fetching puzzles from our database:", error);
@@ -183,6 +187,33 @@ document.addEventListener("DOMContentLoaded", async function () {
         sessionStats.reset();
         timerManager.reset();
         uiManager.resetUI();
+    }
+
+    async function validatePuzzleData(puzzles) {
+        // Check total count
+        if (puzzles.length < EXPECTED_PUZZLE_LENGTH) {
+            console.error(`Error: Expected ${EXPECTED_PUZZLE_LENGTH} puzzles but only received ${puzzles.length}`);
+            return false;
+        }
+
+        // Check for unique IDs
+        const puzzleIds = new Set();
+        const duplicates = [];
+        puzzles.forEach(puzzle => {
+            if (puzzleIds.has(puzzle.lichess_id)) {
+                duplicates.push(puzzle.lichess_id);
+            }
+            puzzleIds.add(puzzle.lichess_id);
+        });
+
+        if (duplicates.length > 0) {
+            console.error(`Error: Found duplicate puzzle IDs: ${duplicates.join(', ')}`);
+            return false;
+        }
+
+        // Log successful load
+        console.log(`✅ Successfully loaded ${puzzles.length} unique puzzles`);
+        return true;
     }
 
     async function fetchPuzzleData(lichessId) {
