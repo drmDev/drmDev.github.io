@@ -34,8 +34,8 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     try {
         await fetchPuzzles();
-        if (dbPuzzles && dbPuzzles.length === 200) {
-            console.log('✅ Puzzles loaded successfully');
+        if (dbPuzzles && dbPuzzles.length === EXPECTED_PUZZLE_LENGTH) {
+            console.log(`✅ ${EXPECTED_PUZZLE_LENGTH} Puzzles loaded successfully`);
         } else {
             throw new Error('Incomplete puzzle data');
         }
@@ -211,8 +211,6 @@ document.addEventListener("DOMContentLoaded", async function () {
             return false;
         }
 
-        // Log successful load
-        console.log(`✅ Successfully loaded ${puzzles.length} unique puzzles`);
         return true;
     }
 
