@@ -238,7 +238,12 @@ Regular practice with these puzzles will help you spot these patterns more quick
 {% include version_history.html versions=version_history %}
 
 <!-- Third-party libraries (global scope) -->
-<script src="https://cdn.jsdelivr.net/npm/dayjs@1.10.7/dayjs.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/dayjs@1/plugin/duration.js"></script>
+<script>
+    // Extend dayjs with duration plugin
+    dayjs.extend(dayjs_plugin_duration);
+</script>
 
 <!-- Application scripts -->
 <script type="module" src="{{ '/assets/js/sounds.js' | relative_url }}"></script>
