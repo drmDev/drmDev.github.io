@@ -35,10 +35,10 @@ export class TimerManager {
 
     formatElapsedTime(ms) {
         try {
-            return dayjs.duration(ms).format('HH:mm:ss.SSS');
+            return dayjs.duration(ms).format('HH:mm:ss');
         } catch (error) {
             console.error('Error formatting time:', error);
-            return '00:00:00.000';
+            return '00:00:00';
         }
     }
 
