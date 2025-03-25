@@ -13,7 +13,7 @@ categories: development ai reality
 
 <div class="lead mb-4">
     <p>
-        While AI tools like ChatGPT and Bard continue to impress us with their capabilities, there's a growing misconception that these models possess actual intelligence. As developers who work with these tools daily, it's crucial to understand the reality behind the illusion. Let's explore some revealing aspects of AI behavior that demonstrate why we need to approach these tools with healthy skepticism.
+        While AI tools like ChatGPT continue to impress us with their capabilities, there's a growing misconception that these models possess actual intelligence. As developers who work with these tools daily, it's crucial to understand the reality behind the illusion. Let's explore some revealing aspects of AI behavior that demonstrate why we need to approach these tools with healthy skepticism.
     </p>
 </div>
 
@@ -128,7 +128,7 @@ When building a chess application, I accidentally told the AI that the bottom-le
             </div>
             <div class="card-body">
                 <p class="card-text">
-                    Ask an AI to respond as a junior developer gaining confidence, and it will. Ask it to respond as a cantankerous expert, and it will. These are simply different response templates - there's no actual personality or emotional growth happening.
+                    When providing a prompt for AI, some recommend telling it to respond as if it is building confidence throughout before making its conclusion - and it will do just that. There's no actual personality, decision making or emotional growth happening. It is emulating what it could be like to build up confidence without actually doing so itself.
                 </p>
             </div>
         </div>
@@ -184,7 +184,7 @@ When building a chess application, I accidentally told the AI that the bottom-le
     </div>
     <div class="card-body">
         <p class="card-text">
-            AI is very unreliable for fact checking. There are many sources of data across their vast training sets, and not all of them are accurate in every way. This leads to several categories of misinformation:
+            AI is very unreliable for fact checking, yet many people try to use it as a substitute for Google for that. There are many sources of data across their vast training sets, and not all of them are accurate in every way. This leads to several categories of misinformation:
         </p>
         
         <div class="row mt-4">
