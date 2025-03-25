@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="https://drmdev.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://drmdev.github.io/" rel="alternate" type="text/html" /><updated>2025-03-23T19:01:18+00:00</updated><id>https://drmdev.github.io/feed.xml</id><title type="html">My Portfolio</title><subtitle>A showcase of my work</subtitle><entry><title type="html">The Illusion of AI Intelligence: What Your LLM Isn’t Telling You</title><link href="https://drmdev.github.io/blog/2025/03/23/ai-intelligence-illusion/" rel="alternate" type="text/html" title="The Illusion of AI Intelligence: What Your LLM Isn’t Telling You" /><published>2025-03-23T17:00:00+00:00</published><updated>2025-03-23T17:00:00+00:00</updated><id>https://drmdev.github.io/blog/2025/03/23/ai-intelligence-illusion</id><content type="html" xml:base="https://drmdev.github.io/blog/2025/03/23/ai-intelligence-illusion/"><![CDATA[<div class="text-center mb-4">
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="https://drmdev.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://drmdev.github.io/" rel="alternate" type="text/html" /><updated>2025-03-25T02:36:24+00:00</updated><id>https://drmdev.github.io/feed.xml</id><title type="html">My Portfolio</title><subtitle>A showcase of my work</subtitle><entry><title type="html">The Illusion of AI Intelligence: What Your LLM Isn’t Telling You</title><link href="https://drmdev.github.io/blog/2025/03/23/ai-intelligence-illusion/" rel="alternate" type="text/html" title="The Illusion of AI Intelligence: What Your LLM Isn’t Telling You" /><published>2025-03-23T17:00:00+00:00</published><updated>2025-03-23T17:00:00+00:00</updated><id>https://drmdev.github.io/blog/2025/03/23/ai-intelligence-illusion</id><content type="html" xml:base="https://drmdev.github.io/blog/2025/03/23/ai-intelligence-illusion/"><![CDATA[<div class="text-center mb-4">
     <i class="fas fa-brain fa-2x text-warning"></i>
     <i class="fas fa-not-equal fa-2x mx-3 text-danger"></i>
     <i class="fas fa-microchip fa-2x text-primary"></i>
@@ -6,7 +6,7 @@
 
 <div class="lead mb-4">
     <p>
-        While AI tools like ChatGPT and Bard continue to impress us with their capabilities, there's a growing misconception that these models possess actual intelligence. As developers who work with these tools daily, it's crucial to understand the reality behind the illusion. Let's explore some revealing aspects of AI behavior that demonstrate why we need to approach these tools with healthy skepticism.
+        While AI tools like ChatGPT continue to impress us with their capabilities, there's a growing misconception that these models possess actual intelligence. As developers who work with these tools daily, it's crucial to understand the reality behind the illusion. Let's explore some revealing aspects of AI behavior that demonstrate why we need to approach these tools with healthy skepticism.
     </p>
 </div>
 
@@ -121,7 +121,7 @@ When building a chess application, I accidentally told the AI that the bottom-le
             </div>
             <div class="card-body">
                 <p class="card-text">
-                    Ask an AI to respond as a junior developer gaining confidence, and it will. Ask it to respond as a cantankerous expert, and it will. These are simply different response templates - there's no actual personality or emotional growth happening.
+                    When providing a prompt for AI, some recommend telling it to respond as if it is building confidence throughout before making its conclusion - and it will do just that. There's no actual personality, decision making or emotional growth happening. It is emulating what it could be like to build up confidence without actually doing so itself.
                 </p>
             </div>
         </div>
@@ -177,7 +177,7 @@ When building a chess application, I accidentally told the AI that the bottom-le
     </div>
     <div class="card-body">
         <p class="card-text">
-            AI is very unreliable for fact checking. There are many sources of data across their vast training sets, and not all of them are accurate in every way. This leads to several categories of misinformation:
+            AI is very unreliable for fact checking, yet many people try to use it as a substitute for Google for that. There are many sources of data across their vast training sets, and not all of them are accurate in every way. This leads to several categories of misinformation:
         </p>
         
         <div class="row mt-4">
@@ -260,7 +260,7 @@ When building a chess application, I accidentally told the AI that the bottom-le
         <li><a href="/blog/2025/02/24/reality-ai-software-dev/" class="alert-link">The Reality of AI in Software Development</a></li>
         <li><a href="/blog/2025/02/22/effective-ai-interaction/" class="alert-link">Effective AI Interaction: A Developer's Guide</a></li>
     </ul>
-</div>]]></content><author><name></name></author><category term="development" /><category term="ai" /><category term="reality" /><summary type="html"><![CDATA[While AI tools like ChatGPT and Bard continue to impress us with their capabilities, there's a growing misconception that these models possess actual intelligence. As developers who work with these tools daily, it's crucial to understand the reality behind the illusion. Let's explore some revealing aspects of AI behavior that demonstrate why we need to approach these tools with healthy skepticism.]]></summary></entry><entry><title type="html">The Reality of AI in Software Development: A Developer’s Perspective</title><link href="https://drmdev.github.io/blog/2025/02/24/reality-ai-software-dev/" rel="alternate" type="text/html" title="The Reality of AI in Software Development: A Developer’s Perspective" /><published>2025-02-24T17:00:00+00:00</published><updated>2025-02-24T17:00:00+00:00</updated><id>https://drmdev.github.io/blog/2025/02/24/reality-ai-software-dev</id><content type="html" xml:base="https://drmdev.github.io/blog/2025/02/24/reality-ai-software-dev/"><![CDATA[<div class="text-center mb-4">
+</div>]]></content><author><name></name></author><category term="development" /><category term="ai" /><category term="reality" /><summary type="html"><![CDATA[While AI tools like ChatGPT continue to impress us with their capabilities, there's a growing misconception that these models possess actual intelligence. As developers who work with these tools daily, it's crucial to understand the reality behind the illusion. Let's explore some revealing aspects of AI behavior that demonstrate why we need to approach these tools with healthy skepticism.]]></summary></entry><entry><title type="html">The Reality of AI in Software Development: A Developer’s Perspective</title><link href="https://drmdev.github.io/blog/2025/02/24/reality-ai-software-dev/" rel="alternate" type="text/html" title="The Reality of AI in Software Development: A Developer’s Perspective" /><published>2025-02-24T17:00:00+00:00</published><updated>2025-02-24T17:00:00+00:00</updated><id>https://drmdev.github.io/blog/2025/02/24/reality-ai-software-dev</id><content type="html" xml:base="https://drmdev.github.io/blog/2025/02/24/reality-ai-software-dev/"><![CDATA[<div class="text-center mb-4">
     <i class="fas fa-robot fa-4x text-info"></i>
     <i class="fas fa-question fa-2x mx-3 text-danger"></i>
     <i class="fas fa-laptop-code fa-4x text-success"></i>
