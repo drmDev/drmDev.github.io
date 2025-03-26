@@ -87,12 +87,20 @@ namespace SeleniumTests
                 case "chrome":
                 default:
                     var chromeOptions = new ChromeOptions();
+
+                    // Create a unique user data directory for each test run
+                    string tempUserDataDir = Path.Combine(Path.GetTempPath(), "chrome_data_" + Guid.NewGuid().ToString());
+                    chromeOptions.AddArgument($"--user-data-dir={tempUserDataDir}");
+
                     if (headless)
                     {
                         chromeOptions.AddArgument("--headless");
                     }
                     chromeOptions.AddArgument("--disable-gpu");
                     chromeOptions.AddArgument("--window-size=1920,1080");
+                    chromeOptions.AddArgument("--no-sandbox");
+                    chromeOptions.AddArgument("--disable-dev-shm-usage");
+                    chromeOptions.AddArgument("--disable-extensions");
                     return new ChromeDriver(chromeOptions);
             }
         }

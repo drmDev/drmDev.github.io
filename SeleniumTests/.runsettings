@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RunSettings>
+  <NUnit>
+    <!-- Force sequential test execution -->
+    <NumberOfTestWorkers>1</NumberOfTestWorkers>
+  </NUnit>  
+  <TestRunParameters>
+    <Parameter name="Headless" value="true" />
+    <Parameter name="Browser" value="chrome" />
+  </TestRunParameters>
+</RunSettings>
