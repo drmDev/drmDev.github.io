@@ -75,7 +75,11 @@ jobs:
     - name: Restore Selenium test dependencies
       working-directory: SeleniumTests
       run: dotnet restore SeleniumTests.csproj
+      
+    - name: Build Selenium Tests
+      working-directory: SeleniumTests
+      run: dotnet build SeleniumTests.csproj --configuration Debug
 
     - name: Run Selenium Tests
       working-directory: SeleniumTests
-      run: dotnet test SeleniumTests.csproj --verbosity normal --no-build --settings .runsettings
+      run: dotnet test SeleniumTests.csproj --verbosity normal --settings .runsettings
