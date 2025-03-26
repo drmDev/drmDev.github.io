@@ -1,21 +1,29 @@
 ﻿using FluentAssertions;
-using OpenQA.Selenium;
-using SeleniumExtras.WaitHelpers;
+using SeleniumTests.Pages;
 
 namespace SeleniumTests
 {
+    [Category("Navigation")]
     public class NavigationTests : BaseTest
     {
+        private HomePage _homePage;
+
+        [SetUp]
+        public void Setup()
+        {
+            base.SetUp();
+            _homePage = new HomePage(driver);
+        }
+
         [Test]
         public void HobbiesPage_ShouldRender()
         {
-            driver.Navigate().GoToUrl(BASE_URL);
+            var hobbiesPage = _homePage
+                .NavigateToHomePage(BASE_URL)
+                .NavigateToHobbies();
 
-            var hobbiesLink = wait.Until(ExpectedConditions.ElementToBeClickable(By.Id("nav-hobbies")));
-            hobbiesLink.Click();
-
-            var filterSection = wait.Until(ExpectedConditions.ElementIsVisible(By.Id("filter-board-games")));
-            filterSection.Displayed.Should().BeTrue("The filter section should be visible on the Hobbies page.");
+            hobbiesPage.IsFilterSectionDisplayed()
+                .Should().BeTrue("The filter section should be visible on the Hobbies page.");
         }
     }
 }
