@@ -82,7 +82,11 @@ namespace SeleniumTests
                     }
                     edgeOptions.AddArgument("--disable-gpu");
                     edgeOptions.AddArgument("--window-size=1920,1080");
-                    return new EdgeDriver(edgeOptions);
+                    edgeOptions.AddArgument("--no-sandbox");
+                    edgeOptions.AddArgument("--disable-dev-shm-usage");
+                    var edgeService = EdgeDriverService.CreateDefaultService();
+                    edgeService.HideCommandPromptWindow = true;
+                    return new EdgeDriver(edgeService, edgeOptions, TimeSpan.FromMinutes(2));
 
                 case "chrome":
                 default:
