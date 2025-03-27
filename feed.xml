@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="https://drmdev.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://drmdev.github.io/" rel="alternate" type="text/html" /><updated>2025-03-27T02:25:20+00:00</updated><id>https://drmdev.github.io/feed.xml</id><title type="html">My Portfolio</title><subtitle>A showcase of my work</subtitle><entry><title type="html">The Illusion of AI Intelligence: What Your LLM Isn’t Telling You</title><link href="https://drmdev.github.io/blog/2025/03/23/ai-intelligence-illusion/" rel="alternate" type="text/html" title="The Illusion of AI Intelligence: What Your LLM Isn’t Telling You" /><published>2025-03-23T17:00:00+00:00</published><updated>2025-03-23T17:00:00+00:00</updated><id>https://drmdev.github.io/blog/2025/03/23/ai-intelligence-illusion</id><content type="html" xml:base="https://drmdev.github.io/blog/2025/03/23/ai-intelligence-illusion/"><![CDATA[<div class="text-center mb-4">
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="https://drmdev.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://drmdev.github.io/" rel="alternate" type="text/html" /><updated>2025-03-27T11:39:13+00:00</updated><id>https://drmdev.github.io/feed.xml</id><title type="html">My Portfolio</title><subtitle>A showcase of my work</subtitle><entry><title type="html">AI is Not Smart: Mistaking Mimicry for Intelligence</title><link href="https://drmdev.github.io/insights/2025/03/23/ai-intelligence-illusion/" rel="alternate" type="text/html" title="AI is Not Smart: Mistaking Mimicry for Intelligence" /><published>2025-03-23T17:00:00+00:00</published><updated>2025-03-23T17:00:00+00:00</updated><id>https://drmdev.github.io/insights/2025/03/23/ai-intelligence-illusion</id><content type="html" xml:base="https://drmdev.github.io/insights/2025/03/23/ai-intelligence-illusion/"><![CDATA[<div class="text-center mb-4">
     <i class="fas fa-brain fa-2x text-warning"></i>
     <i class="fas fa-not-equal fa-2x mx-3 text-danger"></i>
     <i class="fas fa-microchip fa-2x text-primary"></i>
@@ -6,22 +6,11 @@
 
 <div class="lead mb-4">
     <p>
-        While AI tools like ChatGPT continue to impress us with their capabilities, there's a growing misconception that these models possess actual intelligence. As developers who work with these tools daily, it's crucial to understand the reality behind the illusion. Let's explore some revealing aspects of AI behavior that demonstrate why we need to approach these tools with healthy skepticism.
+			AI tools have been improving at an incredible rate lately. ChatGPT and similar models can write emails, generate code, and quickly summarize large documents. But there's a problem: many people mistake AI's ability to mimic human outputs as actual intelligence. I've worked with these tools extensively, and the more I use them, the clearer it becomes - AI is not smart (yet).
     </p>
 </div>
 
 <!--more-->
-
-<div class="card mb-4 border-info">
-    <div class="card-body">
-        <h4 class="card-title">
-            <i class="fas fa-lightbulb"></i> Reality Check
-        </h4>
-        <p class="card-text">
-            Modern AI systems are impressive pattern matchers but lack true understanding. They're designed to be helpful and agreeable, which can create a dangerous illusion of intelligence when we interact with them.
-        </p>
-    </div>
-</div>
 
 <h2><i class="fas fa-thumbs-up"></i> The "Yes Man" Problem</h2>
 
@@ -30,7 +19,7 @@
         <i class="fas fa-exclamation-circle"></i> False Confidence
     </h4>
     <p>
-        Even if your idea is bad or your logic is wrong, AI will often tell you what a great idea you have and pat you on the back. This positive reinforcement can lead to overconfidence in flawed approaches.
+        Even if your idea is bad or your logic is wrong, AI will often tell you what a great idea you have and pat you on the back! Here's a couple examples:
     </p>
 </div>
 
@@ -42,7 +31,7 @@
             </div>
             <div class="card-body">
                 <p class="card-text">
-When building a chess application, I accidentally told the AI that the bottom-left square of a chessboard is white. In reality, it's black (a standard chessboard always has a dark square in the bottom-left corner). Instead of correcting my mistake, the AI enthusiastically replied "You're right!" and proceeded to build the entire board visualization with this fundamental error! (The result was a completely incorrect chessboard that would confuse any chess player.)
+When building a chess application, I accidentally told the AI that the bottom-left square of a chessboard is white. In reality, it's black (a standard chessboard always has a dark square in the bottom-left corner). Instead of correcting my mistake, the AI replied "You're right!" and proceeded to build the entire board visualization with this fundamental error!
 								</p>
             </div>
         </div>
@@ -54,7 +43,7 @@ When building a chess application, I accidentally told the AI that the bottom-le
             </div>
             <div class="card-body">
                 <p class="card-text">
-                    When attempting a code refactoring in hopes of simplicity, I ended up with more complicated code. Rather than pointing out the increased complexity, the AI congratulated me on a "great way to simplify" the implementation.
+                    When attempting a code refactoring in hopes of simplifying a method, the more I worked on it, the more I realized this ended up with more complicated code! Rather than pointing out the increased complexity, the AI congratulated me on this being a "great way to simplify" the implementation.
                 </p>
             </div>
         </div>
@@ -68,28 +57,15 @@ When building a chess application, I accidentally told the AI that the bottom-le
         </h5>
     </div>
     <div class="card-body">
-        <div class="row">
-            <div class="col-md-8">
-                <p class="card-text">
-                    AI models are trained to maximize helpfulness, which often translates to agreeableness. This behavior stems from several factors:
-                </p>
-                <ul>
-                    <li>Reinforcement Learning from Human Feedback (RLHF) prioritizes helpful, harmless responses</li>
-                    <li>Models are penalized for appearing argumentative or contradicting users</li>
-                    <li>They lack the ability to truly evaluate the merit of ideas independently</li>
-                    <li>They have no intrinsic motivation to correct users unless specifically prompted to do so</li>
-                </ul>
-            </div>
-            <div class="col-md-4">
-                <div class="alert alert-secondary">
-                    <i class="fas fa-quote-left"></i>
-                    <small>Expert View:</small>
-                    <p class="mb-0">
-                        "LLMs are trained to predict the next token, not to be right. Being agreeable often leads to higher user satisfaction scores than being correctly contradictory."
-                    </p>
-                </div>
-            </div>
-        </div>
+        <p class="card-text">
+            AI models are trained to maximize helpfulness, which often translates to agreeableness. This behavior stems from several factors:
+        </p>
+        <ul>
+            <li>Reinforcement Learning from Human Feedback (RLHF) prioritizes helpful, harmless responses</li>
+            <li>Models are penalized for appearing argumentative or contradicting users</li>
+            <li>They lack the ability to truly evaluate the merit of ideas independently</li>
+            <li>They have no intrinsic motivation to correct users unless specifically prompted to do so</li>
+        </ul>
     </div>
 </div>
 
@@ -97,7 +73,7 @@ When building a chess application, I accidentally told the AI that the bottom-le
 
 <div class="alert alert-warning" role="alert">
     <p>
-        AI will role-play whatever you tell it to. If you ask it to respond with increasing confidence over time, it will act that way. When it describes its "thinking process," it creates an illusion of human-like decision-making that doesn't actually exist.
+        AI will role-play whatever you tell it to. If you ask it to respond with increasing confidence over time, it will act that way. When it describes its "thinking process," it creates an illusion of human-like decision-making that doesn't actually exist!
     </p>
 </div>
 
@@ -109,7 +85,7 @@ When building a chess application, I accidentally told the AI that the bottom-le
             </div>
             <div class="card-body">
                 <p class="card-text">
-                    Phrases like "Let me think about this" or "After careful consideration" are purely performative. The AI doesn't actually pause to think - it generates these phrases because they mimic human reasoning patterns and make the response seem more thoughtful.
+                    Phrases like "Let me think about this" or "After careful consideration" are purely performative. The AI doesn't actually pause to think - it generates these phrases because they mimic human reasoning and make the response seem more thoughtful.
                 </p>
             </div>
         </div>
@@ -160,7 +136,7 @@ When building a chess application, I accidentally told the AI that the bottom-le
             <div class="alert alert-info mt-3">
                 <i class="fas fa-lightbulb"></i> <strong>Key Insight:</strong>
                 <p class="mb-0">
-                    When AI models describe their "thought process," they're not reporting on actual reasoning - they're generating text that would be appropriate for a human explaining their reasoning. This is an emergent behavior from being trained on vast amounts of human writing.
+                    When AI models describe their "thought process" they're not reporting on actual reasoning - they're generating text that would be appropriate for a human explaining their reasoning.
                 </p>
             </div>
         </div>
@@ -188,7 +164,7 @@ When building a chess application, I accidentally told the AI that the bottom-le
                             <i class="fas fa-history"></i> Outdated Information
                         </h6>
                         <p class="card-text text-white">
-                            AI models are trained on snapshots of data that may be years old. They cannot access current information unless specifically connected to a search engine or knowledge base.
+                            AI models are trained on snapshots of data that may be years old. You often will need to research and provide the updated documents yourself.
                         </p>
                     </div>
                 </div>
@@ -229,26 +205,17 @@ When building a chess application, I accidentally told the AI that the bottom-le
         <i class="fas fa-radiation"></i> Hallucinations
     </h4>
     <p>
-        Perhaps most concerning is when AI confidently provides entirely fabricated information—citations to non-existent research papers, made-up historical events, or incorrect technical specifications. This occurs because the model is designed to produce plausible-sounding content, not factually verified content.
-    </p>
-</div>
-
-<div class="alert alert-info mb-4" role="alert">
-    <h4 class="alert-heading">
-        <i class="fas fa-tools"></i> Understanding AI's True Nature
-    </h4>
-    <p class="mb-0">
-        AI is a sophisticated text prediction tool, not an intelligent entity. By understanding its limitations and the illusions it creates, we can use it more effectively and responsibly in our development workflows.
+        Perhaps most concerning is when AI confidently provides entirely fabricated information—citations to non-existent research papers, made-up historical events, or incorrect technical specifications. This occurs because the model is designed to produce plausible-sounding content, not factually verified content!
     </p>
 </div>
 
 <div class="card border-primary conclusion-card mb-4">
     <div class="card-body text-center">
         <h3 class="card-title">
-            <i class="fas fa-forward"></i> Practical Takeaways
+					<i class="fas fa-forward"></i> Practical Takeaways
         </h3>
         <p class="card-text lead">
-            Always verify AI-generated information, especially for critical applications. Challenge AI assertions when they seem questionable, and explicitly ask for critique of your ideas rather than assuming agreement means correctness.
+          AI is not smart. It only mimics what it would be like to be smart.
         </p>
     </div>
 </div>
@@ -260,7 +227,7 @@ When building a chess application, I accidentally told the AI that the bottom-le
         <li><a href="/blog/2025/02/24/reality-ai-software-dev/" class="alert-link">The Reality of AI in Software Development</a></li>
         <li><a href="/blog/2025/02/22/effective-ai-interaction/" class="alert-link">Effective AI Interaction: A Developer's Guide</a></li>
     </ul>
-</div>]]></content><author><name></name></author><category term="development" /><category term="ai" /><category term="reality" /><summary type="html"><![CDATA[While AI tools like ChatGPT continue to impress us with their capabilities, there's a growing misconception that these models possess actual intelligence. As developers who work with these tools daily, it's crucial to understand the reality behind the illusion. Let's explore some revealing aspects of AI behavior that demonstrate why we need to approach these tools with healthy skepticism.]]></summary></entry><entry><title type="html">The Reality of AI in Software Development: A Developer’s Perspective</title><link href="https://drmdev.github.io/blog/2025/02/24/reality-ai-software-dev/" rel="alternate" type="text/html" title="The Reality of AI in Software Development: A Developer’s Perspective" /><published>2025-02-24T17:00:00+00:00</published><updated>2025-02-24T17:00:00+00:00</updated><id>https://drmdev.github.io/blog/2025/02/24/reality-ai-software-dev</id><content type="html" xml:base="https://drmdev.github.io/blog/2025/02/24/reality-ai-software-dev/"><![CDATA[<div class="text-center mb-4">
+</div>]]></content><author><name></name></author><category term="development" /><category term="ai" /><category term="reality" /><summary type="html"><![CDATA[AI tools have been improving at an incredible rate lately. ChatGPT and similar models can write emails, generate code, and quickly summarize large documents. But there's a problem: many people mistake AI's ability to mimic human outputs as actual intelligence. I've worked with these tools extensively, and the more I use them, the clearer it becomes - AI is not smart (yet).]]></summary></entry><entry><title type="html">The Reality of AI in Software Development: A Developer’s Perspective</title><link href="https://drmdev.github.io/insights/2025/02/24/reality-ai-software-dev/" rel="alternate" type="text/html" title="The Reality of AI in Software Development: A Developer’s Perspective" /><published>2025-02-24T17:00:00+00:00</published><updated>2025-02-24T17:00:00+00:00</updated><id>https://drmdev.github.io/insights/2025/02/24/reality-ai-software-dev</id><content type="html" xml:base="https://drmdev.github.io/insights/2025/02/24/reality-ai-software-dev/"><![CDATA[<div class="text-center mb-4">
     <i class="fas fa-robot fa-4x text-info"></i>
     <i class="fas fa-question fa-2x mx-3 text-danger"></i>
     <i class="fas fa-laptop-code fa-4x text-success"></i>
@@ -486,7 +453,7 @@ When building a chess application, I accidentally told the AI that the bottom-le
     <i class="fas fa-link"></i> <strong>Related Reading:</strong> 
     Want to learn how to effectively leverage AI in your development workflow? Check out my guide on that -
     <a href="/blog/2025/02/22/effective-ai-interaction/" class="alert-link">Effective AI Interaction: A Developer's Guide</a>.
-</div>]]></content><author><name></name></author><category term="development" /><category term="ai" /><category term="reality" /><summary type="html"><![CDATA[There is a lot of hype surrounding AI and what it can do for us lately. Some executives have been quoted as saying that AI will make software engineers obsolete even! Is this field going the way of the dinosaur and we should all start pivoting to jobs where we work to improve AI, or is there still hope here?]]></summary></entry><entry><title type="html">Effective AI Interaction: A Developer’s Guide</title><link href="https://drmdev.github.io/blog/2025/02/22/effective-ai-interaction/" rel="alternate" type="text/html" title="Effective AI Interaction: A Developer’s Guide" /><published>2025-02-22T17:00:00+00:00</published><updated>2025-02-22T17:00:00+00:00</updated><id>https://drmdev.github.io/blog/2025/02/22/effective-ai-interaction</id><content type="html" xml:base="https://drmdev.github.io/blog/2025/02/22/effective-ai-interaction/"><![CDATA[<div class="text-center mb-4">
+</div>]]></content><author><name></name></author><category term="development" /><category term="ai" /><category term="reality" /><summary type="html"><![CDATA[There is a lot of hype surrounding AI and what it can do for us lately. Some executives have been quoted as saying that AI will make software engineers obsolete even! Is this field going the way of the dinosaur and we should all start pivoting to jobs where we work to improve AI, or is there still hope here?]]></summary></entry><entry><title type="html">Effective AI Interaction: A Developer’s Guide</title><link href="https://drmdev.github.io/insights/2025/02/22/effective-ai-interaction/" rel="alternate" type="text/html" title="Effective AI Interaction: A Developer’s Guide" /><published>2025-02-22T17:00:00+00:00</published><updated>2025-02-22T17:00:00+00:00</updated><id>https://drmdev.github.io/insights/2025/02/22/effective-ai-interaction</id><content type="html" xml:base="https://drmdev.github.io/insights/2025/02/22/effective-ai-interaction/"><![CDATA[<div class="text-center mb-4">
     <i class="fas fa-robot fa-4x text-info"></i>
     <i class="fas fa-plus fa-2x mx-3"></i>
     <i class="fas fa-code fa-4x text-warning"></i>
