@@ -232,5 +232,5 @@ categories: development ai reality
 <div class="alert alert-info mb-4">
     <i class="fas fa-link"></i> <strong>Related Reading:</strong> 
     Want to learn how to effectively leverage AI in your development workflow? Check out my guide on that -
-    <a href="/blog/2025/02/22/effective-ai-interaction/" class="alert-link">Effective AI Interaction: A Developer's Guide</a>.
+    <a href="/insights/2025/02/22/effective-ai-interaction/" class="alert-link">Effective AI Interaction: A Developer's Guide</a>.
 </div>

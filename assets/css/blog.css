@@ -133,6 +133,10 @@
     /* Slightly darker on hover */
 }
 
+.card-header.bg-success h5 {
+    color: white !important;
+}
+
 /* Gist styling */
 .gist {
     margin: 1.5rem 0;
