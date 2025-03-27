@@ -25,7 +25,7 @@ baseurl: ""
 url: "https://drmDev.github.io"
 github_username:  drmDev
 excerpt_separator: <!--more-->  # This defines where post previews cut off
-permalink: /blog/:year/:month/:day/:title/  # This defines the URL structure for posts
+permalink: /insights/:year/:month/:day/:title/  # This defines the URL structure for posts
 markdown: kramdown
 future: true
 

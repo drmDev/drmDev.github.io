@@ -4,8 +4,8 @@ layout: default
 <link rel="stylesheet" href="{{ '/assets/css/blog.css' | relative_url }}">
 
 <div class="blog-navigation mb-4">
-    <a href="{{ '/blog' | relative_url }}" class="btn btn-outline-info">
-        <i class="fas fa-arrow-left"></i> Back to All Posts
+    <a href="{{ '/insights' | relative_url }}" class="btn btn-outline-info">
+        <i class="fas fa-arrow-left"></i> Back to All Insights
     </a>
 </div>
 
@@ -37,7 +37,7 @@ layout: default
         {% if page.previous %}
         <div class="col-md-6">
             <a href="{{ page.previous.url }}" class="btn btn-outline-info d-block mb-2">
-                <i class="fas fa-arrow-left"></i> Previous Post
+                <i class="fas fa-arrow-left"></i> Previous Article
                 <div class="small">{{ page.previous.title }}</div>
             </a>
         </div>
@@ -46,7 +46,7 @@ layout: default
         {% if page.next %}
         <div class="col-md-6">
             <a href="{{ page.next.url }}" class="btn btn-outline-info d-block mb-2">
-                Next Post <i class="fas fa-arrow-right"></i>
+                Next Article <i class="fas fa-arrow-right"></i>
                 <div class="small">{{ page.next.title }}</div>
             </a>
         </div>

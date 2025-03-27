@@ -1,12 +1,16 @@
 ---
 layout: default
-title: Blog
-permalink: /blog/
+title: Tech Insights
+permalink: /insights/
 custom_css: blog.css
 ---
 <link rel="stylesheet" href="{{ '/assets/css/blog.css' | relative_url }}">
 
-<h1 class="mb-4 text-center"><i class="fas fa-pen-fancy"></i> Blog Posts</h1>
+<h1 class="mb-4 text-center"><i class="fas fa-pen-fancy"></i> Tech Insights</h1>
+
+<p class="lead text-center mb-5">
+		Concise technical articles on modern software development, automation, and QA matters.
+</p>
 
 <div class="row">
     <div class="col-12 col-lg-8 mx-auto">
