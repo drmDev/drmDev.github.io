@@ -17,13 +17,13 @@ Hi, I'm Derek! I'm passionate about problem-solving and automation. This has dri
 ## <i class="fas fa-file-alt"></i> My Resume
 Explore my professional background and experiences:
 <p>
-    <a href="/assets/pdf/DM_Resume_2024.pdf" download id="resume-download-link">
+    <a href="/assets/pdf/DM_Resume_2025.pdf" download id="resume-download-link">
         <i class="fas fa-file-download"></i> Download My Resume (PDF)
     </a>
 </p>
 
 
-<iframe src="/assets/pdf/DM_Resume_2024.pdf" width="100%" height="500px" style="border: none;" id="resume-viewer"></iframe>
+<iframe src="/assets/pdf/DM_Resume_2025.pdf" width="100%" height="500px" style="border: none;" id="resume-viewer"></iframe>
 
 ---
 
