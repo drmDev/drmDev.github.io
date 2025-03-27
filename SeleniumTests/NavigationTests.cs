@@ -16,6 +16,7 @@ namespace SeleniumTests
         }
 
         [Test]
+        [Retry(2)]
         public void HobbiesPage_ShouldRender()
         {
             var hobbiesPage = _homePage

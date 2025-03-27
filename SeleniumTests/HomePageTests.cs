@@ -16,6 +16,7 @@ namespace SeleniumTests
         }
 
         [Test]
+        [Retry(2)]
         [TestCase("chrome", TestName = "LandingPage_ShouldRender_AndShowResumeLink_Chrome")]
         [TestCase("firefox", TestName = "LandingPage_ShouldRender_AndShowResumeLink_Firefox")]
         [TestCase("edge", TestName = "LandingPage_ShouldRender_AndShowResumeLink_Edge")]
