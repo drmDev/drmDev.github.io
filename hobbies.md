@@ -81,7 +81,7 @@ permalink: /hobbies/
                         <button class="btn btn-primary mt-3" onclick="fetchBoardGames()">Filter</button>
                     </div>
                 </div>
-                <div id="game-list" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4"></div>
+                <div id="game-list" class="row row-cols-1 row-cols-md-2 g-4"></div>
             </div>
         </div>
     </div>
