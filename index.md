@@ -6,7 +6,7 @@ permalink: /
 
 # <i class="fas fa-user-tie"></i> Welcome to My Portfolio
 
-Hi, I'm Derek! I'm passionate about problem-solving and automation. This has driven my love for software development and strategy games. Believe it or not, there is a strong overlap with my enjoyment of the two!
+Hi, I'm Derek! I'm passionate about problem-solving and automation. I'm also a nerd that loves games and technology!
 
 <p style="text-align: center;">
     <img src="/assets/images/prof_chess.jpg" alt="Picture of me playing chess" style="max-width: 300px; border-radius: 8px;">
@@ -40,7 +40,7 @@ Explore my professional background and experiences:
 - **Jekyll**: Converts Markdown and Liquid templates into a static site, making content management a breeze.
 - **Bootstrap**: Powers the site's responsive layout, ensuring a clean look whether you're on a phone, tablet, or desktop.
 - **FontAwesome**: Adds visual flair with icons, such as chess pieces and interactive links, for a modern, engaging feel.
-- **JavaScript**: Handles interactive elements, including dynamic filters on the board games section and real-time updates from the Chess.com API.
+- **JavaScript**: Handles interactive elements, including dynamic filters on the board games section and my Chess Woodpecker app.
 " | markdownify }}
             </div>
         </div>
@@ -52,8 +52,8 @@ Explore my professional background and experiences:
             <div class="card-body">
                 <h5 class="card-title"><i class="fas fa-server"></i> Backend</h5>
                 {{ "
-- **Go**: Powers a fast and reliable REST API that queries the PostgreSQL database and serves data for board game filtering and other dynamic features.
-- **PostgreSQL**: Stores all board game data, including players, game type, and playtime, with support for complex queries.
+- **Go**: Powers a fast and reliable REST API that queries the PostgreSQL database and serves data for board game filtering and my Chess Woodpecker app.
+- **PostgreSQL**: Stores all board game and Chess puzzle data.
 - **Docker**: Simplifies deployment by bundling all dependencies into isolated containers, making the entire system portable across environments.
 - **Railway**: Manages backend hosting and the PostgreSQL database with automatic deployments and scaling.
 " | markdownify }}
@@ -74,7 +74,7 @@ Explore my professional background and experiences:
                         </a>
                     </li>
                     <li>
-                        <strong>Selenium WebDriver:</strong> Ensures UI functionality.
+                        <strong>Selenium WebDriver:</strong> Validates UI functionality.
                         <br>
                         <a href="https://github.com/drmDev/drmDev.github.io/tree/main/SeleniumTests" target="_blank" rel="noopener noreferrer">
                             View Tests (C#)

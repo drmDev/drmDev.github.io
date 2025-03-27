@@ -21,9 +21,11 @@ permalink: /hobbies/
 									<li><i class="fas fa-brain"></i> <a href="{{ '/puzzles' | relative_url }}" target="_blank" rel="noopener noreferrer">My Chess Woodpecker App</a></li>
 							</ul>
 
+							<!-- re-enable when I'm more active on Chess.com
 							<h6>Latest 5 Games on Chess.com for 15/10 controls:</h6>
 							<p><small class="text-info">(This data is fetched using Chess.com's public API with JavaScript.)</small></p>
 							<ul id="latest-games-list" class="icon-list"></ul>
+							-->
             </div>
         </div>
     </div>
@@ -32,7 +34,7 @@ permalink: /hobbies/
         <div class="card h-100 shadow-lg border-0 bg-dark text-light">
             <div class="card-body">
                 <h5 class="card-title"><i class="fas fa-dragon"></i> Magic: The Gathering</h5>
-                {{ "I've played Magic: The Gathering since I was a kid. After a break during high school and college, I rediscovered the game as an adult, and it's now one of my favorite hobbies!" | markdownify }}
+                {{ "I've played Magic: The Gathering since I was a kid. After a break during high school and college, I rediscovered the game as an adult, and it's now one of my favorite games!" | markdownify }}
 
 								<h6>Resources and Links:</h6>
 								<ul class="icon-list">
@@ -47,7 +49,7 @@ permalink: /hobbies/
         <div class="card h-100 shadow-lg border-0 bg-dark text-light">
             <div class="card-body">
                 <h5 class="card-title"><i class="fas fa-dice"></i> Board Games</h5>
-                {{ "Board games have evolved far beyond classics like Monopoly. Twice a month, I host a game night with friends to explore modern board games!" | markdownify }}
+                {{ "Board games have evolved far beyond classics like Monopoly and Clue! Twice a month (or more!), I host a game night with friends to play modern board games and card games." | markdownify }}
 
                 <h6>Explore Board Games:</h6>
                 <p>Use the filters below to find games based on players and game type.</p>
@@ -88,7 +90,7 @@ permalink: /hobbies/
         <div class="card h-100 shadow-lg border-0 bg-dark text-light">
             <div class="card-body">
                 <h5 class="card-title"><i class="fas fa-stopwatch"></i> Speedrunning</h5>
-                {{ "Speedrunning is one of my favorite ways to combine gaming with goal-setting. I focus on retro classics like NES and SNES games as well as modern retro-style games like *Prison City* and *Iron Meat*." | markdownify }}
+                {{ "Speedrunning is one of my favorite ways to combine gaming with personal improvement goal-setting. I focus on retro classics like NES and SNES games as well as modern retro-style games like *Prison City* and *Iron Meat*." | markdownify }}
 
                 <p>Check out my runs on <a href="https://www.speedrun.com/users/nescapeplan" target="_blank" rel="noopener noreferrer">Speedrun.com!</a></p>
             </div>
