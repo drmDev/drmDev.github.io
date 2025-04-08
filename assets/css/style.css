@@ -746,6 +746,19 @@ h6 {
         grid-area: link;
         font-size: 0.9rem;
     }
+
+    /* Ensure black pieces display correctly on mobile */
+    cg-board piece.black {
+        /* Override any mobile-specific styles that might be affecting the pieces */
+        filter: none !important;
+        opacity: 1 !important;
+    }
+    
+    /* Ensure the SVG backgrounds are properly displayed */
+    cg-board piece.black svg {
+        opacity: 1 !important;
+        filter: none !important;
+    }
 }
 
 @media (max-width: 576px) {
