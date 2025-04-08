@@ -746,6 +746,16 @@ h6 {
         grid-area: link;
         font-size: 0.9rem;
     }
+
+    /* Ensure black pieces remain black on mobile */
+    cg-board piece.black {
+        filter: brightness(0) !important;
+    }
+    
+    /* Ensure white pieces remain white on mobile */
+    cg-board piece.white {
+        filter: brightness(1) !important;
+    }
 }
 
 @media (max-width: 576px) {
