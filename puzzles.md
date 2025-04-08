@@ -56,7 +56,6 @@ Regular practice with these puzzles will help you spot these patterns more quick
     <!-- Controls Row -->
     <div class="row mb-3">
         <div class="col-12">
-            <!-- MODIFIED: Restructured control group and how-to-use container -->
             <div class="controls-container">
                 <!-- Main Controls Group -->
                 <div class="control-group mb-2">
@@ -81,7 +80,7 @@ Regular practice with these puzzles will help you spot these patterns more quick
                     </button>
                 </div>
                 
-                <!-- How to Use Panel (Now centered below controls) -->
+                <!-- How to Use Panel -->
                 <div class="collapse how-to-use-panel" id="howToUse">
                     <div class="card card-body mx-auto">
                         <h6 class="text-info mb-2">Session Management:</h6>
@@ -237,7 +236,7 @@ Regular practice with these puzzles will help you spot these patterns more quick
 {% assign version_history = site.data.versions.puzzles %}
 {% include version_history.html versions=version_history %}
 
-<!-- Third-party libraries (global scope) -->
+<!-- Third-party libraries -->
 <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/dayjs@1/plugin/duration.js"></script>
 <script>
