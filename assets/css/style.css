@@ -746,16 +746,6 @@ h6 {
         grid-area: link;
         font-size: 0.9rem;
     }
-
-    /* Ensure black pieces remain black on mobile */
-    cg-board piece.black {
-        filter: brightness(0) !important;
-    }
-    
-    /* Ensure white pieces remain white on mobile */
-    cg-board piece.white {
-        filter: brightness(1) !important;
-    }
 }
 
 @media (max-width: 576px) {
@@ -772,7 +762,7 @@ h6 {
         display: inline-block; /* Keep icons visible but properly spaced */
     }
 		
-		/* Ensure proper text wrapping and spacing on mobile */
+	/* Ensure proper text wrapping and spacing on mobile */
     .puzzle-title-text, #puzzleTitle {
         display: inline-block;
         margin: 0 0.25rem; /* Consistent spacing around text */
@@ -792,16 +782,16 @@ h6 {
         margin-bottom: 5px; /* Add spacing between stacked buttons */
     }
 		
-		.puzzle-btn {
+    .puzzle-btn {
         font-size: 1rem;
         padding: 5px 12px;
     }
 		
-		.turn-display {
+    .turn-display {
         margin: 0.25rem 0;
     }
 		
-		.failure-alert {
+    .failure-alert {
         font-size: 1.25rem; /* Slightly smaller on mobile */
         padding: 0.75rem;
         margin: 0.75rem auto;
