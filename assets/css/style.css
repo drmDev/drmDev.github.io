@@ -706,12 +706,12 @@ h6 {
         overflow: hidden;
         text-overflow: ellipsis; /* Add "..." if too long */
     }
-    
+
     .puzzle-controls {
         flex-wrap: wrap; /* Allow buttons to wrap if needed */
         justify-content: center; /* Center buttons on smaller screens */
     }
-		
+
     #puzzleHistory li {
         grid-template-columns: 1fr 1fr 1fr;
         grid-template-areas:
@@ -746,26 +746,13 @@ h6 {
         grid-area: link;
         font-size: 0.9rem;
     }
-
-    /* Ensure black pieces display correctly on mobile */
-    cg-board piece.black {
-        /* Override any mobile-specific styles that might be affecting the pieces */
-        filter: none !important;
-        opacity: 1 !important;
-    }
-    
-    /* Ensure the SVG backgrounds are properly displayed */
-    cg-board piece.black svg {
-        opacity: 1 !important;
-        filter: none !important;
-    }
 }
 
 @media (max-width: 576px) {
     #puzzle-container {
         padding: 10px;
     }
-		
+
     .puzzle-title {
         gap: 0.25rem; /* Slightly reduced spacing on mobile */
         padding: 0 0.5rem; /* Add some padding on the sides */
@@ -774,18 +761,18 @@ h6 {
     .puzzle-title i {
         display: inline-block; /* Keep icons visible but properly spaced */
     }
-		
+
 	/* Ensure proper text wrapping and spacing on mobile */
     .puzzle-title-text, #puzzleTitle {
         display: inline-block;
         margin: 0 0.25rem; /* Consistent spacing around text */
     }
-	
+
     .btn {
         font-size: 1rem; /* Reduce button size */
         padding: 8px 12px;
     }
-    
+
     .puzzle-controls {
         flex-direction: column; /* Stack buttons on small screens */
         align-items: center;
@@ -794,37 +781,24 @@ h6 {
     .puzzle-controls button {
         margin-bottom: 5px; /* Add spacing between stacked buttons */
     }
-		
+
     .puzzle-btn {
         font-size: 1rem;
         padding: 5px 12px;
     }
-		
+
     .turn-display {
         margin: 0.25rem 0;
     }
-		
+
     .failure-alert {
         font-size: 1.25rem; /* Slightly smaller on mobile */
         padding: 0.75rem;
         margin: 0.75rem auto;
     }
-    
+
     .failure-alert i {
         font-size: 1.5rem;
-    }
-
-    /* Ensure black pieces display correctly on mobile */
-    cg-board piece.black {
-        /* Override any mobile-specific styles that might be affecting the pieces */
-        filter: none !important;
-        opacity: 1 !important;
-    }
-
-    /* Ensure the SVG backgrounds are properly displayed */
-    cg-board piece.black svg {
-        opacity: 1 !important;
-        filter: none !important;
     }
 }
 
@@ -834,20 +808,9 @@ h6 {
         font-size: 0.85rem;
         padding: 6px;
     }
-
-    /* Ensure black pieces display correctly on mobile */
-    cg-board piece.black {
-        /* Override any mobile-specific styles that might be affecting the pieces */
-        filter: none !important;
-        opacity: 1 !important;
-    }
-
-    /* Ensure the SVG backgrounds are properly displayed */
-    cg-board piece.black svg {
-        opacity: 1 !important;
-        filter: none !important;
-    }
 }
+
+/* Chess piece styling for mobile devices - moved to chessground.override.css */
 
 /* Ensure proper spacing between elements */
 .mb-3 {
