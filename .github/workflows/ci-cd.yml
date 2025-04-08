@@ -62,7 +62,7 @@ jobs:
     - name: Check out code
       uses: actions/checkout@v3
 
-    - name: Set up .NET
+    - name: Set up .NET 8
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: '8.0'
