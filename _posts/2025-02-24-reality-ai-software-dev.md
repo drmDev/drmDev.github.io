@@ -6,9 +6,9 @@ categories: development ai reality
 ---
 
 <div class="text-center mb-4">
-    <i class="fas fa-robot fa-4x text-info"></i>
+    <i class="fas fa-robot fa-2x text-info"></i>
     <i class="fas fa-question fa-2x mx-3 text-danger"></i>
-    <i class="fas fa-laptop-code fa-4x text-success"></i>
+    <i class="fas fa-laptop-code fa-2x text-success"></i>
 </div>
 
 <div class="lead mb-4">

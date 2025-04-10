@@ -6,9 +6,9 @@ categories: development ai
 ---
 
 <div class="text-center mb-4">
-    <i class="fas fa-robot fa-4x text-info"></i>
+    <i class="fas fa-robot fa-2x text-info"></i>
     <i class="fas fa-plus fa-2x mx-3"></i>
-    <i class="fas fa-code fa-4x text-warning"></i>
+    <i class="fas fa-code fa-2x text-warning"></i>
 </div>
 
 <p class="lead">
