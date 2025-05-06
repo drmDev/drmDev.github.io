@@ -2,6 +2,27 @@ async function delay(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
+// Maps Scryfall mana symbols to your image asset filenames
+const manaSymbolMap = {
+    '{W}': 'plains',
+    '{U}': 'island',
+    '{B}': 'swamp',
+    '{R}': 'mountain',
+    '{G}': 'forest'
+};
+
+function renderManaCost(manaCost) {
+    if (!manaCost) return '';
+
+    return manaCost.match(/{[^}]+}/g).map(symbol => {
+        const filename = manaSymbolMap[symbol];
+        if (filename) {
+            return `<img src="/assets/images/mtg/${filename}.svg" alt="${symbol}" width="24" style="margin: 0 2px;">`;
+        }
+        return `<span class="text-light">${symbol}</span>`;
+    }).join('');
+}
+
 async function generateCommanders() {
     const output = document.getElementById('commander-results');
     output.innerHTML = 'Loading...';
@@ -34,9 +55,9 @@ async function generateCommanders() {
                class="img-fluid rounded shadow mb-2" 
                style="max-width:250px;" />
         </a>
-        <div class="text-light">
+        <div class="text-light mb-4">
           <strong>${name}</strong><br>
-          <span>${manaCost}</span><br>
+          ${renderManaCost(manaCost)}<br>
           <small>${typeLine}</small>
         </div>
       `;
