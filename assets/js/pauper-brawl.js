@@ -19,9 +19,31 @@ function renderManaCost(manaCost) {
         if (filename) {
             return `<img src="/assets/images/mtg/${filename}.svg" alt="${symbol}" width="24" style="margin: 0 2px;">`;
         }
+
+        const genericMatch = symbol.match(/{(\d{1,2})}/);
+        if (genericMatch) {
+            const num = genericMatch[1];
+            return `
+            <span class="fa-stack" title="{1}" style="width: 1.2em; height: 1.2em; line-height: 1.2em;">
+            <i class="fas fa-circle fa-stack-1x text-light" style="transform: scale(1.5);"></i>
+            <strong class="fa-stack-1x" style="color: black; font-size: 1.5em;">${num}</strong>
+            </span>
+        `;
+        }
+
+        if (symbol === '{X}') {
+            return `
+        <span class="fa-stack fa-sm" title="X" style="width: 1.5em; height: 1.5em;">
+          <i class="fas fa-circle fa-stack-1x text-light"></i>
+          <i class="fas fa-xmark fa-stack-1x text-dark"></i>
+        </span>
+      `;
+        }
+
         return `<span class="text-light">${symbol}</span>`;
     }).join('');
 }
+
 
 async function generateCommanders() {
     const output = document.getElementById('commander-results');
