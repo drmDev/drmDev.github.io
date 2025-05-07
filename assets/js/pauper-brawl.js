@@ -44,20 +44,21 @@ function renderManaCost(manaCost) {
     }).join('');
 }
 
-
 async function generateCommanders() {
     const output = document.getElementById('commander-results');
     output.innerHTML = 'Loading...';
+
+    const count = parseInt(document.getElementById('commander-count').value, 10) || 3;
     const baseURL = 'https://api.scryfall.com/cards/random?q=type%3Alegendary%20type%3Acreature%20rarity%3Auncommon%20in%3Aarena%20format%3Abrawl';
 
     try {
         const results = [];
 
-        for (let i = 0; i < 3; i++) {
+        for (let i = 0; i < count; i++) {
             const res = await fetch(baseURL);
             const card = await res.json();
             results.push(card);
-            await delay(100);
+            await delay(100); // Scryfall-friendly rate limiting
         }
 
         output.innerHTML = '';
@@ -67,23 +68,29 @@ async function generateCommanders() {
             const name = card.name;
             const typeLine = card.type_line;
 
+            const cardCol = document.createElement('div');
+            cardCol.className = 'col';
+
             const cardDiv = document.createElement('div');
-            cardDiv.className = "text-center";
+            cardDiv.className = 'text-center';
 
             cardDiv.innerHTML = `
-        <a href="${card.scryfall_uri}" target="_blank" rel="noopener noreferrer">
-          <img src="${image}" 
-               alt="${name}" 
-               class="img-fluid rounded shadow mb-2" 
-               style="max-width:250px;" />
-        </a>
-        <div class="text-light mb-4">
-          <strong>${name}</strong><br>
-          ${renderManaCost(manaCost)}<br>
-          <small>${typeLine}</small>
-        </div>
-      `;
-            output.appendChild(cardDiv);
+                <a href="${card.scryfall_uri}" target="_blank" rel="noopener noreferrer">
+                    <img src="${image}" 
+                        alt="${name}" 
+                        class="img-fluid rounded shadow mb-2" 
+                        style="max-width:250px;" />
+                </a>
+                <div class="text-light mb-4">
+                    <strong>${name}</strong><br>
+                    ${renderManaCost(manaCost)}<br>
+                    <small>${typeLine}</small>
+                </div>
+                `;
+
+            cardCol.appendChild(cardDiv);
+            output.appendChild(cardCol);
+
         });
     } catch (err) {
         console.error(err);
