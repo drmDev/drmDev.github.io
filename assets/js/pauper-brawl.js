@@ -53,11 +53,18 @@ async function generateCommanders() {
 
     try {
         const results = [];
+        const uniqueCommanders = new Set(); // Track unique commanders by name
 
-        for (let i = 0; i < count; i++) {
+        while (results.length < count) {
             const res = await fetch(baseURL);
             const card = await res.json();
-            results.push(card);
+            
+            // Only add the card if we haven't seen this commander before
+            if (!uniqueCommanders.has(card.name)) {
+                uniqueCommanders.add(card.name);
+                results.push(card);
+            }
+            
             await delay(100); // Scryfall-friendly rate limiting
         }
 
@@ -90,7 +97,6 @@ async function generateCommanders() {
 
             cardCol.appendChild(cardDiv);
             output.appendChild(cardCol);
-
         });
     } catch (err) {
         console.error(err);
