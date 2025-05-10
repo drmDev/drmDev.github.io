@@ -20,7 +20,7 @@ permalink: /pauper-brawl/
   </label>
   <div class="d-flex justify-content-center align-items-end gap-2 flex-wrap">
     <select id="commander-count" class="form-select w-auto">
-      {% for i in (2..9) %}
+      {% for i in (1..6) %}
         <option value="{{ i }}">{{ i }}</option>
       {% endfor %}
     </select>
