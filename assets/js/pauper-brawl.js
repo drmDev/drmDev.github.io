@@ -48,15 +48,28 @@ async function generateCommanders() {
     const output = document.getElementById('commander-results');
     output.innerHTML = 'Loading...';
 
-    const count = parseInt(document.getElementById('commander-count').value, 10) || 3;
+    const count = Math.min(parseInt(document.getElementById('commander-count').value, 10) || 3, 6);
     const baseURL = 'https://api.scryfall.com/cards/random?q=type%3Alegendary%20type%3Acreature%20rarity%3Auncommon%20in%3Aarena%20format%3Abrawl';
 
     try {
         const results = [];
         const uniqueCommanders = new Set(); // Track unique commanders by name
+        const maxAttempts = count * 2; // Allow for some duplicates
+        let attempts = 0;
 
-        while (results.length < count) {
+        while (results.length < count && attempts < maxAttempts) {
+            attempts++;
             const res = await fetch(baseURL);
+            
+            // Check for rate limiting
+            if (res.status === 429) {
+                throw new Error('Rate limit exceeded. Please try again in a few moments.');
+            }
+            
+            if (!res.ok) {
+                throw new Error(`API request failed with status ${res.status}`);
+            }
+            
             const card = await res.json();
             
             // Only add the card if we haven't seen this commander before
@@ -65,7 +78,12 @@ async function generateCommanders() {
                 results.push(card);
             }
             
-            await delay(100); // Scryfall-friendly rate limiting
+            await delay(50); // 50ms
+        }
+
+        if (results.length < count) {
+            output.innerHTML = '<p class="text-warning">Could not find enough unique commanders. Try again.</p>';
+            return;
         }
 
         output.innerHTML = '';
@@ -100,6 +118,6 @@ async function generateCommanders() {
         });
     } catch (err) {
         console.error(err);
-        output.innerHTML = '<p class="text-danger">Failed to fetch cards. Try again.</p>';
+        output.innerHTML = `<p class="text-danger">${err.message || 'Failed to fetch cards. Try again.'}</p>`;
     }
 }
