@@ -1,15 +1,25 @@
-class Game {
+import { InputHandler } from './input-handler.js';
+import { SoundManager } from './sound-manager.js';
+import { VisualEffects } from './visual-effects.js';
+
+export class Game {
     constructor() {
         this.canvas = document.getElementById('gameCanvas');
         this.ctx = this.canvas.getContext('2d');
         this.canvas.width = 800;
         this.canvas.height = 600;
         
+        // Initialize managers
+        this.inputHandler = new InputHandler(this.canvas, () => this.restartGame());
+        this.soundManager = new SoundManager();
+        this.visualEffects = new VisualEffects(this.ctx, this.canvas);
+        
         // Game state
         this.gameState = {
             isRunning: false,
             isGameOver: false,
-            isVictory: false
+            isVictory: false,
+            isVictoryAnimation: false
         };
         
         this.player = {
@@ -37,18 +47,12 @@ class Game {
         };
         
         this.projectiles = [];
-        this.bloodParticles = [];
         this.reflectedProjectile = null;
         this.projectileSpeed = 5;
         this.spawnTimer = 0;
         this.spawnInterval = 2000; // 2 seconds between waves
         this.parryWindow = 200; // 200ms parry window
         this.parryTimer = 0;
-        
-        // Visual feedback effects
-        this.flashTimer = 0;
-        this.shakeTimer = 0;
-        this.shakeIntensity = 5;
         
         // Wave configuration
         this.waveConfig = {
@@ -57,68 +61,9 @@ class Game {
             baseSpeed: 5
         };
         
-        // Sound effects
-        this.sounds = {
-            projectile: new Audio('/assets/sounds/shield-parry/projectile.mp3'),
-            parrySuccess: new Audio('/assets/sounds/shield-parry/parry_success.mp3'),
-            parryFail: new Audio('/assets/sounds/shield-parry/player_hit.mp3'),
-            enemyStunned: new Audio('/assets/sounds/shield-parry/enemy_stunned.mp3'),
-            charging: new Audio('/assets/sounds/shield-parry/charging.mp3'),
-            enemyDefeated: new Audio('/assets/sounds/shield-parry/enemy_defeated.mp3')
-        };
-        
-        // Preload sounds
-        this.preloadSounds();
-        
-        // Input handling
-        this.keys = {};
-        this.setupInputHandling();
-        
         // Start game loop
         this.lastTime = 0;
         this.gameLoop(0);
-    }
-    
-    setupInputHandling() {
-        // Prevent default behavior for game controls
-        const preventDefaultKeys = ['Space', 'KeyW', 'KeyA', 'KeyS', 'KeyD', 'ShiftLeft', 'KeyR'];
-        
-        window.addEventListener('keydown', (e) => {
-            if (preventDefaultKeys.includes(e.code)) {
-                e.preventDefault();
-            }
-            this.keys[e.code] = true;
-            
-            // Quick restart with R key
-            if (e.code === 'KeyR' && (this.gameState.isGameOver || this.gameState.isVictory)) {
-                this.restartGame();
-            }
-        });
-        
-        window.addEventListener('keyup', (e) => {
-            if (preventDefaultKeys.includes(e.code)) {
-                e.preventDefault();
-            }
-            this.keys[e.code] = false;
-        });
-        
-        // Prevent spacebar from scrolling when clicking the canvas
-        this.canvas.addEventListener('click', () => {
-            this.canvas.focus();
-        });
-        
-        // Prevent spacebar from scrolling when the game is focused
-        this.canvas.addEventListener('keydown', (e) => {
-            if (preventDefaultKeys.includes(e.code)) {
-                e.preventDefault();
-            }
-        });
-        
-        // Make canvas focusable
-        this.canvas.setAttribute('tabindex', '0');
-        
-        // Add focus styles
-        this.canvas.style.outline = 'none';
     }
     
     restartGame() {
@@ -155,23 +100,23 @@ class Game {
         
         // Clear arrays
         this.projectiles = [];
-        this.bloodParticles = [];
+        this.reflectedProjectile = null;
         
         // Reset timers
         this.spawnTimer = 0;
         this.parryTimer = 0;
-        this.flashTimer = 0;
-        this.shakeTimer = 0;
+        
+        // Clear visual effects
+        this.visualEffects.clear();
         
         // Update health bar
         this.updateHealthBar();
     }
     
     getParryHitbox() {
-        // Create a hitbox that matches player width but extends in front
-        const parryWidth = this.player.width; // Match player width
-        const parryHeight = 30; // Height of parry window
-        const parryOffset = 15; // Distance in front of player
+        const parryWidth = this.player.width;
+        const parryHeight = 30;
+        const parryOffset = 15;
         
         return {
             x: this.player.x,
@@ -188,41 +133,18 @@ class Game {
         return this.checkCollision(proj, parryHitbox);
     }
     
-    preloadSounds() {
-        // Preload all sounds
-        const loadPromises = Object.values(this.sounds).map(sound => {
-            return new Promise((resolve, reject) => {
-                sound.addEventListener('canplaythrough', resolve, { once: true });
-                sound.addEventListener('error', reject);
-                sound.load();
-            });
-        });
-        
-        Promise.all(loadPromises)
-            .then(() => console.log('All sounds loaded successfully'))
-            .catch(error => console.error('Error loading sounds:', error));
-    }
-    
     update(deltaTime) {
         if (!this.gameState.isRunning || this.gameState.isGameOver) return;
         
-        // Update visual feedback timers
-        if (this.flashTimer > 0) {
-            this.flashTimer -= deltaTime;
-            if (this.flashTimer < 0) this.flashTimer = 0;
-        }
-        
-        if (this.shakeTimer > 0) {
-            this.shakeTimer -= deltaTime;
-            if (this.shakeTimer < 0) this.shakeTimer = 0;
-        }
+        // Update visual effects
+        this.visualEffects.update(deltaTime);
         
         // Handle player movement
         if (!this.player.isCharging) {
-            if (this.keys['KeyW']) this.player.y -= this.player.speed;
-            if (this.keys['KeyS']) this.player.y += this.player.speed;
-            if (this.keys['KeyA']) this.player.x -= this.player.speed;
-            if (this.keys['KeyD']) this.player.x += this.player.speed;
+            if (this.inputHandler.isKeyPressed('KeyW')) this.player.y -= this.player.speed;
+            if (this.inputHandler.isKeyPressed('KeyS')) this.player.y += this.player.speed;
+            if (this.inputHandler.isKeyPressed('KeyA')) this.player.x -= this.player.speed;
+            if (this.inputHandler.isKeyPressed('KeyD')) this.player.x += this.player.speed;
             
             // Keep player within bounds
             this.player.x = Math.max(0, Math.min(this.canvas.width - this.player.width, this.player.x));
@@ -232,13 +154,13 @@ class Game {
             if (!this.enemy.isDefeated && !this.enemy.isStunned && this.checkCollision(this.player, this.enemy)) {
                 this.player.health = 0;
                 this.updateHealthBar();
-                this.triggerHitEffects();
+                this.visualEffects.triggerHitEffects();
                 this.gameOver();
             }
         }
         
         // Handle parry input
-        if (this.keys['Space'] && this.player.parryCooldown <= 0) {
+        if (this.inputHandler.isKeyPressed('Space') && this.player.parryCooldown <= 0) {
             this.player.isParrying = true;
             this.player.parryCooldown = 500; // 500ms parry cooldown
             this.parryTimer = this.parryWindow;
@@ -257,10 +179,10 @@ class Game {
         }
         
         // Handle shield bash
-        if (this.keys['ShiftLeft'] && this.enemy.isStunned && !this.player.isCharging && !this.enemy.isDefeated) {
+        if (this.inputHandler.isKeyPressed('ShiftLeft') && this.enemy.isStunned && !this.player.isCharging && !this.enemy.isDefeated) {
             this.player.isCharging = true;
             this.player.chargeTarget = { x: this.enemy.x, y: this.enemy.y };
-            this.playSound('charging');
+            this.soundManager.playSound('charging');
         }
         
         // Update charge movement
@@ -273,7 +195,8 @@ class Game {
                 // Reached enemy
                 this.enemy.isDefeated = true;
                 this.player.isCharging = false;
-                this.playDefeatEffect();
+                this.visualEffects.createBloodParticles(this.enemy.x, this.enemy.y);
+                this.soundManager.playSound('enemyDefeated');
                 this.checkVictory();
             } else {
                 // Move towards enemy
@@ -327,13 +250,13 @@ class Game {
                     this.reflectedProjectile.vx = (dx / distance) * this.reflectedProjectile.speed;
                     this.reflectedProjectile.vy = (dy / distance) * this.reflectedProjectile.speed;
                     
-                    this.playSound('parrySuccess');
+                    this.soundManager.playSound('parrySuccess');
                 } else {
                     // Failed parry or red projectile
                     this.player.health -= 20;
                     this.updateHealthBar();
-                    this.playSound('parryFail');
-                    this.triggerHitEffects();
+                    this.soundManager.playSound('parryFail');
+                    this.visualEffects.triggerHitEffects();
                 }
                 this.projectiles.splice(i, 1);
                 
@@ -358,8 +281,8 @@ class Game {
             if (this.checkCollision(this.reflectedProjectile, this.enemy)) {
                 this.enemy.isStunned = true;
                 this.enemy.stunTimer = 3000; // 3 seconds stun
-                this.playSound('enemyStunned');
-                this.playParryEffect();
+                this.soundManager.playSound('enemyStunned');
+                this.visualEffects.playParryEffect();
                 this.reflectedProjectile = null;
             }
             
@@ -369,19 +292,6 @@ class Game {
                 this.reflectedProjectile.y < -50 || 
                 this.reflectedProjectile.y > this.canvas.height + 50)) {
                 this.reflectedProjectile = null;
-            }
-        }
-        
-        // Update blood particles
-        for (let i = this.bloodParticles.length - 1; i >= 0; i--) {
-            const particle = this.bloodParticles[i];
-            particle.x += particle.vx;
-            particle.y += particle.vy;
-            particle.vy += 0.1; // Gravity
-            particle.life -= 0.02; // Fade out
-            
-            if (particle.life <= 0) {
-                this.bloodParticles.splice(i, 1);
             }
         }
     }
@@ -411,32 +321,6 @@ class Game {
                obj1.y + obj1.height > obj2.y;
     }
     
-    playParryEffect() {
-        // Visual feedback for successful parry
-        this.ctx.fillStyle = '#ffffff';
-        this.ctx.globalAlpha = 0.5;
-        this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
-        this.ctx.globalAlpha = 1.0;
-        
-        // Haptic feedback if available
-        if (navigator.vibrate) {
-            navigator.vibrate(100);
-        }
-    }
-    
-    playDefeatEffect() {
-        // Create blood particles
-        this.createBloodParticles(this.enemy.x, this.enemy.y);
-        
-        // Play defeat sound
-        this.playSound('enemyDefeated');
-        
-        // Haptic feedback if available
-        if (navigator.vibrate) {
-            navigator.vibrate([50, 50, 50]);
-        }
-    }
-    
     updateHealthBar() {
         const healthFill = document.getElementById('health-fill');
         healthFill.style.width = `${this.player.health}%`;
@@ -447,24 +331,10 @@ class Game {
         this.gameState.isRunning = false;
     }
     
-    triggerHitEffects() {
-        this.flashTimer = 300; // 300ms red flash
-        this.shakeTimer = 300; // 300ms screen shake
-    }
-    
     draw() {
         // Clear canvas
         this.ctx.fillStyle = '#000000';
         this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
-        
-        // Apply screen shake
-        this.ctx.save();
-        if (this.shakeTimer > 0) {
-            const intensity = this.shakeIntensity * (this.shakeTimer / 300);
-            const dx = (Math.random() - 0.5) * intensity;
-            const dy = (Math.random() - 0.5) * intensity;
-            this.ctx.translate(dx, dy);
-        }
         
         // Draw player
         this.ctx.fillStyle = this.player.isParrying ? '#00ffff' : '#ffffff';
@@ -503,17 +373,6 @@ class Game {
             );
         }
         
-        // Draw blood particles
-        this.bloodParticles.forEach(particle => {
-            this.ctx.fillStyle = `rgba(255, 0, 0, ${particle.life})`;
-            this.ctx.fillRect(
-                particle.x,
-                particle.y,
-                particle.width,
-                particle.height
-            );
-        });
-        
         // Draw parry window indicator
         if (this.player.isParrying) {
             const parryHitbox = this.getParryHitbox();
@@ -527,18 +386,11 @@ class Game {
             );
         }
         
-        // Restore context after shake
-        this.ctx.restore();
-        
-        // Draw red flash overlay
-        if (this.flashTimer > 0) {
-            const alpha = (this.flashTimer / 300) * 0.5;
-            this.ctx.fillStyle = `rgba(255, 0, 0, ${alpha})`;
-            this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
-        }
+        // Draw visual effects
+        this.visualEffects.draw();
         
         // Draw game over or victory message
-        if (this.gameState.isGameOver || this.gameState.isVictory) {
+        if ((this.gameState.isGameOver || this.gameState.isVictory) && !this.gameState.isVictoryAnimation) {
             this.ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
             this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
             
@@ -570,19 +422,17 @@ class Game {
         requestAnimationFrame((t) => this.gameLoop(t));
     }
     
-    playSound(soundName) {
-        const sound = this.sounds[soundName];
-        if (sound) {
-            // Create a new instance of the sound for each play
-            const soundInstance = sound.cloneNode();
-            soundInstance.play().catch(error => console.error('Error playing sound:', error));
-        }
-    }
-    
     checkVictory() {
         if (this.enemy.isDefeated) {
-            this.gameState.isVictory = true;
-            this.gameState.isRunning = false;
+            // Set a flag to indicate we're in the victory animation phase
+            this.gameState.isVictoryAnimation = true;
+            
+            // Wait for the death animation to play out before showing victory screen
+            setTimeout(() => {
+                this.gameState.isVictory = true;
+                this.gameState.isRunning = false;
+                this.gameState.isVictoryAnimation = false;
+            }, 1000); // 1 second delay
         }
     }
     
@@ -617,30 +467,6 @@ class Game {
         }
         
         // Play projectile sound
-        this.playSound('projectile');
+        this.soundManager.playSound('projectile');
     }
-    
-    createBloodParticles(x, y) {
-        for (let i = 0; i < 30; i++) {
-            const angle = Math.random() * Math.PI * 2;
-            const speed = 2 + Math.random() * 4;
-            const size = 2 + Math.random() * 4;
-            
-            this.bloodParticles.push({
-                x: x,
-                y: y,
-                width: size,
-                height: size,
-                vx: Math.cos(angle) * speed,
-                vy: Math.sin(angle) * speed,
-                life: 1.0 // Full life
-            });
-        }
-    }
-}
-
-// Start the game when the page loads
-window.addEventListener('load', () => {
-    const game = new Game();
-    game.restartGame(); // Initialize the game
-}); 
+} 
