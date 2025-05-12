@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Privacy Policy | My Portfolio</title>
+    <title>Shield Parry | My Portfolio</title>
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -25,6 +25,8 @@
 
     <!-- Custom Styles -->
     <link rel="stylesheet" href="/assets/css/style.css">
+    
+        <link rel="stylesheet" href="/assets/css/shield-parry.css">
     
     <link rel="icon" href="/assets/favicon/favicon.ico" type="image/x-icon">
 </head>
@@ -75,32 +77,44 @@
 </nav>
 
     <main class="container my-5">
-        <h1 id="privacy-policy-for-chess-woodpecker">Privacy Policy for Chess Woodpecker</h1>
+        <div class="container py-4">
+  <div class="card shadow-lg border-0 mb-4">
+    <div class="card-body">
+      <h1 class="card-title h3">
+        <i class="fas fa-shield-alt"></i> DDA Shield Parry Mini-Game
+      </h1>
+      <p class="card-text mb-2">
+        A quick browser mini-game inspired by <strong>Doom: Dark Ages</strong>, focused on the parrying mechanic.
+      </p>
+      <p class="card-text">
+        Parry incoming green projectiles to deflect them back at the enemy. A successful parry stuns the enemy (they turn <strong>yellow</strong>), allowing you to destroy them with a shield slam.
+      </p>
+      <ul class="mb-0">
+        <li><kbd>WASD</kbd> to move</li>
+        <li><kbd>SPACE</kbd> to parry green projectiles</li>
+        <li><kbd>LEFT SHIFT</kbd> to shield slam a stunned (yellow) enemy</li>
+      </ul>
+    </div>
+  </div>
 
-<h2 id="introduction">1. Introduction</h2>
-<p>Chess Woodpecker (“we”, “our”, “us”) is committed to protecting your privacy. This Privacy Policy explains how we handle information in connection with your use of our application.</p>
 
-<h2 id="information-we-collect">2. Information We Collect</h2>
-<p>When you sign in with Google, we receive the following information:
-- Your Google account ID (unique identifier)
-- Your email address (used solely for authentication)</p>
+  <div class="game-container text-center">
+    <canvas id="gameCanvas"></canvas>
+    <div id="health-bar">
+      <div id="health-fill"></div>
+    </div>
+  </div>
+</div>
 
-<p>We do not collect, store, or process any other personal information.</p>
+<!-- Game Scripts -->
+<script src="/assets/js/shield-parry.js"></script>
 
-<h2 id="how-we-use-information">3. How We Use Information</h2>
-<p>We use the information we receive from Google solely for the purpose of linking your chess puzzle sessions to your account.</p>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    new Game();
+  });
+</script>
 
-<h2 id="data-security">4. Data Security</h2>
-<p>We implement appropriate technical and organizational measures to protect your information. However, no method of transmission over the internet is completely secure.</p>
-
-<h2 id="third-party-services">5. Third-Party Services</h2>
-<p>We use Google Sign-In for authentication. Your use of Google Sign-In is subject to Google’s privacy policy.</p>
-
-<h2 id="changes-to-this-policy">6. Changes to This Policy</h2>
-<p>We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page.</p>
-
-<h2 id="contact-us">7. Contact Us</h2>
-<p>If you have any questions about this Privacy Policy, please contact us at dmontur1@gmail.com.</p>
 
     </main>
     <footer class="bg-dark text-light text-center py-4 mt-4">

@@ -1,0 +1,176 @@
+.game-container {
+    position: relative;
+    width: 800px;
+    margin: 0 auto;
+    background-color: #000;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#gameCanvas {
+    display: block;
+    width: 100%;
+    height: auto;
+    cursor: pointer;
+    transition: box-shadow 0.3s ease;
+}
+
+#gameCanvas:focus {
+    box-shadow: 0 0 0 3px #ff0000;
+}
+
+#gameCanvas:focus::after {
+    content: "Game Focused - Controls Active";
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 14px;
+    pointer-events: none;
+    opacity: 0;
+    animation: fadeInOut 2s ease-in-out;
+}
+
+@keyframes fadeInOut {
+    0% { opacity: 0; }
+    20% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+#health-bar {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    width: 200px;
+    height: 20px;
+    background-color: rgba(0, 0, 0, 0.5);
+    border: 2px solid #fff;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+#health-fill {
+    width: 100%;
+    height: 100%;
+    background-color: #ff0000;
+    transition: width 0.3s ease;
+}
+
+.game-controls, .game-instructions, .audio-controls {
+    background-color: #2a2a2a;
+    padding: 20px;
+    border-radius: 8px;
+    color: #fff;
+}
+
+.game-controls h3, .game-instructions h3, .audio-controls h3 {
+    color: #fff;
+    margin-bottom: 15px;
+}
+
+.game-controls ul, .game-instructions ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.game-controls li, .game-instructions li {
+    margin-bottom: 10px;
+    padding-left: 20px;
+    position: relative;
+}
+
+.game-controls li:before, .game-instructions li:before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: #ff0000;
+}
+
+/* Volume Controls */
+.volume-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.volume-control {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.volume-control label {
+    min-width: 100px;
+    margin: 0;
+}
+
+.volume-slider {
+    flex: 1;
+    height: 6px;
+    -webkit-appearance: none;
+    background: #444;
+    border-radius: 3px;
+    outline: none;
+}
+
+.volume-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 16px;
+    height: 16px;
+    background: #ff0000;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.volume-slider::-webkit-slider-thumb:hover {
+    background: #ff3333;
+}
+
+.volume-slider:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.volume-value {
+    min-width: 50px;
+    text-align: right;
+}
+
+#mute-toggle {
+    align-self: flex-start;
+    margin-top: 10px;
+    transition: all 0.2s;
+}
+
+#mute-toggle:hover {
+    background-color: #ff0000;
+    border-color: #ff0000;
+}
+
+@media (max-width: 850px) {
+    .game-container {
+        width: 100%;
+        max-width: 800px;
+    }
+    
+    .volume-control {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 5px;
+    }
+    
+    .volume-control label {
+        min-width: auto;
+    }
+    
+    .volume-value {
+        text-align: left;
+    }
+} 
