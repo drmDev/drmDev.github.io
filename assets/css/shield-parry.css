@@ -12,6 +12,35 @@
     display: block;
     width: 100%;
     height: auto;
+    cursor: pointer;
+    transition: box-shadow 0.3s ease;
+}
+
+#gameCanvas:focus {
+    box-shadow: 0 0 0 3px #ff0000;
+}
+
+#gameCanvas:focus::after {
+    content: "Game Focused - Controls Active";
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 14px;
+    pointer-events: none;
+    opacity: 0;
+    animation: fadeInOut 2s ease-in-out;
+}
+
+@keyframes fadeInOut {
+    0% { opacity: 0; }
+    20% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { opacity: 0; }
 }
 
 #health-bar {
