@@ -1,0 +1,60 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# Project Structure Guide
+
+## Main Applications
+
+### Shield Parry Minigame
+A browser-based game inspired by Doom: Dark Ages. See [shield-parry.mdc](mdc:.cursor/rules/shield-parry.mdc) for detailed documentation.
+
+### Board Games API
+Located in the [board-games-api/](mdc:board-games-api) directory, this appears to be a backend service for board game functionality.
+
+### Chess Games
+Chess-related functionality is implemented in [assets/js/chess-games.js](mdc:assets/js/chess-games.js) and [assets/js/moves.js](mdc:assets/js/moves.js).
+
+### Pauper Brawl
+A game or application documented in [pauper-brawl.md](mdc:pauper-brawl.md) with implementation in [assets/js/pauper-brawl.js](mdc:assets/js/pauper-brawl.js).
+
+### Puzzles
+Puzzle functionality is implemented in [assets/js/puzzles.js](mdc:assets/js/puzzles.js) and documented in [puzzles.md](mdc:puzzles.md).
+
+## Project Organization
+
+### Core Directories
+- `assets/`: Contains all static assets
+  - `js/`: JavaScript files for all applications
+  - `css/`: Stylesheets
+  - `sounds/`: Audio files
+  - `images/`: Image assets
+  - `pdf/`: PDF documents
+  - `favicon/`: Website favicon files
+
+### Testing
+- `tests/`: Contains test files
+- `SeleniumTests/`: Selenium-based test automation
+- `jest.config.js`: Jest testing configuration
+
+### Documentation
+- `_posts/`: Blog posts and articles
+- `_layouts/`: Page layout templates
+- `_includes/`: Reusable HTML components
+- `_data/`: Data files for the site
+
+### Configuration
+- `_config.yml`: Jekyll configuration
+- `package.json`: Node.js dependencies
+- `Gemfile`: Ruby dependencies
+- `.babelrc`: Babel configuration
+- `Dockerfile`: Container configuration
+
+## Development Setup
+The project uses:
+- Jekyll for static site generation
+- Node.js for JavaScript applications
+- Jest for testing
+- Selenium for automated testing
+- Docker for containerization
