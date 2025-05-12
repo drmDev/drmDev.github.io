@@ -2,16 +2,18 @@ export class VisualEffects {
     constructor(ctx, canvas) {
         this.ctx = ctx;
         this.canvas = canvas;
+        this.particles = [];
+        this.hitEffects = [];
         this.flashTimer = 0;
         this.shakeTimer = 0;
         this.shakeIntensity = 5;
-        this.bloodParticles = [];
     }
 
     clear() {
         this.flashTimer = 0;
         this.shakeTimer = 0;
-        this.bloodParticles = [];
+        this.particles = [];
+        this.hitEffects = [];
     }
 
     triggerHitEffects() {
@@ -33,24 +35,47 @@ export class VisualEffects {
     }
 
     createBloodParticles(x, y) {
-        for (let i = 0; i < 30; i++) {
-            const angle = Math.random() * Math.PI * 2;
-            const speed = 2 + Math.random() * 4;
-            const size = 2 + Math.random() * 4;
+        const particleCount = 30; // Increased particle count
+        for (let i = 0; i < particleCount; i++) {
+            const angle = (Math.random() * Math.PI * 2);
+            const speed = 2 + Math.random() * 3; // Increased speed range
+            const size = 3 + Math.random() * 4; // Increased size range
             
-            this.bloodParticles.push({
+            this.particles.push({
                 x: x,
                 y: y,
-                width: size,
-                height: size,
                 vx: Math.cos(angle) * speed,
                 vy: Math.sin(angle) * speed,
-                life: 1.0 // Full life
+                size: size,
+                life: 1.0, // Full life
+                color: '#ff0000'
             });
         }
     }
 
     update(deltaTime) {
+        // Update particles
+        for (let i = this.particles.length - 1; i >= 0; i--) {
+            const p = this.particles[i];
+            p.x += p.vx;
+            p.y += p.vy;
+            p.life -= deltaTime / 2000; // Slower fade out (2 seconds)
+            
+            if (p.life <= 0) {
+                this.particles.splice(i, 1);
+            }
+        }
+        
+        // Update hit effects
+        for (let i = this.hitEffects.length - 1; i >= 0; i--) {
+            const effect = this.hitEffects[i];
+            effect.life -= deltaTime / 500;
+            
+            if (effect.life <= 0) {
+                this.hitEffects.splice(i, 1);
+            }
+        }
+
         // Update visual feedback timers
         if (this.flashTimer > 0) {
             this.flashTimer -= deltaTime;
@@ -60,19 +85,6 @@ export class VisualEffects {
         if (this.shakeTimer > 0) {
             this.shakeTimer -= deltaTime;
             if (this.shakeTimer < 0) this.shakeTimer = 0;
-        }
-
-        // Update blood particles
-        for (let i = this.bloodParticles.length - 1; i >= 0; i--) {
-            const particle = this.bloodParticles[i];
-            particle.x += particle.vx;
-            particle.y += particle.vy;
-            particle.vy += 0.1; // Gravity
-            particle.life -= 0.02; // Fade out
-            
-            if (particle.life <= 0) {
-                this.bloodParticles.splice(i, 1);
-            }
         }
     }
 
@@ -86,14 +98,22 @@ export class VisualEffects {
             this.ctx.translate(dx, dy);
         }
 
-        // Draw blood particles
-        this.bloodParticles.forEach(particle => {
-            this.ctx.fillStyle = `rgba(255, 0, 0, ${particle.life})`;
+        // Draw particles
+        this.particles.forEach(p => {
+            this.ctx.fillStyle = `rgba(255, 0, 0, ${p.life})`;
+            this.ctx.beginPath();
+            this.ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+            this.ctx.fill();
+        });
+
+        // Draw hit effects
+        this.hitEffects.forEach(effect => {
+            this.ctx.fillStyle = `rgba(255, 255, 255, ${effect.life})`;
             this.ctx.fillRect(
-                particle.x,
-                particle.y,
-                particle.width,
-                particle.height
+                effect.x - effect.size / 2,
+                effect.y - effect.size / 2,
+                effect.size,
+                effect.size
             );
         });
 

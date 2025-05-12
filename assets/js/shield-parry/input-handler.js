@@ -1,32 +1,29 @@
 export class InputHandler {
     constructor(canvas, onRestart) {
-        this.keys = {};
         this.canvas = canvas;
         this.onRestart = onRestart;
-        this.setupInputHandling();
-    }
-
-    setupInputHandling() {
-        // Prevent default behavior for game controls
-        const preventDefaultKeys = ['Space', 'KeyW', 'KeyA', 'KeyS', 'KeyD', 'ShiftLeft', 'KeyR'];
+        this.keys = new Set();
+        
+        // Add click event listener
+        this.canvas.addEventListener('click', (e) => {
+            const rect = this.canvas.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            this.onClick(x, y);
+        });
         
         window.addEventListener('keydown', (e) => {
-            if (preventDefaultKeys.includes(e.code)) {
-                e.preventDefault();
-            }
-            this.keys[e.code] = true;
-
-            // Handle restart
-            if (e.code === 'KeyR' && this.onRestart) {
+            this.keys.add(e.code);
+            
+            // Only allow R key restart when game is over or victory screen is shown
+            if (e.code === 'KeyR' && this.game && 
+                (this.game.gameState.isGameOver || this.game.gameState.isVictory)) {
                 this.onRestart();
             }
         });
         
         window.addEventListener('keyup', (e) => {
-            if (preventDefaultKeys.includes(e.code)) {
-                e.preventDefault();
-            }
-            this.keys[e.code] = false;
+            this.keys.delete(e.code);
         });
         
         // Prevent spacebar from scrolling when clicking the canvas
@@ -45,8 +42,18 @@ export class InputHandler {
         this.canvas.setAttribute('tabindex', '0');
         this.canvas.style.outline = 'none';
     }
-
-    isKeyPressed(keyCode) {
-        return this.keys[keyCode] || false;
+    
+    setGame(game) {
+        this.game = game;
+    }
+    
+    onClick(x, y) {
+        if (this.game) {
+            this.game.handleClick(x, y);
+        }
+    }
+    
+    isKeyPressed(key) {
+        return this.keys.has(key);
     }
 } 
