@@ -14,17 +14,8 @@ custom_css: shield-parry.css
       <p class="card-text mb-2">
         A quick browser mini-game inspired by <strong>Doom: Dark Ages</strong>, focused on the parrying mechanic.
       </p>
-      <p class="card-text">
-        Parry incoming green projectiles to deflect them back at the enemy. A successful parry stuns the enemy (they turn <strong>yellow</strong>), allowing you to destroy them with a shield slam.
-      </p>
-      <ul class="mb-0">
-        <li><kbd>WASD</kbd> to move</li>
-        <li><kbd>SPACE</kbd> to parry green projectiles</li>
-        <li><kbd>LEFT SHIFT</kbd> to shield slam a stunned (yellow) enemy</li>
-      </ul>
     </div>
   </div>
-
 
   <div class="game-container text-center">
     <canvas id="gameCanvas"></canvas>
@@ -40,6 +31,5 @@ custom_css: shield-parry.css
   
   document.addEventListener('DOMContentLoaded', () => {
     const game = new Game();
-    game.restartGame();
   });
 </script>

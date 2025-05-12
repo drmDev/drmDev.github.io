@@ -11,15 +11,24 @@ export class Game {
         
         // Initialize managers
         this.inputHandler = new InputHandler(this.canvas, () => this.restartGame());
+        this.inputHandler.setGame(this);  // Set game reference
         this.soundManager = new SoundManager();
         this.visualEffects = new VisualEffects(this.ctx, this.canvas);
+        
+        // Hide health bar initially
+        const healthBar = document.getElementById('health-bar');
+        healthBar.style.display = 'none';
+        
+        // Background music
+        this.backgroundMusic = null;
         
         // Game state
         this.gameState = {
             isRunning: false,
             isGameOver: false,
             isVictory: false,
-            isVictoryAnimation: false
+            isVictoryAnimation: false,
+            isSplashScreen: true  // Add splash screen state
         };
         
         this.player = {
@@ -71,6 +80,18 @@ export class Game {
         this.gameState.isRunning = true;
         this.gameState.isGameOver = false;
         this.gameState.isVictory = false;
+        this.gameState.isSplashScreen = false;  // Ensure splash screen is off when restarting
+        
+        // Show health bar when game starts
+        const healthBar = document.getElementById('health-bar');
+        healthBar.style.display = 'block';
+        
+        // Start background music if not already playing
+        if (!this.backgroundMusic) {
+            this.backgroundMusic = new Audio('/assets/sounds/shield-parry/Carmack_NoFX.mp3');
+            this.backgroundMusic.loop = true;
+            this.backgroundMusic.play();
+        }
         
         // Reset player
         this.player = {
@@ -134,6 +155,7 @@ export class Game {
     }
     
     update(deltaTime) {
+        if (this.gameState.isSplashScreen) return;  // Don't update game if on splash screen
         if (!this.gameState.isRunning || this.gameState.isGameOver) return;
         
         // Update visual effects
@@ -336,6 +358,54 @@ export class Game {
         this.ctx.fillStyle = '#000000';
         this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
         
+        if (this.gameState.isSplashScreen) {
+            // Background
+            this.ctx.fillStyle = 'rgba(0, 0, 0, 0.85)';
+            this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+        
+            this.ctx.textAlign = 'center';
+            this.ctx.fillStyle = '#ffffff';
+        
+            // Title
+            this.ctx.font = 'bold 36px Arial';
+            this.ctx.fillText('🛡️ Shield Parry', this.canvas.width / 2, 100);
+        
+            // Objective
+            this.ctx.font = 'bold 24px Arial';
+            this.ctx.fillText('Objective', this.canvas.width / 2, 160);
+        
+            this.ctx.font = '20px Arial';
+            this.ctx.fillText('Parry green projectiles to send them back at the enemy.', this.canvas.width / 2, 200);
+            this.ctx.fillText('A hit stuns the enemy (turns yellow).', this.canvas.width / 2, 230);
+            this.ctx.fillText('Use Shield Slam to destroy stunned enemies.', this.canvas.width / 2, 260);
+        
+            // Controls
+            this.ctx.font = 'bold 24px Arial';
+            this.ctx.fillText('Controls', this.canvas.width / 2, 320);
+        
+            this.ctx.font = '20px Arial';
+            this.ctx.fillText('WASD - Move', this.canvas.width / 2, 360);
+            this.ctx.fillText('SPACE - Parry', this.canvas.width / 2, 390);
+            this.ctx.fillText('LEFT SHIFT - Shield Slam', this.canvas.width / 2, 420);
+        
+            // Start Button
+            const btnX = this.canvas.width / 2 - 100;
+            const btnY = 480;
+            const btnW = 200;
+            const btnH = 60;
+        
+            this.ctx.fillStyle = '#00cc66';
+            this.ctx.fillRect(btnX, btnY, btnW, btnH);
+            this.ctx.strokeStyle = '#ffffff';
+            this.ctx.strokeRect(btnX, btnY, btnW, btnH);
+        
+            this.ctx.fillStyle = '#ffffff';
+            this.ctx.font = 'bold 24px Arial';
+            this.ctx.fillText('Start Game', this.canvas.width / 2, btnY + 40);
+        
+            return;
+        }
+        
         // Draw player
         this.ctx.fillStyle = this.player.isParrying ? '#00ffff' : '#ffffff';
         this.ctx.fillRect(
@@ -427,12 +497,16 @@ export class Game {
             // Set a flag to indicate we're in the victory animation phase
             this.gameState.isVictoryAnimation = true;
             
+            // Create blood particles and play death animation
+            this.visualEffects.createBloodParticles(this.enemy.x, this.enemy.y);
+            this.soundManager.playSound('enemyDefeated');
+            
             // Wait for the death animation to play out before showing victory screen
             setTimeout(() => {
                 this.gameState.isVictory = true;
                 this.gameState.isRunning = false;
                 this.gameState.isVictoryAnimation = false;
-            }, 1000); // 1 second delay
+            }, 2000); // Increased to 2 seconds to allow animation to complete
         }
     }
     
@@ -468,5 +542,18 @@ export class Game {
         
         // Play projectile sound
         this.soundManager.playSound('projectile');
+    }
+
+    // Add click handler for splash screen
+    handleClick(x, y) {
+        if (this.gameState.isSplashScreen) {
+            // Check if click is within start button bounds
+            if (x >= this.canvas.width / 2 - 100 && 
+                x <= this.canvas.width / 2 + 100 && 
+                y >= 500 && 
+                y <= 550) {
+                this.restartGame();
+            }
+        }
     }
 } 
