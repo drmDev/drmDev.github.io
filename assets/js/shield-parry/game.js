@@ -23,6 +23,8 @@ export class Game {
         
         // Background music
         this.backgroundMusic = null;
+        this.isMuted = false;
+        this.lastMuteToggle = 0;
         
         // Game state
         this.gameState = new GameState();
@@ -78,6 +80,15 @@ export class Game {
     update(deltaTime) {
         if (this.gameState.isSplashScreen) return;
         if (!this.gameState.isActive()) return;
+        
+        // Handle mute toggle with debounce
+        if (this.inputHandler.isKeyPressed('KeyM')) {
+            const currentTime = performance.now();
+            if (currentTime - this.lastMuteToggle > 300) { // 300ms debounce
+                this.toggleMute();
+                this.lastMuteToggle = currentTime;
+            }
+        }
         
         // Update visual effects
         this.visualEffects.update(deltaTime);
@@ -340,5 +351,38 @@ export class Game {
                 this.restartGame();
             }
         }
+    }
+    
+    drawHUD() {
+        // Draw health bar
+        const healthBar = document.getElementById('health-bar');
+        healthBar.style.display = 'block';
+        
+        // Draw level indicator
+        this.ctx.fillStyle = '#ffffff';
+        this.ctx.font = '20px Arial';
+        this.ctx.textAlign = 'right';
+        this.ctx.fillText(
+            this.gameState.getCurrentLevelName(),
+            this.canvas.width - 20,
+            this.canvas.height - 20
+        );
+
+        // Draw mute indicator
+        this.ctx.textAlign = 'left';
+        this.ctx.fillText(
+            this.isMuted ? '🔇 Muted' : '🔊',
+            20,
+            this.canvas.height - 20
+        );
+    }
+    
+    toggleMute() {
+        this.isMuted = !this.isMuted;
+        if (this.backgroundMusic) {
+            this.backgroundMusic.muted = this.isMuted;
+        }
+        this.soundManager.setMuted(this.isMuted);
+        console.log('Sound ' + (this.isMuted ? 'muted' : 'unmuted'));
     }
 } 
