@@ -13,13 +13,17 @@ The Shield Parry minigame is a browser-based game inspired by Doom: Dark Ages, f
 ### Game Entry Point
 The game is initialized in [shield-parry.md](mdc:shield-parry.md) which loads the main game script and sets up the canvas.
 
-### Core Game Files
-- All game logic: [assets/js/shield-parry.js](mdc:assets/js/shield-parry.js)
+### Code Breakdown
+- Core game logic: [assets/js/shield-parry.js](mdc:assets/js/shield-parry.js)
+- Input handling: [assets/js/input-handler.js](mdc:assets/js/input-handler.js)
+- Sound management: [assets/js/sound-manager.js](mdc:assets/js/sound-manager.js)
+- Visual effects: [assets/js/visual-effects.js](mdc:assets/js/visual-effects.js)
 
 ## Game Controls
 - WASD: Movement
 - SPACE: Parry green projectiles
 - LEFT SHIFT: Shield slam stunned (yellow) enemies
+- M: Mute/Unmute sound
 
 ## Game Mechanics
 1. Players must parry incoming green projectiles
@@ -28,4 +32,12 @@ The game is initialized in [shield-parry.md](mdc:shield-parry.md) which loads th
 4. Health bar tracks player's remaining health
 
 ## Development Notes
-- The game uses HTML5 Canvas for rendering
+- Adding more levels is as simple as adding to the levels array in the game constructor
+
+## Future Enhancements
+- Add more levels
+- More variation in enemies and projectiles
+- Use free assets for the sprites instead of drawn shapes
+- Refactor levels to be external to the main game file
+- Refactor enemies and projectiles to be external to the main game file
+- Add a difficulty setting to the game that controls base projectile speed and base damage taken
