@@ -17,6 +17,10 @@ custom_css: shield-parry.css
     </div>
   </div>
 
+  <div id="mobile-message" class="alert alert-warning text-center" style="display: none;">
+    <i class="fas fa-mobile-alt"></i> This game is designed for desktop browsers only. Please visit on a computer for the best experience.
+  </div>
+
   <div class="game-container text-center">
     <canvas id="gameCanvas"></canvas>
     <div id="health-bar">
@@ -30,6 +34,16 @@ custom_css: shield-parry.css
   import { Game } from '/assets/js/shield-parry/shield-parry.js';
   
   document.addEventListener('DOMContentLoaded', () => {
-    const game = new Game();
+    // Check if user is on mobile
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    const mobileMessage = document.getElementById('mobile-message');
+    const gameContainer = document.querySelector('.game-container');
+    
+    if (isMobile) {
+      mobileMessage.style.display = 'block';
+      gameContainer.style.display = 'none';
+    } else {
+      const game = new Game();
+    }
   });
 </script>
