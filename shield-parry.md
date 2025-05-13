@@ -27,7 +27,7 @@ custom_css: shield-parry.css
 
 <!-- Game Scripts -->
 <script type="module">
-  import { Game } from '/assets/js/shield-parry/game.js';
+  import { Game } from '/assets/js/shield-parry/shield-parry.js';
   
   document.addEventListener('DOMContentLoaded', () => {
     const game = new Game();

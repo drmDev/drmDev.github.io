@@ -21,6 +21,7 @@ export class Game {
         
         // Background music
         this.backgroundMusic = null;
+        this.isMuted = false;
         
         // Game state
         this.gameState = {
@@ -555,5 +556,17 @@ export class Game {
                 this.restartGame();
             }
         }
+    }
+
+    toggleMute() {
+        this.isMuted = !this.isMuted;
+        
+        // Toggle background music
+        if (this.backgroundMusic) {
+            this.backgroundMusic.muted = this.isMuted;
+        }
+        
+        // Toggle all sound effects
+        this.soundManager.setMuted(this.isMuted);
     }
 } 
