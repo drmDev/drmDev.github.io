@@ -10,7 +10,6 @@ export class SoundManager {
         };
         
         this.preloadSounds();
-        this.isMuted = false;
     }
     
     preloadSounds() {
@@ -30,19 +29,10 @@ export class SoundManager {
     
     playSound(soundName) {
         const sound = this.sounds[soundName];
-        if (sound && !this.isMuted) {
+        if (sound) {
             // Create a new instance of the sound for each play
             const soundInstance = sound.cloneNode();
-            soundInstance.volume = 0.5;
             soundInstance.play().catch(error => console.error('Error playing sound:', error));
         }
-    }
-
-    setMuted(muted) {
-        this.isMuted = muted;
-        // Update all existing sound instances
-        Object.values(this.sounds).forEach(sound => {
-            sound.muted = muted;
-        });
     }
 } 
