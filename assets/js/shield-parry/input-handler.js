@@ -4,9 +4,6 @@ export class InputHandler {
         this.onRestart = onRestart;
         this.keys = new Set();
         
-        // Keys that should prevent default browser behavior
-        this.preventDefaultKeys = ['Space', 'KeyW', 'KeyA', 'KeyS', 'KeyD', 'ShiftLeft'];
-        
         // Add click event listener
         this.canvas.addEventListener('click', (e) => {
             const rect = this.canvas.getBoundingClientRect();
@@ -17,11 +14,6 @@ export class InputHandler {
         
         window.addEventListener('keydown', (e) => {
             this.keys.add(e.code);
-            
-            // Prevent default behavior for game control keys
-            if (this.preventDefaultKeys.includes(e.code)) {
-                e.preventDefault();
-            }
             
             // Only allow R key restart when game is over or victory screen is shown
             if (e.code === 'KeyR' && this.game && 
@@ -37,6 +29,13 @@ export class InputHandler {
         // Prevent spacebar from scrolling when clicking the canvas
         this.canvas.addEventListener('click', () => {
             this.canvas.focus();
+        });
+        
+        // Prevent spacebar from scrolling when the game is focused
+        this.canvas.addEventListener('keydown', (e) => {
+            if (preventDefaultKeys.includes(e.code)) {
+                e.preventDefault();
+            }
         });
         
         // Make canvas focusable
