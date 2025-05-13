@@ -9,7 +9,16 @@ export class SoundManager {
             enemyDefeated: new Audio('/assets/sounds/shield-parry/enemy_defeated.mp3')
         };
         
+        this.isMuted = false;
         this.preloadSounds();
+    }
+    
+    setMuted(muted) {
+        this.isMuted = muted;
+        // Set muted state for all sound templates
+        Object.values(this.sounds).forEach(sound => {
+            sound.muted = muted;
+        });
     }
     
     preloadSounds() {

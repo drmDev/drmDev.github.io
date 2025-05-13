@@ -31,4 +31,4 @@ async function fetchAndDisplayLatestGames() {
     }
 }
 
-fetchAndDisplayLatestGames();
+// fetchAndDisplayLatestGames();

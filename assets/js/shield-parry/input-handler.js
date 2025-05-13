@@ -3,6 +3,10 @@ export class InputHandler {
         this.canvas = canvas;
         this.onRestart = onRestart;
         this.keys = new Set();
+        this.lastMuteToggle = 0;
+        
+        // Keys that should prevent default browser behavior
+        const preventDefaultKeys = ['Space', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'KeyW', 'KeyA', 'KeyS', 'KeyD'];
         
         // Add click event listener
         this.canvas.addEventListener('click', (e) => {
@@ -14,6 +18,17 @@ export class InputHandler {
         
         window.addEventListener('keydown', (e) => {
             this.keys.add(e.code);
+            
+            // Handle mute toggle with debounce
+            if (e.code === 'KeyM') {
+                const currentTime = performance.now();
+                if (currentTime - this.lastMuteToggle > 300) { // 300ms debounce
+                    if (this.game) {
+                        this.game.toggleMute();
+                    }
+                    this.lastMuteToggle = currentTime;
+                }
+            }
             
             // Only allow R key restart when game is over or victory screen is shown
             if (e.code === 'KeyR' && this.game && 
