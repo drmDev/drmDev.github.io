@@ -40,7 +40,7 @@ permalink: /hobbies/
 								<ul class="icon-list">
 										<li><img src="/assets/images/mtg/plains.svg" alt="Plains" width="32"> <a href="https://cubecobra.com/cube/overview/08077c8d-24d8-4e14-a571-fceff902d343" target="_blank" rel="noopener noreferrer">My MTG Cube set!</a></li>
 										<li><img src="/assets/images/mtg/island.svg" alt="Island" width="32"> <a href="https://17lands.com/" target="_blank" rel="noopener noreferrer">17Lands: Improve your draft game</a></li>
-                                        <li><img src="/assets/images/mtg/swamp.svg" alt="Swamp" width="32"> <a href="{{ "/pauper-brawl" | relative_url }}" target="_blank" rel="noopener noreferrer">Pauper Brawl Commander Generator</a></li>
+                                        <li><img src="/assets/images/mtg/swamp.svg" alt="Swamp" width="32"> <a href="{{ "/mtg-brawl" | relative_url }}" target="_blank" rel="noopener noreferrer">Brawl Commander Generator</a></li>
                                 </ul>
             </div>
         </div>
