@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pauper Brawl Commander Generator | My Portfolio</title>
+    <title>MTG Brawl Commander Generator | My Portfolio</title>
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -60,8 +60,8 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/pauper-brawl" id="nav-mtg">
-                        <i class="fas fa-dice-d20"></i> MTG Tools
+                    <a class="nav-link" href="/mtg-brawl" id="nav-mtg">
+                        <i class="fas fa-dice-d20"></i> MTG Brawl Tools
                     </a>
                 </li>
                 <li class="nav-item">
@@ -75,16 +75,13 @@
 </nav>
 
     <main class="container my-5">
-        <h1 class="mb-4 text-center"><i class="fas fa-magic"></i> Pauper Brawl Commander Generator</h1>
-
+        <!-- Pauper Section -->
+<h2 class="text-center text-primary"><i class="fas fa-hat-wizard"></i> Pauper Brawl Commander Generator</h2>
 <p class="text-center mb-4">
-  This tool gives you <strong>random Uncommon Legendary Creatures</strong> available in MTG Arena and legal in the Brawl format! It's gonna be jank!
+  Get a <strong>random Uncommon Legendary Creature</strong> (Arena legal, Brawl format). For when you want maximum jank!
 </p>
-
-<!-- Divider -->
 <hr class="my-4 border-light border-2" />
 
-<!-- Interaction Section -->
 <div class="text-center mb-4">
   <label for="commander-count" class="form-label h5 fw-bold text-light d-block mb-2">
     <i class="fas fa-dice"></i> How many commanders?
@@ -110,10 +107,42 @@
     </button>
   </div>
 </div>
-
 <div id="commander-results" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4"></div>
+<hr class="my-5 border-light border-2" />
 
-<script src="/assets/js/pauper-brawl.js"></script>
+<!-- Rare/Mythic Section -->
+<h2 class="text-center rare-heading"><span class="text-warning"><i class="fas fa-crown"></i></span> Rare/Mythic Brawl Commander Generator</h2>
+<p class="text-center mb-4">
+  Get a <strong>random Rare or Mythic Legendary Creature</strong> (Arena legal, Brawl format). For when you want maximum power!
+</p>
+<div class="text-center mb-4">
+  <label for="commander-count-rare" class="form-label h5 fw-bold text-light d-block mb-2">
+    <i class="fas fa-dice-d20"></i> How many commanders?
+  </label>
+  <div class="d-flex justify-content-center align-items-end gap-2 flex-wrap">
+    <select id="commander-count-rare" class="form-select w-auto">
+      
+        <option value="1">1</option>
+      
+        <option value="2">2</option>
+      
+        <option value="3">3</option>
+      
+        <option value="4">4</option>
+      
+        <option value="5">5</option>
+      
+        <option value="6">6</option>
+      
+    </select>
+    <button class="btn btn-warning" onclick="generateCommanders('rare')">
+      <i class="fas fa-random"></i> Generate Rare/Mythic Commanders
+    </button>
+  </div>
+</div>
+<div id="commander-results-rare" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4"></div>
+
+<script src="/assets/js/mtg-brawl.js"></script>
 
 
     </main>
