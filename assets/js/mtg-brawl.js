@@ -44,6 +44,10 @@ function renderManaCost(manaCost) {
     }).join('');
 }
 
+function generateAetherhubUrl(commanderName) {
+    return `https://aetherhub.com/Decks/Historic-Brawl/?com=${encodeURIComponent(commanderName)}&updated=365`;
+}
+
 async function generateCommanders(mode = 'pauper') {
     const isRareMode = mode === 'rare';
     const output = document.getElementById(isRareMode ? 'commander-results-rare' : 'commander-results');
@@ -100,10 +104,10 @@ async function generateCommanders(mode = 'pauper') {
                          class="img-fluid rounded shadow mb-2" 
                          style="max-width:250px;" />
                 </a>
-                <div class="text-light mb-4">
-                    <strong>${name}</strong><br>
-                    ${renderManaCost(manaCost)}<br>
-                    <small>${typeLine}</small>
+                <div class="text-center">
+                    <a href="${generateAetherhubUrl(name)}" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-info">
+                        <i class="fas fa-external-link-alt"></i> View Example Decks
+                    </a>
                 </div>
             `;
 
