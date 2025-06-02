@@ -57,8 +57,8 @@ async function generateCommanders(mode = 'pauper') {
     const count = Math.min(parseInt(document.getElementById(selectId).value, 10) || 3, 6);
 
     const rarityQuery = isRareMode ? 'rarity>uncommon' : 'rarity:uncommon';
-    // type:legendary type:creature rarity>uncommon in:arena format:brawl -type:battle
-    const baseURL = `https://api.scryfall.com/cards/random?q=type%3Alegendary%20type%3Acreature%20${encodeURIComponent(rarityQuery)}%20in%3Aarena%20format%3Abrawl%20-type%3Abattle`;
+    // type:legendary type:creature rarity>uncommon in:arena format:brawl -type:battle is:commander
+    const baseURL = `https://api.scryfall.com/cards/random?q=type%3Alegendary%20type%3Acreature%20${encodeURIComponent(rarityQuery)}%20in%3Aarena%20format%3Abrawl%20-type%3Abattle%20is%3Acommander`;
 
     try {
         const results = [];
