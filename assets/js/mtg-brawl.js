@@ -88,9 +88,7 @@ async function generateCommanders(mode = 'pauper') {
         output.innerHTML = '';
         results.forEach(card => {
             const image = card.image_uris?.normal || card.card_faces?.[0]?.image_uris?.normal || '';
-            const manaCost = card.mana_cost || card.card_faces?.[0]?.mana_cost || '';
             const name = card.name;
-            const typeLine = card.type_line;
 
             const cardCol = document.createElement('div');
             cardCol.className = 'col';
