@@ -1,5 +1,5 @@
 // File: tests/ui.test.js
-import { UIManager } from '../assets/js/ui.js';
+import { UIManager } from '../assets/js/chess-wp/ui.js';
 import { jest, describe, expect, test, beforeEach, afterEach } from '@jest/globals';
 
 describe('UIManager', () => {
