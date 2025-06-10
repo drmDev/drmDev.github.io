@@ -100,4 +100,3 @@ permalink: /hobbies/
 </div>
 
 <script src="/assets/js/boardgames.js"></script>
-<script src="/assets/js/chess-games.js"></script>

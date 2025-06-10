@@ -245,5 +245,5 @@ Regular practice with these puzzles will help you spot these patterns more quick
 </script>
 
 <!-- Application scripts -->
-<script type="module" src="{{ '/assets/js/sounds.js' | relative_url }}"></script>
-<script type="module" src="{{ '/assets/js/puzzles.js' | relative_url }}"></script>
+<script type="module" src="{{ '/assets/js/chess-wp/sounds.js' | relative_url }}"></script>
+<script type="module" src="{{ '/assets/js/chess-wp/puzzles.js' | relative_url }}"></script>
