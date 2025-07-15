@@ -8,7 +8,6 @@ namespace SeleniumTests.Pages
         protected readonly IWebDriver Driver;
         protected readonly WebDriverWait Wait;
 
-        // Common elements among pages like the Nav bar
         protected readonly By NavHobbiesLink = By.Id("nav-hobbies");
 
         protected BasePage(IWebDriver driver)

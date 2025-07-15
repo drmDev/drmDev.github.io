@@ -1,4 +1,4 @@
-﻿using OpenQA.Selenium;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Edge;
@@ -14,41 +14,6 @@ namespace SeleniumTests
         // get browser to use from env var (default to chrome)
         protected string Browser = Environment.GetEnvironmentVariable("TEST_BROWSER")?.ToLower() ?? "chrome";
         protected bool Headless = Environment.GetEnvironmentVariable("TEST_HEADLESS")?.ToLower() == "true";
-
-        //[OneTimeSetUp]
-        //public void CleanDriverCache()
-        //{
-        //    try
-        //    {
-        //        // Clean up potential cached ChromeDriver files
-        //        string[] potentialCachePaths = [
-        //            Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), ".cache", "selenium"),
-        //            Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "selenium-manager"),
-        //            Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "chromedriver.exe"),
-        //            Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "chromedriver-win64")
-        //        ];
-
-        //        foreach (var path in potentialCachePaths)
-        //        {
-        //            if (Directory.Exists(path))
-        //            {
-        //                TestContext.WriteLine($"Cleaning driver cache: {path}");
-        //                // Just log, don't actually delete to prevent issues
-        //                // Directory.Delete(path, true);
-        //            }
-        //            else if (File.Exists(path))
-        //            {
-        //                TestContext.WriteLine($"Found driver file: {path}");
-        //                // File.Delete(path);
-        //            }
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        TestContext.WriteLine($"Warning: Failed to clean driver cache: {ex.Message}");
-        //        // Continue execution - this is just a cleanup step
-        //    }
-        //}
 
         [SetUp]
         public void SetUp()
