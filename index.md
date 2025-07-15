@@ -14,19 +14,6 @@ Hi, I'm Derek! I'm passionate about problem-solving and automation. I'm also a n
 
 ---
 
-## <i class="fas fa-file-alt"></i> My Resume
-Explore my professional background and experiences:
-<p>
-    <a href="/assets/pdf/DM_Resume_2025.pdf" download id="resume-download-link">
-        <i class="fas fa-file-download"></i> Download My Resume (PDF)
-    </a>
-</p>
-
-
-<iframe src="/assets/pdf/DM_Resume_2025.pdf" width="100%" height="500px" style="border: none;" id="resume-viewer"></iframe>
-
----
-
 ## <i class="fas fa-laptop-code"></i> Technologies Behind This Site
 
 <div class="row row-cols-1 row-cols-md-2 g-4">
