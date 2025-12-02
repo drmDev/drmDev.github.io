@@ -1,0 +1,91 @@
+---
+layout: default
+---
+
+<style>
+  /* Make the result section stand out a bit more */
+  #dl2-result {
+    margin-top: 1.25rem;
+    border-width: 2px;
+  }
+
+  #dl2-result h5 {
+    text-align: center;
+    font-size: 1.25rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+</style>
+
+<div class="container py-4">
+  <h1 class="mb-3"><i class="fas fa-dragon"></i> Dragonlord 2 Win Chance Calculator</h1>
+  <p class="mb-2 text-light">
+    Paste, drag-and-drop, or upload your Dragon Warrior status screen (or manually populate it yourself!). This app will estimate your chance to defeat Dragonlord 2. (Inspired by <a href="https://dwrguide.com/dragonlordfight" target="_blank" rel="noopener noreferrer">EMP's Dragon Warrior Randomizer Utilities)</a>.
+  </p>
+
+  <div class="row g-4">
+    <div class="col-lg-6">
+      <div id="drop-zone" class="ocr-dropzone mb-3 bg-dark text-light border-secondary">
+        <p class="mb-1 fw-semibold">Drop image, click to upload, or paste screenshot</p>
+        <p class="mb-0 small text-muted">NES status screen only; we will auto-detect Attack, Max HP, Max MP, and Defense.</p>
+        <input id="file-input" type="file" accept="image/*" class="d-none" />
+      </div>
+
+      <div class="mb-3">
+        <canvas id="debug-original" width="480" height="320"></canvas>
+      </div>
+    </div>
+
+    <div class="col-lg-6">
+      <div class="card h-100 shadow-lg border-0 bg-dark text-light">
+        <div class="card-body">
+          <h4 class="card-title mb-3">Detected / Editable Stats</h4>
+          <div class="row g-3 mb-3">
+            <div class="col-6">
+              <label for="dl2-attack" class="form-label">Attack Power</label>
+              <input type="number" id="dl2-attack" class="form-control" min="0" />
+            </div>
+            <div class="col-6">
+              <label for="dl2-max-hp" class="form-label">Maximum HP</label>
+              <input type="number" id="dl2-max-hp" class="form-control" min="1" />
+            </div>
+            <div class="col-6">
+              <label for="dl2-max-mp" class="form-label">Maximum MP</label>
+              <input type="number" id="dl2-max-mp" class="form-control" min="0" />
+            </div>
+            <div class="col-6">
+              <label for="dl2-fairy-waters" class="form-label">Fairy Waters</label>
+              <input type="number" id="dl2-fairy-waters" class="form-control" min="0" value="0" />
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label d-block">Equip Death Necklace?</label>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="dl2-dn" id="dl2-dn-yes" value="yes" />
+              <label class="form-check-label" for="dl2-dn-yes">Yes</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="dl2-dn" id="dl2-dn-no" value="no" checked />
+              <label class="form-check-label" for="dl2-dn-no">No</label>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <button id="dl2-calc-btn" class="btn btn-primary">Calculate Win Chance</button>
+          </div>
+
+          <div id="dl2-result" class="result-card bg-dark text-light border-secondary">
+            <h5 class="mb-2">-- Result --</h5>
+            <p id="dl2-result-text" class="mb-1">Enter stats and click Calculate to see your odds.</p>
+            <p id="dl2-result-detail" class="mb-0"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+  <script src="/assets/js/dwr-ocr.js"></script>
+  <script src="/assets/js/dl2-calc.js"></script>
+</div>
