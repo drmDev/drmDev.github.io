@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> | My Portfolio</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+	<!-- Chessground CSS -->
+	<link rel="stylesheet" href="/assets/css/chessground.base.css">
+    <link rel="stylesheet" href="/assets/css/chessground.brown.css">
+    <link rel="stylesheet" href="/assets/css/chessground.cburnett.css">
+    <link rel="stylesheet" href="/assets/css/chessground.override.css">
+
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="/assets/css/style.css">
+    
+    <link rel="icon" href="/assets/favicon/favicon.ico" type="image/x-icon">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand fs-4 fw-bold" href="/">
+            <i class="fas fa-user"></i> Derek Monturo
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span> <strong>Menu</strong>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="/" id="nav-home">
+                        <i class="fas fa-home"></i> Home
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/hobbies" id="nav-hobbies">
+                        <i class="fas fa-dice"></i> Hobbies
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/puzzles" id="nav-puzzles">
+                        <i class="fas fa-crow"></i> Chess Woodpecker
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/mtg-brawl" id="nav-mtg">
+                        <i class="fas fa-dice-d20"></i> MTG Brawl Tools
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/dl2-calc" id="nav-dwr">
+                        <i class="fas fa-dragon"></i> Dragon Warrior Randomizer
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/shield-parry" id="nav-game">
+                        <i class="fas fa-shield-alt"></i> Shield Parry
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+    <main class="container my-5">
+        <style>
+  /* Make the result section stand out a bit more */
+  #dl2-result {
+    margin-top: 1.25rem;
+    border-width: 2px;
+  }
+
+  #dl2-result h5 {
+    text-align: center;
+    font-size: 1.25rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+</style>
+
+<div class="container py-4">
+  <h1 class="mb-3"><i class="fas fa-dragon"></i> Dragonlord 2 Win Chance Calculator</h1>
+  <p class="mb-2 text-light">
+    Paste, drag-and-drop, or upload your Dragon Warrior status screen (or manually populate it yourself!). This app will estimate your chance to defeat Dragonlord 2. (Inspired by <a href="https://dwrguide.com/dragonlordfight" target="_blank" rel="noopener noreferrer">EMP's Dragon Warrior Randomizer Utilities)</a>.
+  </p>
+
+  <div class="row g-4">
+    <div class="col-lg-6">
+      <div id="drop-zone" class="ocr-dropzone mb-3 bg-dark text-light border-secondary">
+        <p class="mb-1 fw-semibold">Drop image, click to upload, or paste screenshot</p>
+        <p class="mb-0 small text-muted">NES status screen only; we will auto-detect Attack, Max HP, Max MP, and Defense.</p>
+        <input id="file-input" type="file" accept="image/*" class="d-none" />
+      </div>
+
+      <div class="mb-3">
+        <canvas id="debug-original" width="480" height="320"></canvas>
+      </div>
+    </div>
+
+    <div class="col-lg-6">
+      <div class="card h-100 shadow-lg border-0 bg-dark text-light">
+        <div class="card-body">
+          <h4 class="card-title mb-3">Detected / Editable Stats</h4>
+          <div class="row g-3 mb-3">
+            <div class="col-6">
+              <label for="dl2-attack" class="form-label">Attack Power</label>
+              <input type="number" id="dl2-attack" class="form-control" min="0" />
+            </div>
+            <div class="col-6">
+              <label for="dl2-max-hp" class="form-label">Maximum HP</label>
+              <input type="number" id="dl2-max-hp" class="form-control" min="1" />
+            </div>
+            <div class="col-6">
+              <label for="dl2-max-mp" class="form-label">Maximum MP</label>
+              <input type="number" id="dl2-max-mp" class="form-control" min="0" />
+            </div>
+            <div class="col-6">
+              <label for="dl2-fairy-waters" class="form-label">Fairy Waters</label>
+              <input type="number" id="dl2-fairy-waters" class="form-control" min="0" value="0" />
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label d-block">Equip Death Necklace?</label>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="dl2-dn" id="dl2-dn-yes" value="yes" />
+              <label class="form-check-label" for="dl2-dn-yes">Yes</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="dl2-dn" id="dl2-dn-no" value="no" checked />
+              <label class="form-check-label" for="dl2-dn-no">No</label>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <button id="dl2-calc-btn" class="btn btn-primary">Calculate Win Chance</button>
+          </div>
+
+          <div id="dl2-result" class="result-card bg-dark text-light border-secondary">
+            <h5 class="mb-2">-- Result --</h5>
+            <p id="dl2-result-text" class="mb-1">Enter stats and click Calculate to see your odds.</p>
+            <p id="dl2-result-detail" class="mb-0"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+  <script src="/assets/js/dwr-ocr.js"></script>
+  <script src="/assets/js/dl2-calc.js"></script>
+</div>
+
+    </main>
+    <footer class="bg-dark text-light text-center py-4 mt-4">
+    <div class="container">
+        <!-- Social and Contact Info -->
+        <div class="footer-links-container">
+            <a href="https://www.linkedin.com/in/derek-monturo-6a3585b/" class="footer-link text-warning" target="_blank"
+                rel="noopener noreferrer">
+                <i class="fab fa-linkedin fa-lg"></i>
+                <span>LinkedIn</span>
+            </a>
+
+            <a href="https://github.com/drmDev" class="footer-link text-warning" target="_blank" rel="noopener noreferrer">
+                <i class="fab fa-github fa-lg"></i>
+                <span>Github</span>
+            </a>
+
+        </div>
+    </div>
+</footer>
+
+<!-- Ko-fi Widget -->
+<!--
+<script src='https://storage.ko-fi.com/cdn/scripts/overlay-widget.js'></script>
+<script>
+  kofiWidgetOverlay.draw('derekmonturo', {
+    'type': 'floating-chat',
+    'floating-chat.donateButton.text': 'Support me',
+    'floating-chat.donateButton.background-color': '#00b9fe',
+    'floating-chat.donateButton.text-color': '#fff'
+  });
+</script>
+-->
+</body>
+</html>
