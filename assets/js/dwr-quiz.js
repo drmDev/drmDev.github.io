@@ -175,7 +175,7 @@
     detail.innerHTML =
       "You answered: <strong>" + chosenChoice + "</strong>. " +
       "Correct classification: <strong>" + expectedChoice + "</strong>. " +
-      "<br>Hurt resist: <span class=\"text-info\">" + resist + "</span>";
+      "<br><span class=\"text-info\">" + resist + "</span>";
 
     textWrap.appendChild(title);
     textWrap.appendChild(detail);
@@ -209,7 +209,6 @@
     var restartShortBtn = doc.getElementById("dwr-quiz-restart-short");
     var restartFullBtn = doc.getElementById("dwr-quiz-restart-full");
 
-    // Simple audio setup: reuse Audio objects and reset currentTime before play
     var soundCorrect = new Audio("/assets/sounds/dwr/dwWonBattle.wav");
     var soundIncorrect = new Audio("/assets/sounds/dwr/dwMiss.wav");
     var soundComplete = new Audio("/assets/sounds/dwr/dwLevelUp.wav");
@@ -237,9 +236,7 @@
       imgEl.src = monster.image;
       imgEl.alt = monster.name;
       nameEl.textContent = monster.name;
-
       feedbackEl.textContent = "";
-      feedbackEl.className = "small";
 
       isLocked = false;
     }
@@ -249,7 +246,7 @@
         audio.currentTime = 0;
         audio.play();
       } catch (e) {
-        // Ignore playback errors (e.g., browser autoplay restrictions)
+        // Ignore playback errors
       }
     }
 
@@ -274,7 +271,7 @@
       if (isCorrect) {
         feedbackEl.innerHTML =
           "<span class=\"text-success fw-semibold\">Correct!</span> " +
-          "Hurt resist: <span class=\"text-info\">" + resist + "</span>";
+          "<span class=\"text-info\">" + resist + "</span>";
         cardEl.classList.remove("dwr-quiz-result-incorrect");
         cardEl.classList.add("dwr-quiz-result-correct");
 
@@ -288,7 +285,7 @@
       } else {
         feedbackEl.innerHTML =
           "<span class=\"text-danger fw-semibold\">Incorrect.</span> " +
-          "Hurt resist: <span class=\"text-info\">" + resist + "</span>";
+          "<span class=\"text-info\">" + resist + "</span>";
         cardEl.classList.remove("dwr-quiz-result-correct");
         cardEl.classList.add("dwr-quiz-result-incorrect");
 
