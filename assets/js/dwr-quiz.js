@@ -31,15 +31,15 @@
       key: "StoneMan",
       name: "Stoneman",
       image: "/assets/images/dwr/StoneMan.png",
-      isDontHurtMe: true,
-      hurtResistText: "7/16 Hurt resist (Don't Hurt Me)"
+      isDontHurtMe: false,
+      hurtResistText: "7/16 Hurt resist (Maybe Hurt Me)"
     },
     {
       key: "BlueDragon",
       name: "Blue Dragon",
       image: "/assets/images/dwr/BlueDragon.png",
-      isDontHurtMe: true,
-      hurtResistText: "7/16 Hurt resist (Don't Hurt Me)"
+      isDontHurtMe: false,
+      hurtResistText: "7/16 Hurt resist (Maybe Hurt Me)"
     },
     {
       key: "Golem",
@@ -104,7 +104,7 @@
   ];
 
   var QUIZ_20_LENGTH = 20;
-  var REQUIRED_DONT_HURT_ME_COUNT = 9;
+  var REQUIRED_DONT_HURT_ME_COUNT = 7;
   var QUIZ_MODE_SHORT = "short";
   var QUIZ_MODE_FULL = "full";
   var NEXT_QUESTION_DELAY_MS = 2000;
@@ -124,7 +124,7 @@
     var dontHurtMe = [];
     var others = [];
     for (var i = 0; i < DWR_MONSTERS.length; i += 1) {      
-      // Always include all 9 "Don't Hurt Me" mobs.
+      // Always include all "Don't Hurt Me" mobs.
       if (DWR_MONSTERS[i].isDontHurtMe) {
         dontHurtMe.push(DWR_MONSTERS[i]);
       } else {
