@@ -3,7 +3,7 @@
 
   /**
    * Monster data: all hurt-resist details are specific for the nine special
-   * "Don't Hurt Me" monsters; everyone else is treated as 01 / 16 for this quiz.
+   * "Don't Hurt Me" monsters; everyone else is treated as 1/16 for this quiz.
    */
   var DWR_MONSTERS = [
     {
@@ -123,7 +123,8 @@
   function buildQuizQuestions(mode) {
     var dontHurtMe = [];
     var others = [];
-    for (var i = 0; i < DWR_MONSTERS.length; i += 1) {
+    for (var i = 0; i < DWR_MONSTERS.length; i += 1) {      
+      // Always include all 9 "Don't Hurt Me" mobs.
       if (DWR_MONSTERS[i].isDontHurtMe) {
         dontHurtMe.push(DWR_MONSTERS[i]);
       } else {
@@ -131,7 +132,6 @@
       }
     }
 
-    // Always include all 9 "Don't Hurt Me" mobs.
     if (mode === QUIZ_MODE_FULL) {
       // Full roster quiz: include every monster once.
       return shuffle(dontHurtMe.concat(others));
@@ -170,7 +170,7 @@
     var detail = doc.createElement("div");
     var expectedChoice = getExpectedChoice(result.monster) === "never" ? "Never cast Hurt" : "Okay to cast Hurt";
     var chosenChoice = result.choice === "never" ? "Never cast Hurt" : "Okay to cast Hurt";
-    var resist = result.monster.hurtResistText || "1 / 16 Hurt resist (approx.)";
+    var resist = result.monster.hurtResistText || "1/16 Hurt resist (approx.)";
 
     detail.innerHTML =
       "You answered: <strong>" + chosenChoice + "</strong>. " +
@@ -269,7 +269,7 @@
         correct: isCorrect
       });
 
-      var resist = monster.hurtResistText || "1 / 16 Hurt resist (approx.)";
+      var resist = monster.hurtResistText || "1/16 Hurt resist (approx.)";
 
       if (isCorrect) {
         feedbackEl.innerHTML =
