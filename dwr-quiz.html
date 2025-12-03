@@ -16,7 +16,6 @@ layout: default
   }
 
   .dwr-quiz-result-correct {
-    animation: dwr-quiz-pulse 0.4s ease-out;
     box-shadow: 0 0 15px rgba(40, 167, 69, 0.8);
   }
 
@@ -60,18 +59,19 @@ layout: default
 </style>
 
 <div class="container py-4">
-  <h1 class="mb-3"><i class="fas fa-dragon"></i> Dragon Warrior "Don't Hurt Me" Quiz</h1>
+  <h1 class="mb-3"><i class="fas fa-dragon"></i> Dragon Warrior Hurt Resist Quiz</h1>
   <p class="mb-3 text-light">
-    How well do you memorize the Dragon Warrior monsters Hurt Resist levels? Which are <strong>okay to cast Hurt/Hurtmore on</strong> and which ones you should
-    <strong>basically never</strong> cast Hurt on (ex. 15/16 Hurt Resist)?
+    How well do you know the Dragon Warrior monsters' <strong>Hurt/Hurtmore resist rates</strong>? 
+    For each mob, you'll guess whether its Hurt Resist is 
+    <strong>High</strong>, <strong>Medium</strong>, or <strong>Low</strong>.
   </p>
 
   <div id="dwr-quiz-card" class="card shadow-lg border-0 bg-dark text-light mb-4">
     <div class="card-body">
       <div id="dwr-quiz-intro">
         <p class="mb-3">
-          For each mob, decide whether it is <strong>ever reasonable</strong> to cast Hurt/Hurtmore in a typical Randomizer seed 
-          (no higher than 7/16 HR), or whether you should <strong>never</strong> cast Hurt on it.
+          For each mob, you'll be asked for its <strong>Hurt resist level</strong>:
+          High (&ge; 50%), Medium (&ge; 20%), or Low (&le; 20%).
         </p>
         <div class="d-flex flex-column flex-sm-row gap-2">
           <button id="dwr-quiz-start-short" class="btn btn-primary flex-fill">
@@ -91,13 +91,16 @@ layout: default
           <img id="dwr-quiz-monster-img" src="" alt="Monster sprite" class="mb-2">
           <h3 id="dwr-quiz-monster-name" class="mb-0"></h3>
         </div>
-        <p class="mb-2">For this mob, how do you feel about casting Hurt/Hurtmore?</p>
-        <div class="d-flex gap-2 mb-3">
-          <button id="dwr-quiz-btn-hurt" class="btn btn-warning flex-fill">
-            Okay to cast Hurt
+        <p class="mb-2">What is this mob's <strong>Hurt resist level</strong>?</p>
+        <div class="d-flex flex-column gap-2 mb-3">
+          <button id="dwr-quiz-btn-high" class="btn btn-danger w-100">
+            High (&ge; 50% resist)
           </button>
-          <button id="dwr-quiz-btn-melee" class="btn btn-success flex-fill">
-            Never cast Hurt
+          <button id="dwr-quiz-btn-medium" class="btn btn-warning w-100">
+            Medium (&ge; 20% resist)
+          </button>
+          <button id="dwr-quiz-btn-low" class="btn btn-success w-100">
+            Low (&le; 20% resist)
           </button>
         </div>
 
@@ -118,5 +121,6 @@ layout: default
     </div>
   </div>
 
+  <script src="/assets/js/dwr-quiz-data.js"></script>
   <script src="/assets/js/dwr-quiz.js"></script>
 </div>
