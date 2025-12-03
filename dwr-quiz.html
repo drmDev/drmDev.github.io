@@ -1,0 +1,122 @@
+---
+layout: default
+---
+
+<style>
+  #dwr-quiz-card {
+    max-width: 540px;
+    margin: 0 auto;
+  }
+
+  #dwr-quiz-monster-img {
+    width: 128px;
+    height: 128px;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+  }
+
+  .dwr-quiz-result-correct {
+    animation: dwr-quiz-pulse 0.4s ease-out;
+    box-shadow: 0 0 15px rgba(40, 167, 69, 0.8);
+  }
+
+  .dwr-quiz-result-incorrect {
+    animation: dwr-quiz-shake 0.4s ease-out;
+    box-shadow: 0 0 15px rgba(220, 53, 69, 0.8);
+  }
+
+  @keyframes dwr-quiz-pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.03); }
+    100% { transform: scale(1); }
+  }
+
+  @keyframes dwr-quiz-shake {
+    0%, 100% { transform: translateX(0); }
+    20% { transform: translateX(-4px); }
+    40% { transform: translateX(4px); }
+    60% { transform: translateX(-3px); }
+    80% { transform: translateX(3px); }
+  }
+
+  #dwr-quiz-summary-list img {
+    width: 48px;
+    height: 48px;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+  }
+
+  .dwr-quiz-progress {
+    display: inline-block;
+    padding: 0.15rem 0.75rem;
+    border-radius: 999px;
+    background-color: rgba(0, 0, 0, 0.65);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    margin-bottom: 0.25rem;
+  }
+</style>
+
+<div class="container py-4">
+  <h1 class="mb-3"><i class="fas fa-dragon"></i> Dragon Warrior "Don't Hurt Me" Quiz</h1>
+  <p class="mb-3 text-light">
+    Test your knowledge of which Dragon Warrior monsters are <strong>okay to cast Hurt/Hurtmore on</strong> and which ones you should
+    <strong>basically never</strong> cast Hurt on. Each run gives you 20 monsters: the 9 classic "Don't Hurt Me" targets plus 11 others.
+  </p>
+
+  <div id="dwr-quiz-card" class="card shadow-lg border-0 bg-dark text-light mb-4">
+    <div class="card-body">
+      <div id="dwr-quiz-intro">
+        <p class="mb-3">
+          For each monster, decide whether it is <strong>ever reasonable</strong> to cast Hurt/Hurtmore in a typical Randomizer seed,
+          or whether you should <strong>never</strong> cast Hurt on it.
+        </p>
+        <div class="d-flex flex-column flex-sm-row gap-2">
+          <button id="dwr-quiz-start-short" class="btn btn-primary flex-fill">
+            20-Question Quiz
+          </button>
+          <button id="dwr-quiz-start-full" class="btn btn-outline-light flex-fill">
+            Full Roster Quiz
+          </button>
+        </div>
+      </div>
+
+      <div id="dwr-quiz-question" class="d-none">
+        <div class="d-flex flex-column align-items-center mb-3">
+          <p class="mb-1 dwr-quiz-progress">
+            <span id="dwr-quiz-progress-current">1</span> / <span id="dwr-quiz-progress-total">20</span>
+          </p>
+          <img id="dwr-quiz-monster-img" src="" alt="Monster sprite" class="mb-2">
+          <h3 id="dwr-quiz-monster-name" class="mb-0"></h3>
+        </div>
+        <p class="mb-2">For this mob, how do you feel about casting Hurt/Hurtmore?</p>
+        <div class="d-flex gap-2 mb-3">
+          <button id="dwr-quiz-btn-hurt" class="btn btn-warning flex-fill">
+            Okay to cast Hurt
+          </button>
+          <button id="dwr-quiz-btn-melee" class="btn btn-success flex-fill">
+            Never cast Hurt
+          </button>
+        </div>
+
+        <div id="dwr-quiz-feedback" class="small"></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="dwr-quiz-summary" class="card shadow-lg border-0 bg-dark text-light d-none">
+    <div class="card-body">
+      <h4 class="card-title mb-2">Quiz Summary</h4>
+      <p id="dwr-quiz-summary-score" class="mb-3"></p>
+      <div id="dwr-quiz-summary-list" class="list-group list-group-flush mb-3"></div>
+      <div class="d-flex flex-column flex-sm-row gap-2">
+        <button id="dwr-quiz-restart-short" class="btn btn-primary flex-fill">Play 20-Question Quiz</button>
+        <button id="dwr-quiz-restart-full" class="btn btn-outline-light flex-fill">Play Full Roster Quiz</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="/assets/js/dwr-quiz.js"></script>
+</div>
